@@ -1,10 +1,12 @@
 import Header from "../components/header/Header";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <div>
       <Header />
       home page
     </div>
   );
-}
+};
+
+export default Home;

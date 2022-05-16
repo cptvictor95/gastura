@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 
-export default function LoginForm() {
+const LoginForm: React.FC = () => {
   return (
     <form className={styles.form}>
       <h2>Login</h2>
@@ -16,4 +16,6 @@ export default function LoginForm() {
       <button className={styles.submitButton}>Entrar</button>
     </form>
   );
-}
+};
+
+export default LoginForm;

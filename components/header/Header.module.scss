@@ -4,26 +4,43 @@
   display: flex;
   justify-content: space-between;
   padding: 0 3rem;
-  .nav {
-    
-  .navButton {
-    background-color: transparent;
-    color: #e8ebe4;
-    border: none;
-    padding: 1.5rem 2rem;
-    
 
-    &:hover {
-      filter: brightness(0.8);
-      transition: filter ease-out 250ms;
+  .nav {
+    .navButton {
+      background-color: transparent;
+      color: #e8ebe4;
+      border: none;
+      padding: 1.5rem 2rem;
+
+      &:hover {
+        filter: brightness(0.8);
+        transition: filter ease-out 250ms;
+      }
+    }
+    .exitButton {
+      background-color: #c80000;
+      padding: 0.5rem 1.5rem;
+      border-radius: 7px;
+      color: #e8ebe4;
+      border: none;
+
+      &:hover {
+        filter: brightness(0.8);
+        transition: filter ease-out 250ms;
+      }
+    }
+
+    button.accent {
+      background-color: #6a60e5;
+      padding: 0.5rem 1.5rem;
+      border-radius: 7px;
+      color: #e8ebe4;
+      border: none;
+
+      &:hover {
+        filter: brightness(0.8);
+        transition: filter ease-out 250ms;
+      }
     }
   }
-  .exitButton {
-    background-color: #C80000;
-    padding: 0.5rem 1.5rem;
-    border-radius: 7px;
-    color: #e8ebe4;
-    border: none;
-  }
-}
 }
