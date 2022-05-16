@@ -7,17 +7,31 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <p>Logo</p>
+      <p>Logo</p> 
 
-      <nav>
-        <button className={styles.navButton} onClick={() => router.push("/")}>
-          home
+      <nav className={styles.nav}>
+        <button 
+          className={styles.navButton} 
+          onClick={() => router.push("/")}>
+          HOME
         </button>
+
         <button
           className={styles.navButton}
-          onClick={() => router.push("/login")}
-        >
-          login
+          onClick={() => router.push("/login")}>
+          GASTOS
+        </button>
+
+        <button
+          className={styles.navButton}
+          onClick={() => router.push("/login")}>
+          ENTRADAS
+        </button>
+
+        <button
+          className={styles.exitButton}
+          onClick={() => router.push("/login")}>
+          SAIR
         </button>
       </nav>
     </header>
