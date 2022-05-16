@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -6,9 +7,12 @@ import "firebase/compat/firestore";
 export interface FirebaseContext {
   auth: firebase.auth.Auth;
   firestore: firebase.firestore.Firestore;
+  user: firebase.User | null | false;
 }
 
-export const FirebaseCtx = React.createContext<FirebaseContext | null>(null);
+export const FirebaseCtx = React.createContext<FirebaseContext>(
+  {} as FirebaseContext
+);
 
 // Check dotenv config vars
 if (!process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY)
@@ -37,8 +41,49 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const auth = firebase.auth();
   const firestore = firebase.firestore();
+  const [user, setUser] = React.useState<firebase.User | null | false>(null);
 
-  const state = { auth, firestore };
+  const getAuthUser = () => {
+    const userId = auth.currentUser?.uid;
+    return userId
+      ? Promise.resolve(userId)
+      : Promise.race([
+          new Promise<string>((resolve) => {
+            const uns = auth.onAuthStateChanged((user) => {
+              if (user) {
+                resolve(user.uid);
+                uns();
+              }
+            });
+          }),
+          new Promise<never>((_resolve, reject) =>
+            setTimeout(
+              () => reject(new Error("No authorized user available")),
+              5000
+            )
+          ),
+        ]);
+  };
+
+  // Auth Listener
+  React.useEffect(() => {
+    return auth.onAuthStateChanged((user) => {
+      if (!user) {
+        setUser(false);
+      } else {
+        setUser(user);
+      }
+    });
+  }, [user]);
+
+  const state = React.useMemo(
+    () => ({
+      auth,
+      firestore,
+      user,
+    }),
+    [user]
+  );
 
   return <FirebaseCtx.Provider value={state}>{children}</FirebaseCtx.Provider>;
 };

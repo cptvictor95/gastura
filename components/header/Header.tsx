@@ -1,13 +1,11 @@
+import useLoggedInUser from "hooks/useLoggedInUser";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./Header.module.scss";
 
 const Header: React.FC = () => {
   const router = useRouter();
-
-  let authState = "LOGGEDIN";
-
-  authState = "LOGGEDOUT";
+  const { authState, handleUserLogout } = useLoggedInUser();
 
   return (
     <header className={styles.header}>
@@ -24,10 +22,7 @@ const Header: React.FC = () => {
 
             <button className={styles.navButton}>ENTRADAS</button>
 
-            <button
-              className={styles.exitButton}
-              onClick={() => router.push("/")}
-            >
+            <button className={styles.exitButton} onClick={handleUserLogout}>
               SAIR
             </button>
           </>
