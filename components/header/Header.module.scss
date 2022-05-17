@@ -1,6 +1,8 @@
+@import "../../styles/theme.module";
+
 .header {
   width: 100%;
-  background-color: #272747;
+  background-color: $secondary-color;
   display: flex;
   justify-content: space-between;
   padding: 0 3rem;
@@ -18,7 +20,7 @@
       }
     }
     .exitButton {
-      background-color: #c80000;
+      background-color: $error-color;
       padding: 0.5rem 1.5rem;
       border-radius: 7px;
       color: #e8ebe4;
@@ -26,20 +28,20 @@
 
       &:hover {
         filter: brightness(0.8);
-        transition: filter ease-out 250ms;
+        transition: filter 300ms;
       }
     }
 
-    button.accent {
+    .accent {
       background-color: #6a60e5;
       padding: 0.5rem 1.5rem;
-      border-radius: 7px;
+      border-radius: 5px;
       color: #e8ebe4;
       border: none;
 
       &:hover {
         filter: brightness(0.8);
-        transition: filter ease-out 250ms;
+        transition: filter ease-in-out 250ms;
       }
     }
   }

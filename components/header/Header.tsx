@@ -13,26 +13,34 @@ const Header: React.FC = () => {
 
       <nav className={styles.nav}>
         <button className={styles.navButton} onClick={() => router.push("/")}>
-          HOME
+          Home
         </button>
 
         {authState === "LOGGEDIN" ? (
           <>
-            <button className={styles.navButton}>GASTOS</button>
+            <button className={styles.navButton}>Gastos</button>
 
-            <button className={styles.navButton}>ENTRADAS</button>
+            <button className={styles.navButton}>Entradas</button>
 
             <button className={styles.exitButton} onClick={handleUserLogout}>
-              SAIR
+              Sair
             </button>
           </>
         ) : (
-          <button
-            className={styles.accent}
-            onClick={() => router.push("/login")}
-          >
-            ENTRAR
-          </button>
+          <>
+            <button
+              className={styles.accent}
+              onClick={() => router.push("/login")}
+            >
+              Entrar
+            </button>
+            <button
+              className={styles.accent}
+              onClick={() => router.push("/register")}
+            >
+              Criar conta
+            </button>
+          </>
         )}
       </nav>
     </header>

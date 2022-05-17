@@ -1,3 +1,19 @@
-.login {
+.main {
   color: #fff;
+  margin: 0 auto;
+
+  .createAccountSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      margin-left: 8px;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
+  }
 }
