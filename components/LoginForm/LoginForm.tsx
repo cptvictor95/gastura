@@ -1,3 +1,4 @@
+import AuthLoader from "components/Auth/AuthLoader";
 import { FirebaseCtx } from "config/context";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -15,7 +16,7 @@ const LoginForm: React.FC = () => {
   const { auth } = useContext(FirebaseCtx);
   const router = useRouter();
 
-  const submitLogin = (data: LoginForm) => {
+  const submitLoginForm = (data: LoginForm) => {
     handleLogin(data.email, data.password);
 
     router.push("/");
@@ -26,38 +27,40 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(submitLogin)}>
-      <h2>Login</h2>
-      <div className={styles.formControl}>
-        <label>email</label>
-        <input
-          type="email"
-          placeholder="email@email.com"
-          {...register("email", {
-            required: { value: true, message: "Digite o email" },
-          })}
-        />
-        <span className={styles.errorMessage}>
-          {errors.email && errors.email.message}
-        </span>
-      </div>
-      <div className={styles.formControl}>
-        <label>senha</label>
-        <input
-          type="password"
-          placeholder="******"
-          {...register("password", {
-            required: { value: true, message: "Digite a senha" },
-          })}
-        />
-        <span className={styles.errorMessage}>
-          {errors.password && errors.password.message}
-        </span>
-      </div>
-      <button className={styles.submitButton} type="submit">
-        Entrar
-      </button>
-    </form>
+    <AuthLoader>
+      <form className={styles.form} onSubmit={handleSubmit(submitLoginForm)}>
+        <h2>Login</h2>
+        <div className={styles.formControl}>
+          <label htmlFor="email">email</label>
+          <input
+            type="email"
+            placeholder="email@email.com"
+            {...register("email", {
+              required: { value: true, message: "Digite seu email" },
+            })}
+          />
+          <span className={styles.errorMessage}>
+            {errors.email && errors.email.message}
+          </span>
+        </div>
+        <div className={styles.formControl}>
+          <label htmlFor="password">Senha</label>
+          <input
+            type="password"
+            placeholder="******"
+            {...register("password", {
+              required: { value: true, message: "Digite sua senha" },
+            })}
+          />
+          <span className={styles.errorMessage}>
+            {errors.password && errors.password.message}
+          </span>
+        </div>
+        <button className={styles.submitButton} type="submit">
+          Entrar
+        </button>
+      </form>
+    </AuthLoader>
   );
 };
 
