@@ -1,3 +1,4 @@
+import AuthLoader from "components/Auth/AuthLoader";
 import { useRouter } from "next/router";
 import React from "react";
 import Header from "../components/header/Header";
@@ -9,12 +10,14 @@ const Login: React.FC = () => {
   return (
     <main className={styles.main}>
       <Header />
-      <LoginForm />
+      <AuthLoader>
+        <LoginForm />
 
-      <section className={styles.createAccountSection}>
-        <p>Ainda não tem cadastro?</p>
-        <button onClick={() => router.push("/register")}>Criar conta</button>
-      </section>
+        <section className={styles.createAccountSection}>
+          <p>Ainda não tem cadastro?</p>
+          <button onClick={() => router.push("/register")}>Criar conta</button>
+        </section>
+      </AuthLoader>
     </main>
   );
 };

@@ -16,7 +16,9 @@ const Header: React.FC = () => {
           Home
         </button>
 
-        {authState === "LOGGEDIN" ? (
+        {authState === "LOADING" ? (
+          <></>
+        ) : authState === "LOGGEDIN" ? (
           <>
             <button className={styles.navButton}>Gastos</button>
 
