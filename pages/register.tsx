@@ -10,7 +10,9 @@ const Register: React.FC = () => {
     <main className={styles.main}>
       <Header />
       <AuthLoader>
-        <RegisterForm />
+        <div className={styles.centerDiv}>
+          <RegisterForm />
+        </div>
       </AuthLoader>
     </main>
   );

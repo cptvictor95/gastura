@@ -5,12 +5,11 @@
   gap: 1rem;
   max-width: 300px;
   margin: 0 auto;
-  height: 12cm;
-  
+  max-height: 500px;
 
   h2 {
     text-align: center;
-    height: 0.5cm
+    height: 150px;
   }
 
   .errorMessage {
@@ -18,22 +17,20 @@
   }
 
   .formControl {
-    padding: 16px 8;
     display: flex;
+    justify-content: center;
     flex-direction: column;
-    
+    height: 80px;
 
-    input {
+    input,
+    ::placeholder {
+      display: flex;
       margin: 8px 0;
-
-      padding: 8px 16px;
-
+      padding: 8px 0px;
+      padding-left: 8px;
       border-radius: 5px;
-      
-
+      border: none;
     }
-
-
   }
 
   .submitButton {
@@ -44,13 +41,13 @@
     border-radius: 5px;
     font-weight: 700;
     color: $white-color;
-    height: 40px; 
+    height: 35px;
     background-color: $primary-color;
-   
+    margin-top: 18px;
+
     &:hover {
       filter: brightness(0.8);
       transition: filter ease-in-out 250ms;
     }
-   
   }
 }

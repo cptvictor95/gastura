@@ -81,7 +81,7 @@ const RegisterForm: React.FC = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(submitRegisterForm)}>
       <h2>Criar conta</h2>
-      <div>
+      <div className={styles.formControl}>
         <label htmlFor="name">Nome</label>
         <input
           type="text"
@@ -95,7 +95,7 @@ const RegisterForm: React.FC = () => {
         />
         <span>{errors.name && errors.name.message}</span>
       </div>
-      <div>
+      <div className={styles.formControl}>
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -109,7 +109,7 @@ const RegisterForm: React.FC = () => {
         />
         <span>{errors.email && errors.email.message}</span>
       </div>
-      <div>
+      <div className={styles.formControl}>
         <label htmlFor="password">Senha</label>
         <input
           type="password"

@@ -34,7 +34,7 @@ const LoginForm: React.FC = () => {
           <label htmlFor="email">Email</label>
           <input
             type="email"
-            placeholder="email@email.com"
+            placeholder="Email@email.com"
             {...register("email", {
               required: { value: true, message: "Digite seu email" },
             })}
@@ -47,7 +47,7 @@ const LoginForm: React.FC = () => {
           <label htmlFor="password">Senha</label>
           <input
             type="password"
-            placeholder="******"
+            placeholder="Senha"
             {...register("password", {
               required: { value: true, message: "Digite sua senha" },
             })}

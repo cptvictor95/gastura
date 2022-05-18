@@ -1,4 +1,10 @@
 .main {
   color: #fff;
   margin: 0 auto;
+
+  .centerDiv {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
 }
