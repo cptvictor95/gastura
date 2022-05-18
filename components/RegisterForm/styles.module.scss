@@ -1,11 +1,17 @@
+@import "../../styles/theme.module";
 .form {
   display: grid;
-  padding: 1rem;
-  gap: 1rem;
+  padding: 1.5rem;
+  gap: 1.5rem;
   max-width: 300px;
   margin: 0 auto;
+  text-align: center;
 
   h2 {
     text-align: center;
+  }
+
+  button {
+    background-color: $primary-color;
   }
 }

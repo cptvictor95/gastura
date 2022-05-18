@@ -4,9 +4,10 @@ const Home: React.FC = () => {
   return (
     <div>
       <Header />
-      home page
+      Home page
     </div>
   );
 };
+
 
 export default Home;

@@ -15,7 +15,7 @@ const Login: React.FC = () => {
 
         <section className={styles.createAccountSection}>
           <p>Ainda não tem cadastro?</p>
-          <button onClick={() => router.push("/register")}>Criar conta</button>
+          <button className= {styles.link} onClick={() => router.push("/register")}>Criar conta</button>
         </section>
       </AuthLoader>
     </main>
