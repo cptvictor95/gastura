@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
       <form className={styles.form} onSubmit={handleSubmit(submitLoginForm)}>
         <h2>Login</h2>
         <div className={styles.formControl}>
-          <label htmlFor="email">email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             placeholder="email@email.com"
