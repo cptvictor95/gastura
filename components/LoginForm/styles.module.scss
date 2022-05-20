@@ -3,14 +3,13 @@
   display: grid;
   padding: 1rem;
   gap: 1rem;
-  max-width: 300px;
-  margin: 0 auto;
-  height: 12cm;
-  
+  min-width: 300px;
+  margin-inline: auto;
 
   h2 {
     text-align: center;
-    height: 0.5cm
+    height: 0.5cm;
+    padding: 2rem 0;
   }
 
   .errorMessage {
@@ -21,7 +20,6 @@
     padding: 16px 8;
     display: flex;
     flex-direction: column;
-    
 
     input {
       margin: 8px 0;
@@ -29,11 +27,7 @@
       padding: 8px 16px;
 
       border-radius: 5px;
-      
-
     }
-
-
   }
 
   .submitButton {
@@ -44,13 +38,12 @@
     border-radius: 5px;
     font-weight: 700;
     color: $white-color;
-    height: 40px; 
+    height: 40px;
     background-color: $primary-color;
-   
+
     &:hover {
       filter: brightness(0.8);
       transition: filter ease-in-out 250ms;
     }
-   
   }
 }

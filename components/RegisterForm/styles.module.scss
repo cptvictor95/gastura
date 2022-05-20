@@ -1,17 +1,49 @@
 @import "../../styles/theme.module";
 .form {
   display: grid;
-  padding: 1.5rem;
-  gap: 1.5rem;
-  max-width: 300px;
-  margin: 0 auto;
-  text-align: center;
+  padding: 1rem;
+  gap: 1rem;
+  min-width: 300px;
+  margin-inline: auto;
 
   h2 {
     text-align: center;
+    height: 0.5cm;
+    padding: 2rem 0;
   }
 
-  button {
+  .errorMessage {
+    color: red;
+  }
+
+  .formControl {
+    padding: 16px 8;
+    display: flex;
+    flex-direction: column;
+
+    input {
+      margin: 8px 0;
+
+      padding: 8px 16px;
+
+      border-radius: 5px;
+    }
+  }
+
+  .submitButton {
+    margin: 0 auto;
+    border: none;
+    padding: 8px 16px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: 700;
+    color: $white-color;
+    height: 40px;
     background-color: $primary-color;
+
+    &:hover {
+      filter: brightness(0.8);
+      transition: filter ease-in-out 250ms;
+    }
   }
 }
