@@ -20,9 +20,19 @@ const Header: React.FC = () => {
           <></>
         ) : authState === "LOGGEDIN" ? (
           <>
-            <button className={styles.navButton}>Gastos</button>
+            <button
+              className={styles.navButton}
+              onClick={() => router.push("/expenses")}
+            >
+              Gastos
+            </button>
 
-            <button className={styles.navButton}>Entradas</button>
+            <button
+              className={styles.navButton}
+              onClick={() => router.push("/budgets")}
+            >
+              Entradas
+            </button>
 
             <button className={styles.exitButton} onClick={handleUserLogout}>
               Sair
