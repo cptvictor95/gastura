@@ -1,6 +1,6 @@
 import React from "react";
 
-export const BudgetCtx = React.createContext({});
+export const BudgetCtx = React.createContext(null);
 
 export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
