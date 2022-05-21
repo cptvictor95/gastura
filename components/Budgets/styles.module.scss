@@ -1,34 +1,30 @@
 @import "../../styles/theme.module";
+
 .form {
   display: grid;
   padding: 1rem;
   gap: 1rem;
-  min-width: 300px;
+  max-width: 300px;
   margin-inline: auto;
-
-  h2 {
-    text-align: center;
-    height: 0.5cm;
-    padding: 2rem 0;
-  }
-
-  .errorMessage {
-    color: red;
-  }
 
   .formControl {
     display: flex;
-    justify-content: center;
     flex-direction: column;
 
-    input,
-    ::placeholder {
-      display: flex;
+    input {
       margin: 8px 0;
-
       padding: 8px;
-
       border-radius: 5px;
+    }
+
+    select {
+      margin: 8px 0;
+      padding: 8px;
+      border-radius: 5px;
+    }
+
+    .errorMessage {
+      color: red;
     }
   }
 
@@ -45,7 +41,7 @@
 
     &:hover {
       filter: brightness(0.8);
-      transition: filter ease-in-out 250ms;
+      transition: filter 250ms ease-in-out;
     }
   }
 }

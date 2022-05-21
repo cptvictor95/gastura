@@ -1,10 +1,19 @@
-.main {
-  color: #fff;
-  margin: 0 auto;
+@import "../theme.module";
 
-  .centerDiv {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
+.loginSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .link {
+    border: none;
+    background: transparent;
+    color: $primary-color;
+    font-size: 16px;
+
+    &:hover {
+      filter: brightness(0.8);
+      text-decoration: underline;
+    }
   }
 }
