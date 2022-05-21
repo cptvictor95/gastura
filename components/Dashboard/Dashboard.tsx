@@ -1,6 +1,7 @@
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import React from "react";
 import AddBudget from "../Budgets/AddBudget";
+import AddExpense from "../Expenses/AddExpense";
 import styles from "./styles.module.scss";
 
 const Dashboard = () => {
@@ -11,7 +12,10 @@ const Dashboard = () => {
     return (
       <div className={styles.container}>
         <h2>Dashboard</h2>
-        <AddBudget />
+        <div className={styles.mainColumns}>
+          <AddBudget />
+          <AddExpense />
+        </div>
       </div>
     );
   }
