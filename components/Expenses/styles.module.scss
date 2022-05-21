@@ -1,25 +1,23 @@
 @import "../../styles/theme.module";
-
 .formContainer {
   width: 100%;
+  padding: 20px;
+
   .form {
     display: grid;
-    padding: 1rem;
     gap: 1rem;
     max-width: 300px;
     margin-inline: auto;
+
+    h3 {
+      text-align: left;
+    }
 
     .formControl {
       display: flex;
       flex-direction: column;
 
       input {
-        margin: 8px 0;
-        padding: 8px;
-        border-radius: 5px;
-      }
-
-      select {
         margin: 8px 0;
         padding: 8px;
         border-radius: 5px;
