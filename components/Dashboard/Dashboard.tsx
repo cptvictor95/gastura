@@ -1,8 +1,8 @@
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import React from "react";
 import AddModal from "../AddModal/AddModal";
-import AddBudget from "../Expenses/AddExpense";
-import AddExpense from "../Budgets/AddBudget";
+import AddBudget from "../Budgets/AddBudget";
+import AddExpense from "../Expenses/AddExpense";
 import styles from "./styles.module.scss";
 
 const Dashboard: React.FC = () => {
@@ -23,10 +23,11 @@ const Dashboard: React.FC = () => {
               <AddExpense />
             </AddModal>
           </div>
+
           <div className={styles.budget}>
             <div className={styles.card}>
               <p>R$</p>
-              <p>Renda</p>
+              <p>Total de Entradas</p>
             </div>
             <AddModal title="Adicionar orçamento">
               <AddBudget />

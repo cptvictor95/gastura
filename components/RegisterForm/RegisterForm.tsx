@@ -24,8 +24,6 @@ const RegisterForm: React.FC = () => {
   const router = useRouter();
 
   const submitRegisterForm = (data: RegisterFormProps) => {
-    console.log("data", data);
-
     handleRegister(data);
   };
 

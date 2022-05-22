@@ -1,12 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
+import { User } from "types/User";
 import { FirebaseCtx } from "../config/context";
 type AuthState = "LOGGEDOUT" | "LOGGEDIN" | "LOADING";
 
 const useLoggedInUser = () => {
   const firebase = useContext(FirebaseCtx);
-  const [user, setUser] = useState<any | null | false>(null);
+  const [user, setUser] = useState<User | null | false>(null);
   const firebaseUserId = firebase.user ? firebase.user.uid : null;
   const router = useRouter();
 
@@ -41,7 +41,7 @@ const useLoggedInUser = () => {
           setUser(false);
         });
     }
-  }, [firebaseUserId]);
+  }, [firebase.user]);
 
   return {
     authState: (user === false
