@@ -1,8 +1,8 @@
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import React, { useState } from "react";
+import React from "react";
 import AddModal from "../AddModal/AddModal";
-import AddBudget from "../Budgets/AddBudget";
-import AddExpense from "../Expenses/AddExpense";
+import AddBudget from "../Expenses/AddExpense";
+import AddExpense from "../Budgets/AddBudget";
 import styles from "./styles.module.scss";
 
 const Dashboard: React.FC = () => {
