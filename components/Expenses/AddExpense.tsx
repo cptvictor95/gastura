@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { useForm } from "react-hook-form";
 
-const AddExpense = () => {
+const AddExpense: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -20,14 +20,13 @@ const AddExpense = () => {
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(submitExpenseForm)}>
-        <h3>Adicionar orcamento</h3>
         <div className={styles.formControl}>
-          <label htmlFor="name">Nome do orcamento</label>
+          <label htmlFor="name">Nome</label>
           <input
             {...register("name", {
               required: { value: true, message: "Digite uma descrição" },
             })}
-            placeholder="Categoria de gasto"
+            placeholder="Ex.: Alimentação"
             type="text"
           />
           <span className={styles.errorMessage}>
@@ -35,14 +34,15 @@ const AddExpense = () => {
           </span>
         </div>
         <div className={styles.formControl}>
-          <label htmlFor="amount">Valor</label>
+          <label htmlFor="amount">Valor Máximo</label>
           <input
-            {...register("amount", {
-              required: { value: true, message: "Digite um valor" },
-            })}
             type="number"
             step={0.01}
+            min={0}
             placeholder="R$00,00"
+            {...register("amount", {
+              required: { value: true, message: "Digite um valor máximo" },
+            })}
           />
           <span className={styles.errorMessage}>
             {errors.amount && errors.amount.message}

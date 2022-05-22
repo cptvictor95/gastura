@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 
-const AddBudget = () => {
+const AddBudget: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -15,18 +15,17 @@ const AddBudget = () => {
       budget: "",
     },
   });
-  const budgets = ["Alimentação", "Gasolina", "MACONHA"];
+  const budgets = ["Alimentação", "Gasolina", "Farmácia"];
 
   const submitBudgetForm = (data) => console.log("data", data);
 
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(submitBudgetForm)}>
-        <h3>Adicionar gasto</h3>
         <div className={styles.formControl}>
           <label htmlFor="description">Descrição</label>
           <input
-            placeholder="Descrição sobre o gasto"
+            placeholder="Ex.: Belle Lanches"
             {...register("description", {
               required: { value: true, message: "Digite uma descrição" },
             })}
@@ -41,6 +40,7 @@ const AddBudget = () => {
             placeholder="R$00,00"
             type="number"
             step={0.01}
+            min={0}
             {...register("amount", {
               required: { value: true, message: "Digite um valor" },
             })}
