@@ -22,3 +22,47 @@ button {
   font-size: 1rem;
   font-weight: 600;
 }
+
+input {
+  background-color: $primary-color-dark;
+  color: $white-color;
+  border-width: 2px;
+  border-color: $primary-color-dark;
+  border-style: solid !important;
+
+  &:hover,
+  &:focus,
+  &:focus-within,
+  &:focus-visible,
+  &::before,
+  &::after {
+    border-width: 2px;
+    border-color: $primary-color-dark;
+    border-style: solid !important;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: $primary-color;
+  }
+}
+
+select {
+  background-color: $primary-color-dark;
+  color: $white-color;
+  border-width: 2px;
+  border-color: $primary-color-dark;
+  border-style: solid !important;
+
+  &:hover,
+  &:focus,
+  &:focus-within,
+  &:focus-visible,
+  &::before,
+  &::after {
+    border-width: 2px;
+    border-color: $primary-color-dark;
+    border-style: solid !important;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: $primary-color;
+  }
+}
