@@ -1,73 +1,109 @@
-import React from "react";
+import { BudgetCtx } from "@/contexts/BudgetContext";
+import { UserCtx } from "@/contexts/UserContext";
+import useLoggedInUser from "@/hooks/useLoggedInUser";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { Budget } from "types/Budget";
 import styles from "./styles.module.scss";
 
+type BudgetForm = {
+  name: string;
+  amount: number;
+};
 const AddBudget: React.FC = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
-  } = useForm({
+  } = useForm<BudgetForm>({
     mode: "onChange",
     defaultValues: {
-      description: "",
+      name: "",
       amount: null,
-      budget: "",
     },
   });
-  const budgets = ["Alimentação", "Gasolina", "Farmácia"];
+  const { user } = useLoggedInUser();
 
-  const submitBudgetForm = (data) => console.log("data", data);
+  const { createBudget, getBudgets } = useContext(BudgetCtx);
+  const { updateUser } = useContext(UserCtx);
+
+  const submitExpenseForm = (data: BudgetForm) => {
+    handleCreateBudget({
+      name: data.name,
+      amount: Number(data.amount),
+    });
+  };
+
+  const handleCreateBudget = async (newBudget: Partial<Budget>) => {
+    try {
+      const budgets = await getBudgets();
+
+      if (budgets.some((budget) => budget.name === newBudget.name)) {
+        setError(
+          "name",
+          {
+            message: "Você já tem um orçamento com este nome",
+          },
+          { shouldFocus: true }
+        );
+      } else {
+        if (user) {
+          const budgetId = await createBudget({
+            name: newBudget.name,
+            amount: newBudget.amount,
+            userId: user.uid,
+          });
+
+          await handleUpdateUser(budgetId, user);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUpdateUser = async (budgetId, user) => {
+    try {
+      if (budgetId) {
+        await updateUser(user.uid, {
+          budgets: { ...user.budgets, [budgetId]: true },
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className={styles.formContainer}>
-      <form className={styles.form} onSubmit={handleSubmit(submitBudgetForm)}>
+      <form className={styles.form} onSubmit={handleSubmit(submitExpenseForm)}>
         <div className={styles.formControl}>
-          <label htmlFor="description">Descrição</label>
+          <label htmlFor="name">Nome</label>
           <input
-            placeholder="Ex.: Belle Lanches"
-            {...register("description", {
+            {...register("name", {
               required: { value: true, message: "Digite uma descrição" },
             })}
+            placeholder="Ex.: Alimentação"
+            type="text"
           />
           <span className={styles.errorMessage}>
-            {errors.description && errors.description.message}
+            {errors.name && errors.name.message}
           </span>
         </div>
         <div className={styles.formControl}>
-          <label htmlFor="amount">Valor do gasto</label>
+          <label htmlFor="amount">Valor Máximo</label>
           <input
-            placeholder="R$00,00"
             type="number"
             step={0.01}
             min={0}
+            placeholder="R$00,00"
             {...register("amount", {
-              required: { value: true, message: "Digite um valor" },
+              required: { value: true, message: "Digite um valor máximo" },
             })}
           />
           <span className={styles.errorMessage}>
             {errors.amount && errors.amount.message}
-          </span>
-        </div>
-        <div className={styles.formControl}>
-          <label htmlFor="budget">Categoria</label>
-          <select
-            id="budget"
-            {...register("budget", {
-              required: { value: true, message: "Escolha uma categoria" },
-            })}
-          >
-            <option value="" disabled>
-              Categoria do Gasto
-            </option>
-            {budgets.map((budget) => (
-              <option value={budget} key={budget}>
-                {budget[0].toUpperCase() + budget.slice(1)}
-              </option>
-            ))}
-          </select>
-          <span className={styles.errorMessage}>
-            {errors.budget && errors.budget.message}
           </span>
         </div>
         <button type="submit" className={styles.submitButton}>
