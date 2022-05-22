@@ -2,9 +2,10 @@
 
 .formContainer {
   width: 100%;
+
   .form {
     display: grid;
-    padding: 1rem;
+    padding: 1rem 0;
     gap: 1rem;
     max-width: 300px;
     margin-inline: auto;
@@ -14,13 +15,13 @@
       flex-direction: column;
 
       input {
-        margin: 8px 0;
+        margin: 0.5rem 0;
         padding: 8px;
         border-radius: 5px;
       }
 
       select {
-        margin: 8px 0;
+        margin: 0.5rem 0;
         padding: 8px;
         border-radius: 5px;
       }
@@ -33,7 +34,7 @@
     .submitButton {
       margin: 0 auto;
       border: none;
-      padding: 8px 16px;
+      padding: 0.5rem 1rem;
       width: 100%;
       border-radius: 5px;
       font-weight: 700;

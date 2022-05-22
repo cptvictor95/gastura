@@ -11,7 +11,20 @@ const Dashboard = () => {
   else {
     return (
       <div className={styles.container}>
-        <h2>Dashboard</h2>
+        <div className={styles.balanceContainer}>
+          <div className={styles.expense}>
+            <div className={styles.card}>
+              <p>R$</p>
+              <p>Total de Gastos</p>
+            </div>
+          </div>
+          <div className={styles.budget}>
+            <div className={styles.card}>
+              <p>R$</p>
+              <p>Renda</p>
+            </div>
+          </div>
+        </div>
         <div className={styles.mainColumns}>
           <AddBudget />
           <AddExpense />

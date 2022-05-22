@@ -1,6 +1,37 @@
+@import "../../styles/theme.module";
+
 .container {
   width: 100%;
   min-height: 90vh;
+  padding: 3rem;
+
+  .balanceContainer {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      width: 100%;
+
+      .card {
+        background-color: $primary-color-dark;
+        padding: 1rem;
+        border-radius: 5px;
+        width: max-content;
+        display: grid;
+        gap: 1rem;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .budget .card {
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
+
   .mainColumns {
     width: 100%;
     display: flex;
