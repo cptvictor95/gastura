@@ -1,0 +1,36 @@
+@import "../../styles/theme.module";
+
+.modal {
+  background-color: $primary-color-dark;
+  padding: 1rem 3rem;
+  border-radius: 5px;
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .closeBtn {
+    border: none;
+    padding: 0.25rem 0.75rem;
+    border-radius: 5px;
+    font-weight: 700;
+    color: $white-color;
+    height: 40px;
+    background-color: $primary-color;
+    width: max-content;
+    font-size: 2rem;
+
+    &:hover {
+      filter: brightness(0.8);
+      transition: filter ease-in-out 250ms;
+    }
+  }
+
+  input,
+  select {
+    background-color: $black-color;
+  }
+}

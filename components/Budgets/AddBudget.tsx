@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 
-const AddBudget = () => {
+const AddBudget: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -22,7 +22,6 @@ const AddBudget = () => {
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(submitBudgetForm)}>
-        <h3>Adicionar gasto</h3>
         <div className={styles.formControl}>
           <label htmlFor="description">Descrição</label>
           <input

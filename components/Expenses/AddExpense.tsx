@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { useForm } from "react-hook-form";
 
-const AddExpense = () => {
+const AddExpense: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -20,7 +20,6 @@ const AddExpense = () => {
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(submitExpenseForm)}>
-        <h3>Adicionar orçamento</h3>
         <div className={styles.formControl}>
           <label htmlFor="name">Nome</label>
           <input
