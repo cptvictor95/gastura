@@ -1,15 +1,18 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { UserCtx } from "@/contexts/UserContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
+import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Budget } from "types/Budget";
+import { User } from "types/User";
 import styles from "./styles.module.scss";
 
 type BudgetForm = {
   name: string;
   amount: number;
 };
+
 const AddBudget: React.FC = () => {
   const {
     register,
@@ -24,6 +27,7 @@ const AddBudget: React.FC = () => {
     },
   });
   const { user } = useLoggedInUser();
+  const router = useRouter();
 
   const { createBudget, getUserBudgets } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
@@ -49,26 +53,19 @@ const AddBudget: React.FC = () => {
             { shouldFocus: true }
           );
         } else {
-          const budgetId = await createBudget({
+          const newBudgetId = await createBudget({
             name: newBudget.name,
             amount: newBudget.amount,
             userId: user.uid,
+            expenses: {},
           });
 
-          await handleUpdateUser(budgetId, user);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+          await updateUser(user.uid, {
+            budgets: { ...user.budgets, [newBudgetId]: true },
+          });
 
-  const handleUpdateUser = async (budgetId, user) => {
-    try {
-      if (budgetId) {
-        await updateUser(user.uid, {
-          budgets: { ...user.budgets, [budgetId]: true },
-        });
+          await router.push("/");
+        }
       }
     } catch (error) {
       console.error(error);

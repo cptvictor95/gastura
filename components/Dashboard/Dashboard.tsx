@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
           <div className={styles.budget}>
             <div className={styles.card}>
               <p>R${totalBudget}</p>
-              <p>Total de Entradas</p>
+              <p>Orçamento total</p>
             </div>
             <AddModal title="Adicionar orçamento">
               <AddBudget />

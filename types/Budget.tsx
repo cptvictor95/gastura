@@ -3,4 +3,5 @@ export type Budget = {
   name: string;
   amount: number;
   userId: string;
+  expenses: { [budgetId: string]: boolean };
 };

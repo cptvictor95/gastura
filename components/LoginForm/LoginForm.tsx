@@ -1,5 +1,4 @@
 import { AuthCtx } from "@/contexts/AuthContext";
-import AuthLoader from "components/Auth/AuthLoader";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
