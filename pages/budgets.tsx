@@ -7,9 +7,9 @@ const Budgets = () => {
   return (
     <>
       <Header />
-      <Main title="Entradas">
+      <Main title="Orçamento">
         <div className={styles.container}>
-          <h2>Tabela de Entradas</h2>
+          <h2>Orçamento</h2>
         </div>
       </Main>
     </>
