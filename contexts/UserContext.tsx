@@ -28,6 +28,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       return userId;
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 
@@ -37,11 +38,12 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Usuário não encontrado");
       }
 
-      const userRef = await firestore.collection("users").doc(userId);
+      const userRef = firestore.collection("users").doc(userId);
 
-      userRef.update({ ...user });
+      await userRef.update({ ...user });
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 

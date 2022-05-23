@@ -1,15 +1,18 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { UserCtx } from "@/contexts/UserContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
+import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Budget } from "types/Budget";
+import { User } from "types/User";
 import styles from "./styles.module.scss";
 
 type BudgetForm = {
   name: string;
   amount: number;
 };
+
 const AddBudget: React.FC = () => {
   const {
     register,
@@ -24,8 +27,9 @@ const AddBudget: React.FC = () => {
     },
   });
   const { user } = useLoggedInUser();
+  const router = useRouter();
 
-  const { createBudget, getBudgets } = useContext(BudgetCtx);
+  const { createBudget, getUserBudgets } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
 
   const submitExpenseForm = (data: BudgetForm) => {
@@ -37,38 +41,31 @@ const AddBudget: React.FC = () => {
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
     try {
-      const budgets = await getBudgets();
+      if (user) {
+        const budgets = await getUserBudgets(user.uid);
 
-      if (budgets.some((budget) => budget.name === newBudget.name)) {
-        setError(
-          "name",
-          {
-            message: "Você já tem um orçamento com este nome",
-          },
-          { shouldFocus: true }
-        );
-      } else {
-        if (user) {
-          const budgetId = await createBudget({
+        if (budgets.some((budget) => budget.name === newBudget.name)) {
+          setError(
+            "name",
+            {
+              message: "Você já tem um orçamento com este nome",
+            },
+            { shouldFocus: true }
+          );
+        } else {
+          const newBudgetId = await createBudget({
             name: newBudget.name,
             amount: newBudget.amount,
             userId: user.uid,
+            expenses: {},
           });
 
-          await handleUpdateUser(budgetId, user);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+          await updateUser(user.uid, {
+            budgets: { ...user.budgets, [newBudgetId]: true },
+          });
 
-  const handleUpdateUser = async (budgetId, user) => {
-    try {
-      if (budgetId) {
-        await updateUser(user.uid, {
-          budgets: { ...user.budgets, [budgetId]: true },
-        });
+          await router.push("/");
+        }
       }
     } catch (error) {
       console.error(error);
