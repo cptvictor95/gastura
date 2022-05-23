@@ -25,7 +25,7 @@ const AddBudget: React.FC = () => {
   });
   const { user } = useLoggedInUser();
 
-  const { createBudget, getBudgets } = useContext(BudgetCtx);
+  const { createBudget, getUserBudgets } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
 
   const submitExpenseForm = (data: BudgetForm) => {
@@ -37,18 +37,18 @@ const AddBudget: React.FC = () => {
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
     try {
-      const budgets = await getBudgets();
+      if (user) {
+        const budgets = await getUserBudgets(user.uid);
 
-      if (budgets.some((budget) => budget.name === newBudget.name)) {
-        setError(
-          "name",
-          {
-            message: "Você já tem um orçamento com este nome",
-          },
-          { shouldFocus: true }
-        );
-      } else {
-        if (user) {
+        if (budgets.some((budget) => budget.name === newBudget.name)) {
+          setError(
+            "name",
+            {
+              message: "Você já tem um orçamento com este nome",
+            },
+            { shouldFocus: true }
+          );
+        } else {
           const budgetId = await createBudget({
             name: newBudget.name,
             amount: newBudget.amount,

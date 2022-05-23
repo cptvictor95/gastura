@@ -1,7 +1,7 @@
 import { UserProvider } from "@/contexts/UserContext";
 import AuthLoader from "components/Auth/AuthLoader";
 import AuthRedirect from "components/Auth/AuthLoader";
-import Header from "components/header/Header";
+import Header from "@/components/Header/Header";
 import RegisterForm from "components/RegisterForm/RegisterForm";
 import Main from "Layout/Main";
 import { useRouter } from "next/router";

@@ -2,7 +2,7 @@ import AuthLoader from "components/Auth/AuthLoader";
 import Main from "Layout/Main";
 import { useRouter } from "next/router";
 import React from "react";
-import Header from "../components/header/Header";
+import Header from "../components/Header/Header";
 import LoginForm from "../components/LoginForm/LoginForm";
 import styles from "../styles/pages/Login.module.scss";
 

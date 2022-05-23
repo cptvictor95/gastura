@@ -4,7 +4,7 @@ import { Budget } from "types/Budget";
 
 interface BudgetContext {
   createBudget: ({ name, amount }: Budget) => Promise<string>;
-  getBudgets: () => Promise<Budget[]>;
+  getUserBudgets: (userId: string) => Promise<Budget[]>;
 }
 
 export const BudgetCtx = React.createContext<BudgetContext>(null);
@@ -14,10 +14,11 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const { firestore } = useContext(FirebaseCtx);
 
-  const getBudgets = async () => {
+  const getUserBudgets = async (userId: string) => {
     try {
       const budgets = await firestore
         .collection("budgets")
+        .where("userId", "==", userId)
         .get()
         .then((res) => {
           return res.docs.map((doc) => {
@@ -54,7 +55,7 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({
   const actions = useMemo(
     () => ({
       createBudget,
-      getBudgets,
+      getUserBudgets,
     }),
     []
   );

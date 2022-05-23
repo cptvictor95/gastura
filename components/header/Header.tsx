@@ -1,7 +1,7 @@
 import useLoggedInUser from "hooks/useLoggedInUser";
 import { useRouter } from "next/router";
 import React from "react";
-import styles from "./Header.module.scss";
+import styles from "./styles.module.scss";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -11,50 +11,50 @@ const Header: React.FC = () => {
     <header className={styles.header}>
       <p>Logo</p>
 
-      <nav className={styles.nav}>
-        <button className={styles.navButton} onClick={() => router.push("/")}>
-          Home
-        </button>
+      {authState === "LOADING" ? (
+        <></>
+      ) : authState === "LOGGEDIN" ? (
+        <nav className={styles.nav}>
+          <button className={styles.navButton} onClick={() => router.push("/")}>
+            Home
+          </button>
+          <button
+            className={styles.navButton}
+            onClick={() => router.push("/expenses")}
+          >
+            Gastos
+          </button>
 
-        {authState === "LOADING" ? (
-          <></>
-        ) : authState === "LOGGEDIN" ? (
-          <>
-            <button
-              className={styles.navButton}
-              onClick={() => router.push("/expenses")}
-            >
-              Gastos
-            </button>
+          <button
+            className={styles.navButton}
+            onClick={() => router.push("/budgets")}
+          >
+            Entradas
+          </button>
 
-            <button
-              className={styles.navButton}
-              onClick={() => router.push("/budgets")}
-            >
-              Entradas
-            </button>
-
-            <button className={styles.exitButton} onClick={handleUserLogout}>
-              Sair
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              className={styles.accent}
-              onClick={() => router.push("/login")}
-            >
-              Entrar
-            </button>
-            <button
-              className={styles.accent}
-              onClick={() => router.push("/register")}
-            >
-              Criar conta
-            </button>
-          </>
-        )}
-      </nav>
+          <button className={styles.exitButton} onClick={handleUserLogout}>
+            Sair
+          </button>
+        </nav>
+      ) : (
+        <nav className={styles.nav}>
+          <button className={styles.navButton} onClick={() => router.push("/")}>
+            Home
+          </button>
+          <button
+            className={styles.accent}
+            onClick={() => router.push("/login")}
+          >
+            Entrar
+          </button>
+          <button
+            className={styles.accent}
+            onClick={() => router.push("/register")}
+          >
+            Criar conta
+          </button>
+        </nav>
+      )}
     </header>
   );
 };
