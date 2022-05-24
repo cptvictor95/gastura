@@ -26,7 +26,7 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({
           return res.docs.map((doc) => {
             const data = doc.data() as Budget;
 
-            if (!data) console.error("Erro ao buscar lista de usuários.");
+            if (!data) console.error("Erro ao buscar lista de orçamentos.");
 
             return data;
           });

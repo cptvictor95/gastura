@@ -15,12 +15,6 @@
       display: flex;
       flex-direction: column;
 
-      input {
-        margin: 0.5rem 0;
-        padding: 8px;
-        border-radius: 5px;
-      }
-
       .errorMessage {
         color: red;
       }
@@ -32,10 +26,9 @@
       padding: 0.5rem 1rem;
       width: 100%;
       border-radius: 5px;
-      font-weight: 700;
-      color: $white-color;
+      color: $primary-bg-color;
       height: 40px;
-      background-color: $primary-color;
+      background-color: $primary-text-color;
 
       &:hover {
         filter: brightness(0.8);
