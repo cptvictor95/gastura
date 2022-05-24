@@ -1,6 +1,7 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
+import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Budget } from "types/Budget";
 import AddModal from "../AddModal/AddModal";
 import AddBudget from "../Budgets/AddBudget";
@@ -10,7 +11,9 @@ import styles from "./styles.module.scss";
 const Dashboard: React.FC = () => {
   const { authState, user } = useLoggedInUser();
   const { getUserBudgets } = useContext(BudgetCtx);
+  const { getUserExpenses } = useContext(ExpenseCtx);
   const [totalBudget, setTotalBudget] = useState(0);
+  const [totalExpenses, setTotalExpenses] = useState(0);
 
   const handleUserBudget = async (userId: string) => {
     try {
@@ -20,17 +23,32 @@ const Dashboard: React.FC = () => {
       budgets.map((budget) => (total += budget.amount));
 
       setTotalBudget(total);
-      return total;
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
+  const handleUserExpenses = async (userId: string) => {
+    try {
+      const expenses = await getUserExpenses(userId);
+      let total = 0;
+
+      expenses.map((expense) => (total += expense.amount));
+
+      setTotalExpenses(total);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlers = useCallback(() => {
     if (user) {
       handleUserBudget(user.uid);
+      handleUserExpenses(user.uid);
     }
   }, [user]);
+
+  handlers();
 
   if (authState === "LOADING") return <>Loading...</>;
   else if (authState === "LOGGEDOUT") return <></>;
@@ -40,12 +58,19 @@ const Dashboard: React.FC = () => {
         <div className={styles.balanceContainer}>
           <div className={styles.expense}>
             <div className={styles.card}>
-              <p>R$</p>
+              <p>R${totalExpenses}</p>
               <p>Total de Gastos</p>
             </div>
             <AddModal title="Adicionar gasto">
               <AddExpense />
             </AddModal>
+          </div>
+
+          <div className={styles.balance}>
+            <div className={styles.card}>
+              <p>R${totalBudget - totalExpenses}</p>
+              <p>Carteira</p>
+            </div>
           </div>
 
           <div className={styles.budget}>
