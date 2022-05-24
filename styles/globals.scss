@@ -1,12 +1,13 @@
 @import "./theme.module";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
 
-  color: $white-color;
+  color: $primary-text-color;
   letter-spacing: 1px;
   font-size: 1rem;
 }
@@ -20,15 +21,25 @@ button {
 
   letter-spacing: 1px;
   font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
   font-weight: 600;
 }
 
 input {
-  background-color: $primary-color-dark;
-  color: $white-color;
+  background-color: $primary-bg-color;
+  color: $primary-text-color;
   border-width: 2px;
-  border-color: $primary-color-dark;
+  border-color: $primary-bg-color;
   border-style: solid !important;
+
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 5px;
+
+  &::placeholder {
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
 
   &:hover,
   &:focus,
@@ -37,7 +48,7 @@ input {
   &::before,
   &::after {
     border-width: 2px;
-    border-color: $primary-color-dark;
+    border-color: $primary-bg-color;
     border-style: solid !important;
     outline: 2px;
     outline-style: solid;
@@ -46,11 +57,20 @@ input {
 }
 
 select {
-  background-color: $primary-color-dark;
-  color: $white-color;
+  background-color: $primary-bg-color;
+  color: $primary-text-color;
   border-width: 2px;
-  border-color: $primary-color-dark;
+  border-color: $primary-bg-color;
   border-style: solid !important;
+
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 5px;
+
+  &::placeholder {
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
 
   &:hover,
   &:focus,
@@ -59,7 +79,7 @@ select {
   &::before,
   &::after {
     border-width: 2px;
-    border-color: $primary-color-dark;
+    border-color: $primary-bg-color;
     border-style: solid !important;
     outline: 2px;
     outline-style: solid;
