@@ -16,9 +16,9 @@
 
     .navButton {
       background-color: transparent;
-      color: #e8ebe4;
+      color: $primary-text-color;
       border: none;
-      padding: 1.5rem 2rem;
+      padding: 0.5rem 3rem;
 
       &:hover {
         filter: brightness(0.8);
@@ -27,10 +27,10 @@
     }
 
     .exitButton {
-      background-color: $error-color;
-      padding: 0.5rem 1.5rem;
+      background-color: $primary-text-color;
+      padding: 0.5rem 3rem;
       border-radius: 7px;
-      color: #e8ebe4;
+      color: $primary-bg-color;
       border: none;
 
       &:hover {
@@ -40,10 +40,10 @@
     }
 
     .accent {
-      background-color: #6a60e5;
-      padding: 0.5rem 1.5rem;
+      background-color: $primary-text-color;
+      padding: 0.5rem 3rem;
       border-radius: 5px;
-      color: #e8ebe4;
+      color: $primary-bg-color;
       border: none;
 
       &:hover {

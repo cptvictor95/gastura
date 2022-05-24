@@ -10,19 +10,9 @@
     max-width: 300px;
     margin-inline: auto;
 
-    h3 {
-      text-align: left;
-    }
-
     .formControl {
       display: flex;
       flex-direction: column;
-
-      input {
-        margin: 8px 0;
-        padding: 8px;
-        border-radius: 5px;
-      }
 
       select {
         margin: 0.5rem 0;
@@ -41,10 +31,9 @@
       padding: 8px 16px;
       width: 100%;
       border-radius: 5px;
-      font-weight: 700;
-      color: $white-color;
+      color: $primary-bg-color;
       height: 40px;
-      background-color: $primary-color;
+      background-color: $primary-text-color;
 
       &:hover {
         filter: brightness(0.8);
