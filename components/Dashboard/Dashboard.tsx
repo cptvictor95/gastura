@@ -5,7 +5,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Budget } from "types/Budget";
 import AddModal from "../AddModal/AddModal";
 import AddBudget from "../Budgets/AddBudget";
-import AddExpense from "../Expenses/AddExpense";
+import AddExpense from "../Expenses/AddExpenses/AddExpense";
 import styles from "./styles.module.scss";
 
 const Dashboard: React.FC = () => {
