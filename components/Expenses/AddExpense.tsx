@@ -6,6 +6,7 @@ import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
+import { useRouter } from "next/router";
 
 type ExpenseForm = {
   uid?: string;
@@ -31,6 +32,7 @@ const AddExpense: React.FC = () => {
   const { getUserBudgets, updateBudget, getBudgetById } = useContext(BudgetCtx);
   const { createExpense } = useContext(ExpenseCtx);
   const [budgets, setBudgets] = useState<Budget[]>([]);
+  const router = useRouter();
 
   const handleGetUserBudgets = async (userId: string) => {
     try {
@@ -49,6 +51,8 @@ const AddExpense: React.FC = () => {
       budgetId: data.budgetId,
       createdAt: Date.now(),
     });
+
+    router.reload();
   };
 
   const handleCreateExpense = async (newExpense: Expense) => {

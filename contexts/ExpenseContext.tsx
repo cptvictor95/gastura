@@ -60,5 +60,6 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const actions = useMemo(() => ({ createExpense, getUserExpenses }), []);
+
   return <ExpenseCtx.Provider value={actions}>{children}</ExpenseCtx.Provider>;
 };

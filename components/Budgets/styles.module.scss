@@ -20,6 +20,11 @@
       }
     }
 
+    input {
+      background-color: $primary-bg-color;
+      color: $primary-text-color;
+    }
+
     .submitButton {
       margin: 0 auto;
       border: none;

@@ -14,10 +14,10 @@
       display: flex;
       flex-direction: column;
 
+      input,
       select {
-        margin: 0.5rem 0;
-        padding: 8px;
-        border-radius: 5px;
+        background-color: $primary-bg-color;
+        color: $primary-text-color;
       }
 
       .errorMessage {

@@ -37,6 +37,8 @@ const AddBudget: React.FC = () => {
       name: data.name,
       amount: Number(data.amount),
     });
+
+    router.reload();
   };
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
