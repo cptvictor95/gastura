@@ -1,5 +1,6 @@
 import { FirebaseCtx } from "@/config/context";
 import React, { useContext, useMemo } from "react";
+import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
 
 interface BudgetContext {
@@ -39,6 +40,7 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  // Refactor return to be the same object registered inside firestore for UI upload
   const createBudget = async (budget: Budget) => {
     try {
       const budgetRef = firestore.collection("budgets").doc();

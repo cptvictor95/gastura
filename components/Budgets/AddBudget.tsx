@@ -4,6 +4,7 @@ import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
 import { User } from "types/User";
 import styles from "./styles.module.scss";
@@ -27,7 +28,7 @@ const AddBudget: React.FC = () => {
     },
   });
   const { user } = useLoggedInUser();
-  const router = useRouter();
+  const { budgets, setBudgets } = useBudgets();
 
   const { createBudget, getUserBudgets } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
@@ -37,15 +38,11 @@ const AddBudget: React.FC = () => {
       name: data.name,
       amount: Number(data.amount),
     });
-
-    router.reload();
   };
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
     try {
       if (user) {
-        const budgets = await getUserBudgets(user.uid);
-
         if (budgets.some((budget) => budget.name === newBudget.name)) {
           setError(
             "name",
@@ -66,7 +63,10 @@ const AddBudget: React.FC = () => {
             budgets: { ...user.budgets, [newBudgetId]: true },
           });
 
-          await router.push("/");
+          setBudgets([
+            ...budgets,
+            { uid: newBudgetId, ...newBudget } as Budget,
+          ]);
         }
       }
     } catch (error) {

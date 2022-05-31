@@ -1,8 +1,12 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
+import { GetStaticProps } from "next";
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import useBudgets from "stores/useBudgets";
+import useExpenses from "stores/useExpenses";
 import { Budget } from "types/Budget";
+import { Expense } from "types/Expense";
 import AddModal from "../AddModal/AddModal";
 import AddBudget from "../Budgets/AddBudget";
 import AddExpense from "../Expenses/AddExpenses/AddExpense";
@@ -14,41 +18,46 @@ const Dashboard: React.FC = () => {
   const { getUserExpenses } = useContext(ExpenseCtx);
   const [totalBudget, setTotalBudget] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
+  const { budgets, setBudgets } = useBudgets();
+  const { expenses, setExpenses } = useExpenses();
 
-  const handleUserBudget = async (userId: string) => {
+  const handleUserTotals = async (budgets: Budget[], expenses: Expense[]) => {
     try {
-      const budgets = await getUserBudgets(userId);
-      let total = 0;
+      let totalBudget = 0;
+      let totalExpenses = 0;
 
-      budgets.map((budget) => (total += budget.amount));
+      budgets.map((budget) => (totalBudget += budget.amount));
 
-      setTotalBudget(total);
+      expenses.map((expense) => (totalExpenses += expense.amount));
+
+      setTotalBudget(totalBudget);
+      setTotalExpenses(totalExpenses);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleUserExpenses = async (userId: string) => {
-    try {
-      const expenses = await getUserExpenses(userId);
-      let total = 0;
+  useEffect(() => {
+    handleUserTotals(budgets, expenses);
+  }, [budgets, expenses]);
 
-      expenses.map((expense) => (total += expense.amount));
-
-      setTotalExpenses(total);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handlers = useCallback(() => {
+  useEffect(() => {
     if (user) {
-      handleUserBudget(user.uid);
-      handleUserExpenses(user.uid);
+      const handleGetExpenses = async () => {
+        const expenses = await getUserExpenses(user.uid);
+
+        setExpenses(expenses);
+      };
+      const handleGetBudgets = async () => {
+        const budgets = await getUserBudgets(user.uid);
+
+        setBudgets(budgets);
+      };
+
+      handleGetBudgets();
+      handleGetExpenses();
     }
   }, [user]);
-
-  handlers();
 
   if (authState === "LOADING") return <>Loading...</>;
   else if (authState === "LOGGEDOUT") return <></>;

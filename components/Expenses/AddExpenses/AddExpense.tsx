@@ -7,6 +7,8 @@ import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import { useRouter } from "next/router";
+import useBudgets from "stores/useBudgets";
+import useExpenses from "stores/useExpenses";
 
 type ExpenseForm = {
   uid?: string;
@@ -29,20 +31,10 @@ const AddExpense: React.FC = () => {
     },
   });
   const { user } = useLoggedInUser();
-  const { getUserBudgets, updateBudget, getBudgetById } = useContext(BudgetCtx);
+  const { updateBudget, getBudgetById } = useContext(BudgetCtx);
   const { createExpense } = useContext(ExpenseCtx);
-  const [budgets, setBudgets] = useState<Budget[]>([]);
-  const router = useRouter();
-
-  const handleGetUserBudgets = async (userId: string) => {
-    try {
-      const budgets = await getUserBudgets(userId);
-
-      if (budgets !== null) setBudgets(budgets);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { budgets } = useBudgets();
+  const { expenses, setExpenses } = useExpenses();
 
   const submitBudgetForm = (data: ExpenseForm) => {
     handleCreateExpense({
@@ -51,8 +43,6 @@ const AddExpense: React.FC = () => {
       budgetId: data.budgetId,
       createdAt: Date.now(),
     });
-
-    router.reload();
   };
 
   const handleCreateExpense = async (newExpense: Expense) => {
@@ -65,16 +55,14 @@ const AddExpense: React.FC = () => {
           await updateBudget(newExpense.budgetId, {
             expenses: { ...budget.expenses, [newExpenseId]: true },
           });
+
+          setExpenses([...expenses, { uid: newExpenseId, ...newExpense }]);
         }
       }
     } catch (error) {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (user) handleGetUserBudgets(user.uid);
-  }, [user]);
 
   return (
     <div className={styles.formContainer}>

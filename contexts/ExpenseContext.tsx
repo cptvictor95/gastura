@@ -16,6 +16,7 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
   const { firestore } = useContext(FirebaseCtx);
   const { getUserBudgets } = useContext(BudgetCtx);
 
+  // Refactor return to be the same object registered inside firestore for UI upload
   const createExpense = async (expense: Expense) => {
     try {
       const expenseRef = firestore.collection("expenses").doc();
