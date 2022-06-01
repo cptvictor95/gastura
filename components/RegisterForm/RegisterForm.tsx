@@ -1,3 +1,4 @@
+import { UserCtx } from "@/contexts/UserContext";
 import { FirebaseCtx } from "config/context";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -11,32 +12,22 @@ type RegisterFormProps = {
   password: string;
 };
 
-type User = {
-  uid: string;
-  name: string;
-  email: string;
-  password: string;
-};
-
 const RegisterForm: React.FC = () => {
-  const { auth, firestore } = useContext(FirebaseCtx);
+  const { auth } = useContext(FirebaseCtx);
+  const { createUser } = useContext(UserCtx);
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<RegisterFormProps>();
+  } = useForm<RegisterFormProps>({ mode: "onChange" });
   const router = useRouter();
 
   const submitRegisterForm = (data: RegisterFormProps) => {
-    console.log("data", data);
-
     handleRegister(data);
-
-    router.push("/");
   };
 
-  // Creates a new user on firebase authentication
+  // Creates a new user on firebase authentication and adds a new document to firestore users
   const handleRegister = async ({
     name,
     email,
@@ -48,13 +39,13 @@ const RegisterForm: React.FC = () => {
         password
       );
 
-      const userId = await createUser({
+      await createUser({
         uid: response.user?.uid,
         email: response.user?.email as string,
         name: name,
       });
 
-      return userId;
+      await router.push("/");
     } catch (error: any) {
       console.error(error);
       // TODO: Handle different types of error (email registered, weak password, no internet connection)
@@ -62,30 +53,14 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  // Creates a new user on firestore database
-  // TODO: Move this function to actions context
-  const createUser = async (user: Partial<User>) => {
-    try {
-      const userRef = firestore.collection("users").doc(user.uid);
-
-      const userId = userRef.id;
-
-      await userRef.set(user);
-
-      return userId;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <form className={styles.form} onSubmit={handleSubmit(submitRegisterForm)}>
       <h2>Criar conta</h2>
-      <div>
+      <div className={styles.formControl}>
         <label htmlFor="name">Nome</label>
         <input
           type="text"
-          placeholder=""
+          placeholder="Seu nome"
           {...register("name", {
             required: {
               value: true,
@@ -95,25 +70,30 @@ const RegisterForm: React.FC = () => {
         />
         <span>{errors.name && errors.name.message}</span>
       </div>
-      <div>
+      <div className={styles.formControl}>
         <label htmlFor="email">Email</label>
         <input
           type="email"
-          placeholder=""
+          placeholder="email@email.com"
           {...register("email", {
             required: {
               value: true,
               message: "Digite seu email",
             },
+            pattern: {
+              value:
+                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: "Email inválido",
+            },
           })}
         />
         <span>{errors.email && errors.email.message}</span>
       </div>
-      <div>
+      <div className={styles.formControl}>
         <label htmlFor="password">Senha</label>
         <input
           type="password"
-          placeholder=""
+          placeholder="******"
           {...register("password", {
             required: {
               value: true,
@@ -124,7 +104,9 @@ const RegisterForm: React.FC = () => {
         <span>{errors.password && errors.password.message}</span>
       </div>
 
-      <button type="submit">Criar conta</button>
+      <button type="submit" className={styles.submitButton}>
+        Criar conta
+      </button>
     </form>
   );
 };

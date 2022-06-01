@@ -1,12 +1,15 @@
+@import "../../styles/theme.module";
 .form {
   display: grid;
   padding: 1rem;
   gap: 1rem;
-  max-width: 300px;
-  margin: 0 auto;
+  min-width: 300px;
+  margin-inline: auto;
 
   h2 {
     text-align: center;
+    height: 0.5cm;
+    padding: 2rem 0;
   }
 
   .errorMessage {
@@ -14,14 +17,14 @@
   }
 
   .formControl {
-    padding: 16px 0;
     display: flex;
+    justify-content: center;
     flex-direction: column;
 
-    input {
+    input,
+    ::placeholder {
+      display: flex;
       margin: 8px 0;
-
-      padding: 8px 16px;
 
       border-radius: 5px;
     }
@@ -29,9 +32,17 @@
 
   .submitButton {
     margin: 0 auto;
+    border: none;
     padding: 8px 16px;
     width: 100%;
+    border-radius: 5px;
+    color: $primary-bg-color;
+    height: 40px;
+    background-color: $primary-text-color;
 
-    background-color: yellow;
+    &:hover {
+      filter: brightness(0.8);
+      transition: filter ease-in-out 250ms;
+    }
   }
 }

@@ -1,11 +1,15 @@
-import Header from "../components/header/Header";
+import Dashboard from "@/components/Dashboard/Dashboard";
+import Main from "Layout/Main";
+import Header from "../components/Header/Header";
 
 const Home: React.FC = () => {
   return (
-    <div>
+    <>
       <Header />
-      home page
-    </div>
+      <Main title="Home">
+        <Dashboard />
+      </Main>
+    </>
   );
 };
 

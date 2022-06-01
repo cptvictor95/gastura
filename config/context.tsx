@@ -8,6 +8,7 @@ export interface FirebaseContext {
   auth: firebase.auth.Auth;
   firestore: firebase.firestore.Firestore;
   user: firebase.User | null | false;
+  getAuthUser(): Promise<firebase.User["uid"]>;
 }
 
 export const FirebaseCtx = React.createContext<FirebaseContext>(
@@ -81,6 +82,7 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({
       auth,
       firestore,
       user,
+      getAuthUser,
     }),
     [user]
   );

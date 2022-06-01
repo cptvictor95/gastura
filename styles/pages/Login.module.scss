@@ -1,19 +1,19 @@
-.main {
-  color: #fff;
-  margin: 0 auto;
+@import "../theme.module";
 
-  .createAccountSection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.createAccountSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    a {
-      text-decoration: none;
-      margin-left: 8px;
+  .link {
+    border: none;
+    background: transparent;
+    color: $primary-color;
+    font-size: 16px;
 
-      &:hover {
-        filter: brightness(0.8);
-      }
+    &:hover {
+      filter: brightness(0.8);
+      text-decoration: underline;
     }
   }
 }
