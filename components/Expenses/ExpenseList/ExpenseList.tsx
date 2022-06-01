@@ -1,17 +1,17 @@
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import React, { useContext, useEffect, useState } from "react";
+import { Expense } from "types/Expense";
 import ListItem from "./ListItem/ListItem";
 
-const ExpenseList = () => {
+const ExpenseList: React.FC = () => {
   const { getUserExpenses } = useContext(ExpenseCtx);
   const { user } = useLoggedInUser();
-  const [expenses, setExpenses] = useState([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
 
-  const handleGetUserExpenses = async (userId) => {
+  const handleGetUserExpenses = async (userId: string) => {
     const expenses = await getUserExpenses(userId);
 
-    console.log("expenses handler", expenses);
     setExpenses(expenses);
   };
 
