@@ -88,7 +88,13 @@ const AddBudget: React.FC = () => {
   return (
     <>
       <button onClick={openModal}>Adicionar</button>
-      <Popup open={open} modal closeOnEscape onClose={closeModal}>
+      <Popup
+        open={open}
+        modal
+        closeOnEscape
+        onClose={closeModal}
+        className={styles.popupContent}
+      >
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
             <h3>Novo Orçamento</h3>
