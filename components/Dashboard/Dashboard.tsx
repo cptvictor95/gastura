@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
     }
   }, [user]);
 
-  if (authState === "LOADING") return <>Loading...</>;
+  if (authState === "LOADING") return <>LOADING...</>;
   else if (authState === "LOGGEDOUT") return <></>;
   else {
     return (
