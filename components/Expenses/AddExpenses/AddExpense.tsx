@@ -3,12 +3,11 @@ import styles from "./styles.module.scss";
 import { useForm } from "react-hook-form";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
-import { useRouter } from "next/router";
 import useBudgets from "stores/useBudgets";
 import useExpenses from "stores/useExpenses";
+import Popup from "reactjs-popup";
 
 type ExpenseForm = {
   uid?: string;
@@ -35,6 +34,7 @@ const AddExpense: React.FC = () => {
   const { createExpense } = useContext(ExpenseCtx);
   const { budgets } = useBudgets();
   const { expenses, setExpenses } = useExpenses();
+  const [open, setOpen] = useState(false);
 
   const submitBudgetForm = (data: ExpenseForm) => {
     handleCreateExpense({
@@ -43,6 +43,8 @@ const AddExpense: React.FC = () => {
       budgetId: data.budgetId,
       createdAt: Date.now(),
     });
+
+    closeModal();
   };
 
   const handleCreateExpense = async (newExpense: Expense) => {
@@ -64,64 +66,89 @@ const AddExpense: React.FC = () => {
     }
   };
 
-  return (
-    <div className={styles.formContainer}>
-      <form className={styles.form} onSubmit={handleSubmit(submitBudgetForm)}>
-        <div className={styles.formControl}>
-          <label htmlFor="description">Descrição</label>
-          <input
-            placeholder="Ex.: Belle Lanches"
-            {...register("description", {
-              required: { value: true, message: "Digite uma descrição" },
-            })}
-          />
-          <span className={styles.errorMessage}>
-            {errors.description && errors.description.message}
-          </span>
-        </div>
-        <div className={styles.formControl}>
-          <label htmlFor="amount">Valor do gasto</label>
-          <input
-            placeholder="R$00,00"
-            type="number"
-            step={0.01}
-            min={0}
-            {...register("amount", {
-              required: { value: true, message: "Digite um valor" },
-            })}
-          />
-          <span className={styles.errorMessage}>
-            {errors.amount && errors.amount.message}
-          </span>
-        </div>
-        <div className={styles.formControl}>
-          <label htmlFor="budgetId">Categoria</label>
-          <select
-            id="budgetId"
-            {...register("budgetId", {
-              required: { value: true, message: "Escolha uma categoria" },
-            })}
-          >
-            <option value="" disabled>
-              Categoria do Gasto
-            </option>
-            {budgets &&
-              budgets.map((budget) => (
-                <option value={budget.uid} key={budget.uid}>
-                  {budget.name[0].toUpperCase() + budget.name.slice(1)}
-                </option>
-              ))}
-          </select>
-          <span className={styles.errorMessage}>
-            {errors.budgetId && errors.budgetId.message}
-          </span>
-        </div>
+  const openModal = () => {
+    setOpen(true);
+  };
 
-        <button type="submit" className={styles.submitButton}>
-          Adicionar
-        </button>
-      </form>
-    </div>
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <button onClick={openModal}>Adicionar</button>
+      <Popup open={open} modal closeOnEscape onClose={closeModal}>
+        <div className={styles.modal}>
+          <div className={styles.modalHeader}>
+            <h3>Novo Gasto</h3>
+            <button className={styles.closeBtn} onClick={closeModal}>
+              &times;
+            </button>
+          </div>
+
+          <div className={styles.formContainer}>
+            <form
+              className={styles.form}
+              onSubmit={handleSubmit(submitBudgetForm)}
+            >
+              <div className={styles.formControl}>
+                <label htmlFor="description">Descrição</label>
+                <input
+                  placeholder="Ex.: Belle Lanches"
+                  {...register("description", {
+                    required: { value: true, message: "Digite uma descrição" },
+                  })}
+                />
+                <span className={styles.errorMessage}>
+                  {errors.description && errors.description.message}
+                </span>
+              </div>
+              <div className={styles.formControl}>
+                <label htmlFor="amount">Valor do gasto</label>
+                <input
+                  placeholder="R$00,00"
+                  type="number"
+                  step={0.01}
+                  min={0}
+                  {...register("amount", {
+                    required: { value: true, message: "Digite um valor" },
+                  })}
+                />
+                <span className={styles.errorMessage}>
+                  {errors.amount && errors.amount.message}
+                </span>
+              </div>
+              <div className={styles.formControl}>
+                <label htmlFor="budgetId">Categoria</label>
+                <select
+                  id="budgetId"
+                  {...register("budgetId", {
+                    required: { value: true, message: "Escolha uma categoria" },
+                  })}
+                >
+                  <option value="" disabled>
+                    Categoria do Gasto
+                  </option>
+                  {budgets &&
+                    budgets.map((budget) => (
+                      <option value={budget.uid} key={budget.uid}>
+                        {budget.name[0].toUpperCase() + budget.name.slice(1)}
+                      </option>
+                    ))}
+                </select>
+                <span className={styles.errorMessage}>
+                  {errors.budgetId && errors.budgetId.message}
+                </span>
+              </div>
+
+              <button type="submit" className={styles.submitButton}>
+                Adicionar
+              </button>
+            </form>
+          </div>
+        </div>
+      </Popup>
+    </>
   );
 };
 

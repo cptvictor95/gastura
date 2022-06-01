@@ -1,43 +1,74 @@
 @import "../../styles/theme.module";
 
-.formContainer {
-  width: 100%;
-  padding: 1rem 0;
+.modal {
+  background-color: $primary-color-dark;
+  padding: 1rem 3rem;
+  border-radius: 5px;
+  min-width: 400px;
 
-  .form {
-    display: grid;
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .closeBtn {
+    border: none;
+    padding: 0 0.75rem;
+    border-radius: 5px;
+    font-weight: 700;
+    color: $primary-bg-color;
+    height: 40px;
+    background-color: $primary-text-color;
+    width: max-content;
+    font-size: 1.75rem;
+
+    &:hover {
+      filter: brightness(0.8);
+      transition: filter ease-in-out 250ms;
+    }
+  }
+
+  .formContainer {
+    width: 100%;
     padding: 1rem 0;
-    gap: 1rem;
-    max-width: 300px;
-    margin-inline: auto;
 
-    .formControl {
-      display: flex;
-      flex-direction: column;
+    .form {
+      display: grid;
+      padding: 1rem 0;
+      gap: 1rem;
+      max-width: 300px;
+      margin-inline: auto;
 
-      .errorMessage {
-        color: red;
+      .formControl {
+        display: flex;
+        flex-direction: column;
+
+        .errorMessage {
+          color: red;
+        }
       }
-    }
 
-    input {
-      background-color: $primary-bg-color;
-      color: $primary-text-color;
-    }
+      input {
+        background-color: $primary-bg-color;
+        color: $primary-text-color;
+      }
 
-    .submitButton {
-      margin: 0 auto;
-      border: none;
-      padding: 0.5rem 1rem;
-      width: 100%;
-      border-radius: 5px;
-      color: $primary-bg-color;
-      height: 40px;
-      background-color: $primary-text-color;
+      .submitButton {
+        margin: 0 auto;
+        border: none;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        border-radius: 5px;
+        color: $primary-bg-color;
+        height: 40px;
+        background-color: $primary-text-color;
 
-      &:hover {
-        filter: brightness(0.8);
-        transition: filter 250ms ease-in-out;
+        &:hover {
+          filter: brightness(0.8);
+          transition: filter 250ms ease-in-out;
+        }
       }
     }
   }

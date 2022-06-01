@@ -2,8 +2,9 @@ import { BudgetCtx } from "@/contexts/BudgetContext";
 import { UserCtx } from "@/contexts/UserContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import Popup from "reactjs-popup";
 import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
 import { User } from "types/User";
@@ -29,8 +30,8 @@ const AddBudget: React.FC = () => {
   });
   const { user } = useLoggedInUser();
   const { budgets, setBudgets } = useBudgets();
-
-  const { createBudget, getUserBudgets } = useContext(BudgetCtx);
+  const [open, setOpen] = useState(false);
+  const { createBudget } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
 
   const submitExpenseForm = (data: BudgetForm) => {
@@ -38,6 +39,8 @@ const AddBudget: React.FC = () => {
       name: data.name,
       amount: Number(data.amount),
     });
+
+    closeModal();
   };
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
@@ -74,42 +77,70 @@ const AddBudget: React.FC = () => {
     }
   };
 
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   return (
-    <div className={styles.formContainer}>
-      <form className={styles.form} onSubmit={handleSubmit(submitExpenseForm)}>
-        <div className={styles.formControl}>
-          <label htmlFor="name">Nome</label>
-          <input
-            {...register("name", {
-              required: { value: true, message: "Digite uma descrição" },
-            })}
-            placeholder="Ex.: Alimentação"
-            type="text"
-          />
-          <span className={styles.errorMessage}>
-            {errors.name && errors.name.message}
-          </span>
+    <>
+      <button onClick={openModal}>Adicionar</button>
+      <Popup open={open} modal closeOnEscape onClose={closeModal}>
+        <div className={styles.modal}>
+          <div className={styles.modalHeader}>
+            <h3>Novo Orçamento</h3>
+            <button className={styles.closeBtn} onClick={closeModal}>
+              &times;
+            </button>
+          </div>
+
+          <div className={styles.formContainer}>
+            <form
+              className={styles.form}
+              onSubmit={handleSubmit(submitExpenseForm)}
+            >
+              <div className={styles.formControl}>
+                <label htmlFor="name">Nome</label>
+                <input
+                  {...register("name", {
+                    required: { value: true, message: "Digite uma descrição" },
+                  })}
+                  placeholder="Ex.: Alimentação"
+                  type="text"
+                />
+                <span className={styles.errorMessage}>
+                  {errors.name && errors.name.message}
+                </span>
+              </div>
+              <div className={styles.formControl}>
+                <label htmlFor="amount">Valor Máximo</label>
+                <input
+                  type="number"
+                  step={0.01}
+                  min={0}
+                  placeholder="R$00,00"
+                  {...register("amount", {
+                    required: {
+                      value: true,
+                      message: "Digite um valor máximo",
+                    },
+                  })}
+                />
+                <span className={styles.errorMessage}>
+                  {errors.amount && errors.amount.message}
+                </span>
+              </div>
+              <button type="submit" className={styles.submitButton}>
+                Adicionar
+              </button>
+            </form>
+          </div>
         </div>
-        <div className={styles.formControl}>
-          <label htmlFor="amount">Valor Máximo</label>
-          <input
-            type="number"
-            step={0.01}
-            min={0}
-            placeholder="R$00,00"
-            {...register("amount", {
-              required: { value: true, message: "Digite um valor máximo" },
-            })}
-          />
-          <span className={styles.errorMessage}>
-            {errors.amount && errors.amount.message}
-          </span>
-        </div>
-        <button type="submit" className={styles.submitButton}>
-          Adicionar
-        </button>
-      </form>
-    </div>
+      </Popup>
+    </>
   );
 };
 

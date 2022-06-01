@@ -7,7 +7,6 @@ import useBudgets from "stores/useBudgets";
 import useExpenses from "stores/useExpenses";
 import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
-import AddModal from "../AddModal/AddModal";
 import AddBudget from "../Budgets/AddBudget";
 import AddExpense from "../Expenses/AddExpenses/AddExpense";
 import styles from "./styles.module.scss";
@@ -70,9 +69,8 @@ const Dashboard: React.FC = () => {
               <p>R${totalExpenses}</p>
               <p>Total de Gastos</p>
             </div>
-            <AddModal title="Adicionar gasto">
-              <AddExpense />
-            </AddModal>
+
+            <AddExpense />
           </div>
 
           <div className={styles.balance}>
@@ -87,9 +85,8 @@ const Dashboard: React.FC = () => {
               <p>R${totalBudget}</p>
               <p>Orçamento total</p>
             </div>
-            <AddModal title="Adicionar orçamento">
-              <AddBudget />
-            </AddModal>
+
+            <AddBudget />
           </div>
         </div>
         <div className={styles.mainColumns}></div>
