@@ -1,14 +1,15 @@
 @import "./theme.module";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Open Sans", sans-serif;
 
-  color: $white-color;
-  background-color: $black-color;
+  color: $primary-text-color;
+  letter-spacing: 1px;
+  font-size: 1rem;
 }
 
 * {
@@ -17,5 +18,95 @@ body {
 
 button {
   cursor: pointer;
-  margin: 0 4px;
+
+  letter-spacing: 1px;
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+input {
+  background-color: $primary-color-dark;
+  color: $primary-text-color;
+  border-width: 2px;
+  border-color: $primary-bg-color;
+  border-style: solid !important;
+  font-size: 1rem;
+
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 5px;
+
+  &::placeholder {
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within,
+  &:focus-visible,
+  &::before,
+  &::after {
+    border-width: 2px;
+    border-color: $primary-bg-color;
+    border-style: solid !important;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: $primary-color;
+  }
+}
+
+select {
+  background-color: $primary-bg-color;
+  color: $primary-text-color;
+  border-width: 2px;
+  border-color: $primary-bg-color;
+  border-style: solid !important;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 5px;
+  appearance: none;
+
+  &::placeholder {
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within,
+  &:focus-visible,
+  &::before,
+  &::after {
+    border-width: 2px;
+    border-color: $primary-bg-color;
+    border-style: solid !important;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: $primary-color;
+  }
+}
+
+@keyframes modal {
+  0% {
+    transform: scale(1) translateY(0px);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+  }
+  1% {
+    transform: scale(0.96) translateY(10px);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+    box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+  }
+}
+
+.popup-content {
+  -webkit-animation: modal 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
 }

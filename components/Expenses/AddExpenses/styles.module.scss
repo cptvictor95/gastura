@@ -1,0 +1,76 @@
+@import "../../../styles/theme.module";
+
+.modal {
+  background-color: $primary-color-dark;
+  padding: 1rem 3rem;
+  border-radius: 5px;
+  min-width: 400px;
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .closeBtn {
+    border: none;
+    padding: 0 0.75rem;
+    border-radius: 5px;
+    font-weight: 700;
+    color: $primary-bg-color;
+    height: 40px;
+    background-color: $primary-text-color;
+    width: max-content;
+    font-size: 1.75rem;
+
+    &:hover {
+      filter: brightness(0.8);
+      transition: filter ease-in-out 250ms;
+    }
+  }
+
+  .formContainer {
+    width: 100%;
+    padding: 1rem 0;
+
+    .form {
+      display: grid;
+      padding: 1rem 0;
+      gap: 1rem;
+      max-width: 300px;
+      margin-inline: auto;
+
+      .formControl {
+        display: flex;
+        flex-direction: column;
+
+        input,
+        select {
+          background-color: $primary-bg-color;
+          color: $primary-text-color;
+        }
+
+        .errorMessage {
+          color: red;
+        }
+      }
+
+      .submitButton {
+        margin: 0 auto;
+        border: none;
+        padding: 8px 16px;
+        width: 100%;
+        border-radius: 5px;
+        color: $primary-bg-color;
+        height: 40px;
+        background-color: $primary-text-color;
+
+        &:hover {
+          filter: brightness(0.8);
+          transition: filter 250ms ease-in-out;
+        }
+      }
+    }
+  }
+}
