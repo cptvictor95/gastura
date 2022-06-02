@@ -2,12 +2,12 @@ import { Budget } from "types/Budget";
 import create from "zustand";
 
 export type BudgetStore = {
-  budgets: Budget[];
+  budgets: Budget[] | boolean;
   setBudgets: (budgets: Budget[]) => void;
 };
 
 const useBudgets = create<BudgetStore>((set) => ({
-  budgets: [],
+  budgets: false,
   setBudgets: (budgets) =>
     set((state) => ({
       ...state,

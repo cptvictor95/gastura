@@ -2,12 +2,12 @@ import { Expense } from "types/Expense";
 import create from "zustand";
 
 export type ExpenseStore = {
-  expenses: Expense[];
+  expenses: Expense[] | boolean;
   setExpenses: (expenses: Expense[]) => void;
 };
 
 const useExpenses = create<ExpenseStore>((set) => ({
-  expenses: [],
+  expenses: false,
   setExpenses: (expenses) =>
     set((state) => ({
       ...state,
