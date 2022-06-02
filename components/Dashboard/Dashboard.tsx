@@ -1,8 +1,7 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import { GetStaticProps } from "next";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useBudgets from "stores/useBudgets";
 import useExpenses from "stores/useExpenses";
 import { Budget } from "types/Budget";
@@ -10,6 +9,35 @@ import { Expense } from "types/Expense";
 import AddBudget from "../Budgets/AddBudget";
 import AddExpense from "../Expenses/AddExpenses/AddExpense";
 import styles from "./styles.module.scss";
+import { motion } from "framer-motion";
+
+const variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const LoadedText = ({ children }) => (
+  <motion.p
+    initial="hidden"
+    animate="visible"
+    transition={{ duration: 0.6 }}
+    variants={variants}
+  >
+    {children}
+  </motion.p>
+);
+
+const SkeletonText = ({ children }) => (
+  <motion.div
+    initial="hidden"
+    animate="visible"
+    transition={{ duration: 0.6 }}
+    variants={variants}
+    className={styles.skeletonText}
+  >
+    {children}
+  </motion.div>
+);
 
 const Dashboard: React.FC = () => {
   const { authState, user } = useLoggedInUser();
@@ -77,7 +105,13 @@ const Dashboard: React.FC = () => {
       <div className={styles.balanceContainer}>
         <div className={styles.expense}>
           <div className={styles.card}>
-            <p>R${isLoading ? "SKELETON" : totalExpenses}</p>
+            {isLoading ? (
+              <SkeletonText>
+                <p>R$00,00</p>
+              </SkeletonText>
+            ) : (
+              <LoadedText>R${totalExpenses}</LoadedText>
+            )}
             <p>Total de Gastos</p>
           </div>
 
@@ -86,14 +120,26 @@ const Dashboard: React.FC = () => {
 
         <div className={styles.balance}>
           <div className={styles.card}>
-            <p>R${isLoading ? "SKELETON" : userWallet}</p>
+            {isLoading ? (
+              <SkeletonText>
+                <p>R$00,00</p>
+              </SkeletonText>
+            ) : (
+              <LoadedText>R${userWallet}</LoadedText>
+            )}
             <p>Carteira</p>
           </div>
         </div>
 
         <div className={styles.budget}>
           <div className={styles.card}>
-            <p>R${isLoading ? "SKELETON" : totalBudget}</p>
+            {isLoading ? (
+              <SkeletonText>
+                <p>R$00,00</p>
+              </SkeletonText>
+            ) : (
+              <LoadedText>R${totalBudget}</LoadedText>
+            )}
             <p>Orçamento total</p>
           </div>
 
