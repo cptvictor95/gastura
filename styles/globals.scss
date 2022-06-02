@@ -7,9 +7,14 @@ body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
 
-  color: $primary-text-color;
   letter-spacing: 1px;
   font-size: 1rem;
+  color: $primary-text-color;
+  background: radial-gradient(
+    111.91% 108% at 26.56% 100%,
+    #091616 7.43%,
+    #0f2728 93.93%
+  );
 }
 
 * {
@@ -23,6 +28,7 @@ button {
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
+  border-radius: 8px;
 }
 
 input {

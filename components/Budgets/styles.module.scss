@@ -3,7 +3,7 @@
 .modal {
   background-color: $primary-color-dark;
   padding: 1rem 3rem;
-  border-radius: 5px;
+  border-radius: 8px;
   min-width: 400px;
 
   .modalHeader {
@@ -60,7 +60,6 @@
         border: none;
         padding: 0.5rem 1rem;
         width: 100%;
-        border-radius: 5px;
         color: $primary-bg-color;
         height: 40px;
         background-color: $primary-text-color;
