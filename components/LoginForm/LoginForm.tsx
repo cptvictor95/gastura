@@ -1,4 +1,5 @@
 import { AuthCtx } from "@/contexts/AuthContext";
+import { emailRegEx } from "@/utils/regEx";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -35,8 +36,7 @@ const LoginForm: React.FC = () => {
           {...register("email", {
             required: { value: true, message: "Digite seu email" },
             pattern: {
-              value:
-                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              value: emailRegEx,
               message: "Email inválido",
             },
           })}

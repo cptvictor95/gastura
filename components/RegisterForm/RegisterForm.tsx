@@ -1,4 +1,5 @@
 import { UserCtx } from "@/contexts/UserContext";
+import { emailRegEx } from "@/utils/regEx";
 import { FirebaseCtx } from "config/context";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -46,8 +47,7 @@ const RegisterForm: React.FC = () => {
       });
 
       await router.push("/");
-    } catch (error: any) {
-      console.error(error);
+    } catch (error) {
       // TODO: Handle different types of error (email registered, weak password, no internet connection)
       setError("email", { message: error.message });
     }
@@ -81,8 +81,7 @@ const RegisterForm: React.FC = () => {
               message: "Digite seu email",
             },
             pattern: {
-              value:
-                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              value: emailRegEx,
               message: "Email inválido",
             },
           })}
