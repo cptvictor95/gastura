@@ -1,13 +1,11 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { UserCtx } from "@/contexts/UserContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Popup from "reactjs-popup";
 import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
-import { User } from "types/User";
 import styles from "./styles.module.scss";
 
 type BudgetForm = {
@@ -45,7 +43,7 @@ const AddBudget: React.FC = () => {
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
     try {
-      if (user) {
+      if (user && typeof budgets !== "boolean") {
         if (budgets.some((budget) => budget.name === newBudget.name)) {
           setError(
             "name",

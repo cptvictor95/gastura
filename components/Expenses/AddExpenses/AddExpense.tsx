@@ -49,7 +49,7 @@ const AddExpense: React.FC = () => {
 
   const handleCreateExpense = async (newExpense: Expense) => {
     try {
-      if (user) {
+      if (user && typeof expenses !== "boolean") {
         const newExpenseId = await createExpense(newExpense);
         const budget = await getBudgetById(newExpense.budgetId);
 
@@ -129,7 +129,7 @@ const AddExpense: React.FC = () => {
                   <option value="" disabled>
                     Categoria do Gasto
                   </option>
-                  {budgets &&
+                  {typeof budgets !== "boolean" &&
                     budgets.map((budget) => (
                       <option value={budget.uid} key={budget.uid}>
                         {budget.name[0].toUpperCase() + budget.name.slice(1)}
