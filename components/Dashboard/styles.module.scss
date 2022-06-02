@@ -40,9 +40,9 @@
       gap: 1rem;
 
       .card {
-        background-color: $primary-color-dark;
+        background-color: rgba(255, 255, 255, 0.05);
         padding: 1rem;
-        border-radius: 5px;
+        border-radius: 8px;
         width: max-content;
         display: grid;
         justify-content: center;
@@ -81,7 +81,7 @@
         padding: 0.5rem 2.5rem;
         width: max-content;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         font-weight: 700;
         color: $primary-bg-color;
         height: 40px;

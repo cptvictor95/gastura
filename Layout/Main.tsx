@@ -9,7 +9,7 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
   return (
     <main className={styles.main}>
       <Head>
-        <title>{title && `${title} - `}Gastura</title>
+        <title>{title && `${title} - `}</title>
       </Head>
       {children}
     </main>
