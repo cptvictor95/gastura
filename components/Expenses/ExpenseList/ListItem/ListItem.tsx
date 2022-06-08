@@ -1,8 +1,14 @@
 import React from "react";
 import { Expense } from "types/Expense";
 import styles from "./styles.module.scss";
-
-const ListItem: React.FC<{ expense: Expense }> = ({ expense }) => {
+/**
+ * @todo
+ * create getBugdetById
+ */
+const ListItem: React.FC<{ expense: Expense; index: number }> = ({
+  expense,
+  index,
+}) => {
   const day = new Date(expense.createdAt).getUTCDate();
   const month = new Date(expense.createdAt).getUTCMonth() + 1;
 
@@ -11,11 +17,17 @@ const ListItem: React.FC<{ expense: Expense }> = ({ expense }) => {
   }`;
 
   return (
-    <div className={styles.listItem}>
+    <li className={styles.listItem}>
+      <p>{index + 1}</p>
       <p>{expense.description}</p>
       <p>R${expense.amount}</p>
+      <p>{expense.budgetId}</p>
       <p>{formattedDate}</p>
-    </div>
+      <div className={styles.options}>
+        <button className={styles.editButton}>ed</button>
+        <button className={styles.deleteButton}>de</button>
+      </div>
+    </li>
   );
 };
 
