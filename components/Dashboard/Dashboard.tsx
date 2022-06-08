@@ -100,6 +100,10 @@ const Dashboard: React.FC = () => {
     }
   }, [authState]);
 
+  const fixNumber = (hugeNumber) => {
+    return Number(hugeNumber).toFixed(2);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.balanceContainer}>
@@ -110,7 +114,7 @@ const Dashboard: React.FC = () => {
                 <p>R$00,00</p>
               </SkeletonText>
             ) : (
-              <LoadedText>R${totalExpenses}</LoadedText>
+              <LoadedText>R${fixNumber(totalExpenses)}</LoadedText>
             )}
             <p>Total de Gastos</p>
           </div>
@@ -125,7 +129,7 @@ const Dashboard: React.FC = () => {
                 <p>R$00,00</p>
               </SkeletonText>
             ) : (
-              <LoadedText>R${userWallet}</LoadedText>
+              <LoadedText>R${fixNumber(userWallet)}</LoadedText>
             )}
             <p>Carteira</p>
           </div>
@@ -138,7 +142,7 @@ const Dashboard: React.FC = () => {
                 <p>R$00,00</p>
               </SkeletonText>
             ) : (
-              <LoadedText>R${totalBudget}</LoadedText>
+              <LoadedText>R${fixNumber(totalBudget)}</LoadedText>
             )}
             <p>Orçamento total</p>
           </div>
