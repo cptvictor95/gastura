@@ -2,6 +2,39 @@
 
 .listItem {
   display: flex;
-  width: 50vh;
   justify-content: space-between;
+
+  p {
+    min-width: 150px;
+  }
+  .options {
+    display: flex;
+    gap: 1rem;
+    width: 40px;
+    height: 40px;
+    .editButton {
+      background-color: $primary-text-color;
+      padding: 0.5rem;
+      border-radius: 7px;
+      color: $primary-bg-color;
+      border: none;
+
+      &:hover {
+        filter: brightness(0.8);
+        transition: filter 300ms;
+      }
+    }
+    .deleteButton {
+      background-color: $primary-text-color;
+      padding: 0.5rem;
+      border-radius: 7px;
+      color: $primary-bg-color;
+      border: none;
+
+      &:hover {
+        filter: brightness(0.8);
+        transition: filter 300ms;
+      }
+    }
+  }
 }
