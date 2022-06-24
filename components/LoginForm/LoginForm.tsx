@@ -16,12 +16,13 @@ const LoginForm: React.FC = () => {
   } = useForm<LoginForm>({ mode: "onChange" });
   const router = useRouter();
 
-  const submitLoginForm = (data: LoginForm) => {
-    handleLogin(data.email, data.password);
+  const submitLoginForm = async (data: LoginForm) => {
+    await handleLogin(data.email, data.password);
   };
 
   const handleLogin = async (email: string, password: string) => {
     await login(email, password);
+
     await router.push("/");
   };
 

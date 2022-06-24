@@ -20,6 +20,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       return user.uid;
     } catch (error) {
+      console.error(error);
       throw error;
     }
   };
