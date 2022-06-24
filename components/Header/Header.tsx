@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 
 const Header: React.FC = () => {
   const router = useRouter();
-  const { authState, handleUserLogout } = useLoggedInUser();
+  const { user, authState, handleUserLogout } = useLoggedInUser();
 
   return (
     <header className={styles.header}>
@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 
       {authState === "LOADING" ? (
         <></>
-      ) : authState === "LOGGEDIN" ? (
+      ) : !user ? (
         <nav className={styles.nav}>
           <button className={styles.navButton} onClick={() => router.push("/")}>
             Home

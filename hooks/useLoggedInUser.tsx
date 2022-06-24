@@ -33,7 +33,7 @@ const useLoggedInUser = () => {
         .doc(firebaseUserId)
         .get()
         .then((doc) => {
-          const data = doc.data() as any;
+          const data = doc.data() as User;
 
           setUser(data);
         })
@@ -41,7 +41,7 @@ const useLoggedInUser = () => {
           setUser(false);
         });
     }
-  }, [firebase.user]);
+  }, [firebaseUserId]);
 
   return {
     authState: (user === false

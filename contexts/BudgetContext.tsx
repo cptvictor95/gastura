@@ -1,6 +1,5 @@
 import { FirebaseCtx } from "@/config/context";
 import React, { useContext, useMemo } from "react";
-import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
 
 interface BudgetContext {
