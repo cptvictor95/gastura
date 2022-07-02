@@ -1,6 +1,4 @@
 import { FirebaseCtx } from "@/config/context";
-import { BudgetCtx } from "@/contexts/BudgetContext";
-import Budgets from "pages/budgets";
 import React, { useContext, useState } from "react";
 import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
@@ -9,9 +7,12 @@ import styles from "./styles.module.scss";
 import { MdEdit, MdDelete } from "react-icons/md";
 
 /**
- * @todo
- * create getBugdetById
+ * @todo [X] create getBugdetById
+ * @todo [] create deleteExpense
+ * @todo [] create updateExpense
+ *
  */
+
 const ListItem: React.FC<{ expense: Expense; index: number }> = ({
   expense,
   index,
@@ -24,7 +25,6 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
     month < 10 ? `0${month}` : month
   }`;
   const { firestore } = useContext(FirebaseCtx);
-  const { getUserBudgets } = useContext(BudgetCtx);
 
   const getBudgetById = async (budgetId: string) => {
     try {
@@ -35,6 +35,7 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
         if (!data) console.error("Erro ao encontrar categoria.");
         return data;
       });
+
       return budget;
     } catch (error) {
       console.error(error);
@@ -46,26 +47,30 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
     const myBudget = await getBudgetById(budgetId).then((response) => {
       return response.name;
     });
+
     setMyBudgetName(myBudget);
+
     return myBudget;
   };
+
   handleGetBudgetName(expense.budgetId);
+
   return (
-    <li className={styles.listItem}>
-      <p>{index + 1}</p>
-      <p>{expense.description}</p>
-      <p>R${expense.amount}</p>
-      <p>{myBudgetName}</p>
-      <p>{formattedDate}</p>
-      <div className={styles.options}>
+    <tr className={styles.listItem}>
+      <td>{index + 1}</td>
+      <td>{expense.description}</td>
+      <td>R${expense.amount}</td>
+      <td>{myBudgetName}</td>
+      <td>{formattedDate}</td>
+      <td className={styles.options}>
         <button className={styles.editButton}>
           <MdEdit />
         </button>
         <button className={styles.deleteButton}>
           <MdDelete />
         </button>
-      </div>
-    </li>
+      </td>
+    </tr>
   );
 };
 

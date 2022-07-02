@@ -21,19 +21,19 @@ const ExpenseList: React.FC = () => {
   }, [user]);
 
   return (
-    <ul className={styles.table}>
-      <li className={styles.tableHead}>
-        <p>#</p>
-        <p>Nome</p>
-        <p>Valor</p>
-        <p>Categoria</p>
-        <p>Data</p>
-        <p>Opcao</p>
-      </li>
+    <table className={styles.table}>
+      <tr className={styles.tableRow}>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Valor</th>
+        <th>Categoria</th>
+        <th>Data</th>
+        <th>Opção</th>
+      </tr>
       {expenses.map((expense, index) => {
         return <ListItem expense={expense} key={expense.uid} index={index} />;
       })}
-    </ul>
+    </table>
   );
 };
 
