@@ -6,6 +6,7 @@ import { BudgetCtx } from "./BudgetContext";
 type ExpenseContext = {
   createExpense: (expense: Expense) => Promise<string>;
   getUserExpenses: (userId: string) => Promise<Expense[]>;
+  deleteExpense: (uid: string) => Promise<void>;
 };
 
 export const ExpenseCtx = React.createContext<ExpenseContext>(null);
@@ -27,8 +28,7 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
 
       return expenseId;
     } catch (error) {
-      console.error(error);
-      throw error;
+      throw new Error(error.message);
     }
   };
 
@@ -55,12 +55,22 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
 
       return userExpenses;
     } catch (error) {
-      console.error(error);
-      throw error;
+      throw new Error(error.message);
     }
   };
 
-  const actions = useMemo(() => ({ createExpense, getUserExpenses }), []);
+  const deleteExpense = async (uid: string) => {
+    try {
+      await firestore.collection("expenses").doc(uid).delete();
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  const actions = useMemo(
+    () => ({ createExpense, getUserExpenses, deleteExpense }),
+    []
+  );
 
   return <ExpenseCtx.Provider value={actions}>{children}</ExpenseCtx.Provider>;
 };

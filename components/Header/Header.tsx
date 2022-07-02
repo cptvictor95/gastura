@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 
       {authState === "LOADING" ? (
         <></>
-      ) : !user ? (
+      ) : user ? (
         <nav className={styles.nav}>
           <button className={styles.navButton} onClick={() => router.push("/")}>
             Home

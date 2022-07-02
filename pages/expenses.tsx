@@ -1,9 +1,16 @@
-import ExpenseList from "@/components/Expenses/ExpenseList/ExpenseList";
-import Header from "@/components/Header/Header";
+import React from "react";
+import dynamic from "next/dynamic";
 import { ExpenseProvider } from "@/contexts/ExpenseContext";
 import Main from "Layout/Main";
-import React from "react";
+import Header from "@/components/Header/Header";
 import styles from "../styles/pages/Expenses.module.scss";
+
+const ExpenseList = dynamic(
+  () => import("@/components/Expenses/ExpenseList/ExpenseList"),
+  {
+    ssr: false,
+  }
+);
 
 const Expenses: React.FC = () => {
   return (

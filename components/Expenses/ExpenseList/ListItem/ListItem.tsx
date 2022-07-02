@@ -1,28 +1,35 @@
 import { FirebaseCtx } from "@/config/context";
-import { BudgetCtx } from "@/contexts/BudgetContext";
-import Budgets from "pages/budgets";
 import React, { useContext, useState } from "react";
 import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
 import styles from "./styles.module.scss";
+import { MdEdit, MdDelete } from "react-icons/md";
+import { ExpenseCtx } from "@/contexts/ExpenseContext";
+import Popup from "reactjs-popup";
+import { useRouter } from "next/router";
 
 /**
- * @todo
- * create getBugdetById
+ * @todo [X] create getBugdetById
+ * @todo [X] create deleteExpense
+ * @todo [] create updateExpense
+ *
  */
+
 const ListItem: React.FC<{ expense: Expense; index: number }> = ({
   expense,
   index,
 }) => {
+  const router = useRouter();
   const [myBudgetName, setMyBudgetName] = useState<string | undefined>();
   const day = new Date(expense.createdAt).getUTCDate();
   const month = new Date(expense.createdAt).getUTCMonth() + 1;
 
-  const formattedDate = `${day < 10 ? `0${day}` : day} / ${
+  const formattedDate = `${day < 10 ? `0${day}` : day}/${
     month < 10 ? `0${month}` : month
   }`;
   const { firestore } = useContext(FirebaseCtx);
-  const { getUserBudgets } = useContext(BudgetCtx);
+  const { deleteExpense } = useContext(ExpenseCtx);
+  const [open, setOpen] = useState(false);
 
   const getBudgetById = async (budgetId: string) => {
     try {
@@ -30,9 +37,12 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
 
       const budget = await budgetRef.get().then((response) => {
         const data = response.data() as Budget;
+
         if (!data) console.error("Erro ao encontrar categoria.");
+
         return data;
       });
+
       return budget;
     } catch (error) {
       console.error(error);
@@ -44,22 +54,65 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
     const myBudget = await getBudgetById(budgetId).then((response) => {
       return response.name;
     });
+
     setMyBudgetName(myBudget);
+
     return myBudget;
   };
+
+  const handleDeleteExpense = async (expenseId: string) => {
+    try {
+      await deleteExpense(expenseId);
+
+      router.reload();
+    } catch (error) {
+      console.log("error", error);
+      throw error;
+    }
+  };
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   handleGetBudgetName(expense.budgetId);
+
   return (
-    <li className={styles.listItem}>
-      <p>{index + 1}</p>
-      <p>{expense.description}</p>
-      <p>R${expense.amount}</p>
-      <p>{myBudgetName}</p>
-      <p>{formattedDate}</p>
-      <div className={styles.options}>
-        <button className={styles.editButton}>ed</button>
-        <button className={styles.deleteButton}>de</button>
-      </div>
-    </li>
+    <tr className={styles.listItem}>
+      <td>{index + 1}</td>
+      <td>{expense.description}</td>
+      <td>R${expense.amount}</td>
+      <td>{myBudgetName}</td>
+      <td>{formattedDate}</td>
+      <td className={styles.options}>
+        <button className={styles.editButton}>
+          <MdEdit />
+        </button>
+        <button className={styles.deleteButton} onClick={openModal}>
+          <MdDelete />
+        </button>
+        <Popup open={open} modal closeOnEscape onClose={closeModal}>
+          <div className={styles.modal}>
+            <div className={styles.modalHeader}>
+              <h3>Tem certeza?</h3>
+              <button className={styles.closeBtn} onClick={closeModal}>
+                &times;
+              </button>
+            </div>
+            <button
+              className={styles.submitButton}
+              onClick={() => handleDeleteExpense(expense.uid)}
+            >
+              Sim
+            </button>
+          </div>
+        </Popup>
+      </td>
+    </tr>
   );
 };
 
