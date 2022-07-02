@@ -6,6 +6,8 @@ import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
 import styles from "./styles.module.scss";
 
+import { MdEdit, MdDelete } from "react-icons/md";
+
 /**
  * @todo
  * create getBugdetById
@@ -18,7 +20,7 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
   const day = new Date(expense.createdAt).getUTCDate();
   const month = new Date(expense.createdAt).getUTCMonth() + 1;
 
-  const formattedDate = `${day < 10 ? `0${day}` : day} / ${
+  const formattedDate = `${day < 10 ? `0${day}` : day}/${
     month < 10 ? `0${month}` : month
   }`;
   const { firestore } = useContext(FirebaseCtx);
@@ -56,8 +58,12 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
       <p>{myBudgetName}</p>
       <p>{formattedDate}</p>
       <div className={styles.options}>
-        <button className={styles.editButton}>ed</button>
-        <button className={styles.deleteButton}>de</button>
+        <button className={styles.editButton}>
+          <MdEdit />
+        </button>
+        <button className={styles.deleteButton}>
+          <MdDelete />
+        </button>
       </div>
     </li>
   );
