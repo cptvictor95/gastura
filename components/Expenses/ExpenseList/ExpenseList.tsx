@@ -9,11 +9,13 @@ const ExpenseList: React.FC = () => {
   const { getUserExpenses } = useContext(ExpenseCtx);
   const { user } = useLoggedInUser();
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleGetUserExpenses = async (userId: string) => {
     const expenses = await getUserExpenses(userId);
 
     setExpenses(expenses);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -30,9 +32,13 @@ const ExpenseList: React.FC = () => {
         <th>Data</th>
         <th>Opção</th>
       </tr>
-      {expenses.map((expense, index) => {
-        return <ListItem expense={expense} key={expense.uid} index={index} />;
-      })}
+      {isLoading
+        ? "LOADING"
+        : expenses.map((expense, index) => {
+            return (
+              <ListItem expense={expense} key={expense.uid} index={index} />
+            );
+          })}
     </table>
   );
 };

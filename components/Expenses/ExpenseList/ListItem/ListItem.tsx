@@ -3,12 +3,14 @@ import React, { useContext, useState } from "react";
 import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
 import styles from "./styles.module.scss";
-
 import { MdEdit, MdDelete } from "react-icons/md";
+import { ExpenseCtx } from "@/contexts/ExpenseContext";
+import Popup from "reactjs-popup";
+import { useRouter } from "next/router";
 
 /**
  * @todo [X] create getBugdetById
- * @todo [] create deleteExpense
+ * @todo [X] create deleteExpense
  * @todo [] create updateExpense
  *
  */
@@ -17,6 +19,7 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
   expense,
   index,
 }) => {
+  const router = useRouter();
   const [myBudgetName, setMyBudgetName] = useState<string | undefined>();
   const day = new Date(expense.createdAt).getUTCDate();
   const month = new Date(expense.createdAt).getUTCMonth() + 1;
@@ -25,6 +28,8 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
     month < 10 ? `0${month}` : month
   }`;
   const { firestore } = useContext(FirebaseCtx);
+  const { deleteExpense } = useContext(ExpenseCtx);
+  const [open, setOpen] = useState(false);
 
   const getBudgetById = async (budgetId: string) => {
     try {
@@ -32,7 +37,9 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
 
       const budget = await budgetRef.get().then((response) => {
         const data = response.data() as Budget;
+
         if (!data) console.error("Erro ao encontrar categoria.");
+
         return data;
       });
 
@@ -53,6 +60,25 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
     return myBudget;
   };
 
+  const handleDeleteExpense = async (expenseId: string) => {
+    try {
+      await deleteExpense(expenseId);
+
+      router.reload();
+    } catch (error) {
+      console.log("error", error);
+      throw error;
+    }
+  };
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   handleGetBudgetName(expense.budgetId);
 
   return (
@@ -66,9 +92,25 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
         <button className={styles.editButton}>
           <MdEdit />
         </button>
-        <button className={styles.deleteButton}>
+        <button className={styles.deleteButton} onClick={openModal}>
           <MdDelete />
         </button>
+        <Popup open={open} modal closeOnEscape onClose={closeModal}>
+          <div className={styles.modal}>
+            <div className={styles.modalHeader}>
+              <h3>Tem certeza?</h3>
+              <button className={styles.closeBtn} onClick={closeModal}>
+                &times;
+              </button>
+            </div>
+            <button
+              className={styles.submitButton}
+              onClick={() => handleDeleteExpense(expense.uid)}
+            >
+              Sim
+            </button>
+          </div>
+        </Popup>
       </td>
     </tr>
   );
