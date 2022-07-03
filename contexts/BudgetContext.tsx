@@ -1,12 +1,15 @@
 import { FirebaseCtx } from "@/config/context";
+import useLoggedInUser from "@/hooks/useLoggedInUser";
 import React, { useContext, useMemo } from "react";
 import { Budget } from "types/Budget";
+import { UserCtx } from "./UserContext";
 
 interface BudgetContext {
   createBudget: (budget: Budget) => Promise<string>;
   getUserBudgets: (userId: string) => Promise<Budget[]>;
   updateBudget: (budgetId: string, budget: Partial<Budget>) => Promise<void>;
   getBudgetById: (uid: string) => Promise<Budget>;
+  deleteBudget: (uid: string) => Promise<void>;
 }
 
 export const BudgetCtx = React.createContext<BudgetContext>(null);
@@ -15,6 +18,10 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { firestore } = useContext(FirebaseCtx);
+
+  const { user } = useLoggedInUser();
+
+  const { updateUser } = useContext(UserCtx);
 
   const getUserBudgets = async (userId: string) => {
     try {
@@ -87,12 +94,26 @@ export const BudgetProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const deleteBudget = async (uid: string) => {
+    try {
+      const newUserBudgets =
+        user && user.budgets.filter((budgetId) => budgetId !== uid);
+
+      user && (await updateUser(user.uid, { budgets: [...newUserBudgets] }));
+
+      await firestore.collection("budgets").doc(uid).delete();
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
   const actions = useMemo(
     () => ({
       createBudget,
       getUserBudgets,
       updateBudget,
       getBudgetById,
+      deleteBudget,
     }),
     []
   );

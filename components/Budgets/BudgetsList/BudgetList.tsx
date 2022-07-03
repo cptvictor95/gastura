@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 import Loading from "@/components/Loading/Loading";
 import AddBudget from "../AddBudget";
 import useBudgets from "stores/useBudgets";
+
 /**
  * @todo use budget context
  * @todo create handler for getBudgets
@@ -16,7 +17,6 @@ import useBudgets from "stores/useBudgets";
 const BudgetList: React.FC = () => {
   const { getUserBudgets } = useContext(BudgetCtx);
   const { user } = useLoggedInUser();
-  console.log(user);
   const { budgets, setBudgets } = useBudgets();
   const [isLoading, setIsLoading] = useState(true);
 
