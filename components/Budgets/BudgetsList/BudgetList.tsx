@@ -60,7 +60,7 @@ const BudgetList: React.FC = () => {
           })
         )}
 
-        {!isLoading && budgets && budgets.length !== 0 && (
+        {!isLoading && budgets && budgets.length === 0 && (
           <tbody className={styles.emptyMessage}>
             <p>Nenhuma entrada adicionada até agora.</p>
             <AddBudget />
