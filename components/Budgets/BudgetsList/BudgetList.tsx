@@ -6,6 +6,7 @@ import Expenses from "pages/expenses";
 import ListItem from "./ListItem/ListItem";
 import styles from "./styles.module.scss";
 import { MdDelete, MdEdit } from "react-icons/md";
+import Loading from "@/components/Loading/Loading";
 /**
  * @todo use budget context
  * @todo create handler for getBudgets
@@ -39,20 +40,24 @@ const BudgetList: React.FC = () => {
 
   return (
     <div>
-      <table>
-        <tr>
-          <th>#</th>
-          <th>Nome</th>
-          <th>Valor</th>
-          <th>Opção</th>
-        </tr>
-        {isLoading
-          ? "LOADING"
-          : budget.map((budget, index) => {
-              return (
-                <ListItem budget={budget} key={budget.uid} index={index} />
-              );
-            })}
+      <table className={styles.table}>
+        <thead>
+          <tr className={styles.tableRow}>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Opção</th>
+          </tr>
+        </thead>
+        {isLoading ? (
+          <tbody className={styles.loadingContainer}>
+            <Loading />
+          </tbody>
+        ) : (
+          budget.map((budget, index) => {
+            return <ListItem budget={budget} key={budget.uid} index={index} />;
+          })
+        )}
       </table>
     </div>
   );

@@ -12,7 +12,7 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
   index,
 }) => {
   return (
-    <tr>
+    <tr className={styles.listItem}>
       <td>{index + 1}</td>
       <td>{budget.name}</td>
       <td>{budget.amount}</td>
