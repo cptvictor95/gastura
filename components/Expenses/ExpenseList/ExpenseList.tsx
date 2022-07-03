@@ -26,18 +26,20 @@ const ExpenseList: React.FC = () => {
 
   return (
     <table className={styles.table}>
-      <tr className={styles.tableRow}>
-        <th>#</th>
-        <th>Nome</th>
-        <th>Valor</th>
-        <th>Categoria</th>
-        <th>Data</th>
-        <th>Opção</th>
-      </tr>
+      <thead>
+        <tr className={styles.tableRow}>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Categoria</th>
+          <th>Data</th>
+          <th>Opção</th>
+        </tr>
+      </thead>
       {isLoading ? (
-        <div className={styles.loadingContainer}>
+        <tbody className={styles.loadingContainer}>
           <Loading />
-        </div>
+        </tbody>
       ) : (
         expenses.map((expense, index) => {
           return <ListItem expense={expense} key={expense.uid} index={index} />;
@@ -45,10 +47,10 @@ const ExpenseList: React.FC = () => {
       )}
 
       {!isLoading && expenses.length === 0 && (
-        <div className={styles.emptyMessage}>
+        <tbody className={styles.emptyMessage}>
           <p>Nenhum gasto adicionado até agora.</p>
           <AddExpense />
-        </div>
+        </tbody>
       )}
     </table>
   );

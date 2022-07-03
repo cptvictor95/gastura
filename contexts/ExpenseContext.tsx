@@ -6,7 +6,7 @@ import { BudgetCtx } from "./BudgetContext";
 type ExpenseContext = {
   createExpense: (expense: Expense) => Promise<string>;
   getUserExpenses: (userId: string) => Promise<Expense[]>;
-  deleteExpense: (uid: string) => Promise<void>;
+  deleteExpense: (uid: string, budgetId: string) => Promise<void>;
 };
 
 export const ExpenseCtx = React.createContext<ExpenseContext>(null);
@@ -15,7 +15,7 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { firestore } = useContext(FirebaseCtx);
-  const { getUserBudgets } = useContext(BudgetCtx);
+  const { getUserBudgets, getBudgetById, updateBudget } = useContext(BudgetCtx);
 
   // Refactor return to be the same object registered inside firestore for UI upload
   const createExpense = async (expense: Expense) => {
@@ -59,8 +59,18 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const deleteExpense = async (uid: string) => {
+  const deleteExpense = async (uid: string, budgetId: string) => {
     try {
+      // remove deleted expenseId from budget.expenses
+      const budget = await getBudgetById(budgetId);
+
+      const newBudgetExpenses = budget.expenses.filter(
+        (expenseId) => expenseId !== uid
+      );
+
+      await updateBudget(budget.uid, { expenses: [...newBudgetExpenses] });
+
+      // delete expense from collection
       await firestore.collection("expenses").doc(uid).delete();
     } catch (error) {
       throw new Error(error.message);

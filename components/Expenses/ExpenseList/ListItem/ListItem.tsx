@@ -60,9 +60,9 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
     return myBudget;
   };
 
-  const handleDeleteExpense = async (expenseId: string) => {
+  const handleDeleteExpense = async (expenseId: string, budgetId: string) => {
     try {
-      await deleteExpense(expenseId);
+      await deleteExpense(expenseId, budgetId);
 
       router.reload();
     } catch (error) {
@@ -105,7 +105,7 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
             </div>
             <button
               className={styles.submitButton}
-              onClick={() => handleDeleteExpense(expense.uid)}
+              onClick={() => handleDeleteExpense(expense.uid, expense.budgetId)}
             >
               Sim
             </button>
