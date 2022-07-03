@@ -1,17 +1,17 @@
 import Main from "Layout/Main";
 import React from "react";
-import styles from "../styles/pages/Budgets.module.scss";
 import Header from "../components/Header/Header";
 import { BudgetProvider } from "@/contexts/BudgetContext";
+import Container from "Layout/Container";
 
 const Budgets: React.FC = () => {
   return (
     <BudgetProvider>
       <Header />
       <Main title="Orçamento">
-        <div className={styles.container}>
+        <Container>
           <h2>Orçamento</h2>
-        </div>
+        </Container>
       </Main>
     </BudgetProvider>
   );

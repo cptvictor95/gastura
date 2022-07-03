@@ -105,7 +105,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.balanceContainer}>
         <div className={styles.expense}>
           <div className={styles.card}>
@@ -153,7 +153,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <div className={styles.mainColumns}></div>
-    </div>
+    </>
   );
 };
 
