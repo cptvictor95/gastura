@@ -1,7 +1,9 @@
+import Loading from "@/components/Loading/Loading";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import React, { useContext, useEffect, useState } from "react";
 import { Expense } from "types/Expense";
+import AddExpense from "../AddExpenses/AddExpense";
 import ListItem from "./ListItem/ListItem";
 import styles from "./styles.module.scss";
 
@@ -32,13 +34,22 @@ const ExpenseList: React.FC = () => {
         <th>Data</th>
         <th>Opção</th>
       </tr>
-      {isLoading
-        ? "LOADING"
-        : expenses.map((expense, index) => {
-            return (
-              <ListItem expense={expense} key={expense.uid} index={index} />
-            );
-          })}
+      {isLoading ? (
+        <div className={styles.loadingContainer}>
+          <Loading />
+        </div>
+      ) : (
+        expenses.map((expense, index) => {
+          return <ListItem expense={expense} key={expense.uid} index={index} />;
+        })
+      )}
+
+      {!isLoading && expenses.length === 0 && (
+        <div className={styles.emptyMessage}>
+          <p>Nenhum gasto adicionado até agora.</p>
+          <AddExpense />
+        </div>
+      )}
     </table>
   );
 };
