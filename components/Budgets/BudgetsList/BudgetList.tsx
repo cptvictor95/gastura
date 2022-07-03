@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import { Budget } from "types/Budget";
 import { BudgetCtx } from "@/contexts/BudgetContext";
-import Expenses from "pages/expenses";
 import ListItem from "./ListItem/ListItem";
 import styles from "./styles.module.scss";
-import { MdDelete, MdEdit } from "react-icons/md";
 import Loading from "@/components/Loading/Loading";
+import AddBudget from "../AddBudget";
+import useBudgets from "stores/useBudgets";
 /**
  * @todo use budget context
  * @todo create handler for getBudgets
@@ -18,13 +17,13 @@ const BudgetList: React.FC = () => {
   const { getUserBudgets } = useContext(BudgetCtx);
   const { user } = useLoggedInUser();
   console.log(user);
-  const [budget, setBudget] = useState<Budget[]>([]);
+  const { budgets, setBudgets } = useBudgets();
   const [isLoading, setIsLoading] = useState(true);
 
   const handleGetUserBudget = async (userId: string) => {
-    const budget = await getUserBudgets(userId);
+    const budgets = await getUserBudgets(userId);
 
-    setBudget(budget);
+    setBudgets(budgets);
     setIsLoading(false);
   };
 
@@ -49,14 +48,23 @@ const BudgetList: React.FC = () => {
             <th>Opção</th>
           </tr>
         </thead>
+
         {isLoading ? (
           <tbody className={styles.loadingContainer}>
             <Loading />
           </tbody>
         ) : (
-          budget.map((budget, index) => {
+          budgets &&
+          budgets.map((budget, index) => {
             return <ListItem budget={budget} key={budget.uid} index={index} />;
           })
+        )}
+
+        {!isLoading && budgets && budgets.length !== 0 && (
+          <tbody className={styles.emptyMessage}>
+            <p>Nenhuma entrada adicionada até agora.</p>
+            <AddBudget />
+          </tbody>
         )}
       </table>
     </div>
