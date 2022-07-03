@@ -2,7 +2,7 @@ import { Expense } from "types/Expense";
 import create from "zustand";
 
 export type ExpenseStore = {
-  expenses: Expense[] | boolean;
+  expenses: Expense[] | false;
   setExpenses: (expenses: Expense[]) => void;
 };
 

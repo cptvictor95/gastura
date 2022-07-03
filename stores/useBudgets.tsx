@@ -2,7 +2,7 @@ import { Budget } from "types/Budget";
 import create from "zustand";
 
 export type BudgetStore = {
-  budgets: Budget[] | boolean;
+  budgets: Budget[] | false;
   setBudgets: (budgets: Budget[]) => void;
 };
 

@@ -43,9 +43,9 @@ const Dashboard: React.FC = () => {
   const { authState, user } = useLoggedInUser();
   const { getUserBudgets } = useContext(BudgetCtx);
   const { getUserExpenses } = useContext(ExpenseCtx);
-  const [totalBudget, setTotalBudget] = useState<number | boolean>(false);
-  const [totalExpenses, setTotalExpenses] = useState<number | boolean>(false);
-  const [userWallet, setUserWallet] = useState<number | boolean>(false);
+  const [totalBudget, setTotalBudget] = useState<number | false>(false);
+  const [totalExpenses, setTotalExpenses] = useState<number | false>(false);
+  const [userWallet, setUserWallet] = useState<number | false>(false);
   const [isLoading, setIsLoading] = useState(true);
   const { budgets, setBudgets } = useBudgets();
   const { expenses, setExpenses } = useExpenses();
@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    if (typeof budgets !== "boolean" && typeof expenses !== "boolean") {
+    if (budgets && expenses) {
       handleUserTotals(budgets, expenses);
       setIsLoading(false);
     }
@@ -100,12 +100,12 @@ const Dashboard: React.FC = () => {
     }
   }, [authState]);
 
-  const fixNumber = (hugeNumber) => {
+  const fixNumber = (hugeNumber: number) => {
     return Number(hugeNumber).toFixed(2);
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.balanceContainer}>
         <div className={styles.expense}>
           <div className={styles.card}>
@@ -114,7 +114,9 @@ const Dashboard: React.FC = () => {
                 <p>R$00,00</p>
               </SkeletonText>
             ) : (
-              <LoadedText>R${fixNumber(totalExpenses)}</LoadedText>
+              <LoadedText>
+                R${totalExpenses && fixNumber(totalExpenses)}
+              </LoadedText>
             )}
             <p>Total de Gastos</p>
           </div>
@@ -129,7 +131,7 @@ const Dashboard: React.FC = () => {
                 <p>R$00,00</p>
               </SkeletonText>
             ) : (
-              <LoadedText>R${fixNumber(userWallet)}</LoadedText>
+              <LoadedText>R${userWallet && fixNumber(userWallet)}</LoadedText>
             )}
             <p>Carteira</p>
           </div>
@@ -142,7 +144,7 @@ const Dashboard: React.FC = () => {
                 <p>R$00,00</p>
               </SkeletonText>
             ) : (
-              <LoadedText>R${fixNumber(totalBudget)}</LoadedText>
+              <LoadedText>R${totalBudget && fixNumber(totalBudget)}</LoadedText>
             )}
             <p>Orçamento total</p>
           </div>
@@ -151,7 +153,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <div className={styles.mainColumns}></div>
-    </div>
+    </>
   );
 };
 
