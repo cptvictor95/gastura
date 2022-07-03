@@ -3,7 +3,7 @@ import React, { useContext, useMemo } from "react";
 import { Budget } from "types/Budget";
 
 interface BudgetContext {
-  createBudget: ({ name, amount }: Budget) => Promise<string>;
+  createBudget: (budget: Budget) => Promise<string>;
   getUserBudgets: (userId: string) => Promise<Budget[]>;
   updateBudget: (budgetId: string, budget: Partial<Budget>) => Promise<void>;
   getBudgetById: (uid: string) => Promise<Budget>;

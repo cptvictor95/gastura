@@ -32,7 +32,7 @@ const AddBudget: React.FC = () => {
   const { createBudget } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
 
-  const submitExpenseForm = (data: BudgetForm) => {
+  const submitBudgetForm = (data: BudgetForm) => {
     handleCreateBudget({
       name: data.name,
       amount: Number(data.amount),
@@ -57,11 +57,11 @@ const AddBudget: React.FC = () => {
             name: newBudget.name,
             amount: newBudget.amount,
             userId: user.uid,
-            expenses: {},
+            expenses: [],
           });
 
           await updateUser(user.uid, {
-            budgets: { ...user.budgets, [newBudgetId]: true },
+            budgets: [...user.budgets, newBudgetId],
           });
 
           setBudgets([
@@ -104,7 +104,7 @@ const AddBudget: React.FC = () => {
           <div className={styles.formContainer}>
             <form
               className={styles.form}
-              onSubmit={handleSubmit(submitExpenseForm)}
+              onSubmit={handleSubmit(submitBudgetForm)}
             >
               <div className={styles.formControl}>
                 <label htmlFor="name">Nome</label>

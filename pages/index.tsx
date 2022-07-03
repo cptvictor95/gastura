@@ -2,6 +2,7 @@ import Dashboard from "@/components/Dashboard/Dashboard";
 import { BudgetProvider } from "@/contexts/BudgetContext";
 import { ExpenseProvider } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
+import Container from "Layout/Container";
 import Main from "Layout/Main";
 import Header from "../components/Header/Header";
 
@@ -15,7 +16,9 @@ const Home: React.FC = () => {
         {authState === "LOGGEDIN" && (
           <BudgetProvider>
             <ExpenseProvider>
-              <Dashboard />
+              <Container>
+                <Dashboard />
+              </Container>
             </ExpenseProvider>
           </BudgetProvider>
         )}

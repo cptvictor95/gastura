@@ -1,7 +1,9 @@
+import Loading from "@/components/Loading/Loading";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import React, { useContext, useEffect, useState } from "react";
 import { Expense } from "types/Expense";
+import AddExpense from "../AddExpenses/AddExpense";
 import ListItem from "./ListItem/ListItem";
 import styles from "./styles.module.scss";
 
@@ -24,21 +26,32 @@ const ExpenseList: React.FC = () => {
 
   return (
     <table className={styles.table}>
-      <tr className={styles.tableRow}>
-        <th>#</th>
-        <th>Nome</th>
-        <th>Valor</th>
-        <th>Categoria</th>
-        <th>Data</th>
-        <th>Opção</th>
-      </tr>
-      {isLoading
-        ? "LOADING"
-        : expenses.map((expense, index) => {
-            return (
-              <ListItem expense={expense} key={expense.uid} index={index} />
-            );
-          })}
+      <thead>
+        <tr className={styles.tableRow}>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Categoria</th>
+          <th>Data</th>
+          <th>Opção</th>
+        </tr>
+      </thead>
+      {isLoading ? (
+        <tbody className={styles.loadingContainer}>
+          <Loading />
+        </tbody>
+      ) : (
+        expenses.map((expense, index) => {
+          return <ListItem expense={expense} key={expense.uid} index={index} />;
+        })
+      )}
+
+      {!isLoading && expenses.length === 0 && (
+        <tbody className={styles.emptyMessage}>
+          <p>Nenhum gasto adicionado até agora.</p>
+          <AddExpense />
+        </tbody>
+      )}
     </table>
   );
 };

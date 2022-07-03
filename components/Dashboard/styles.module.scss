@@ -1,103 +1,97 @@
 @import "../../styles/theme.module";
 
-.container {
-  width: 100%;
-  min-height: 90vh;
-  padding: 3rem;
+.balanceContainer {
+  display: flex;
+  justify-content: space-between;
 
-  .balanceContainer {
+  .balance {
+    align-items: center;
+
+    .card {
+      .loadingText {
+        p {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    p {
+      font-size: 1.5rem;
+
+      &:last-child {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .budget {
+    align-items: flex-end;
+  }
+
+  div {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1rem;
 
-    .balance {
-      align-items: center;
+    .card {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      width: max-content;
+      display: grid;
+      justify-content: center;
+      gap: 1rem;
 
-      .card {
-        .loadingText {
-          p {
-            font-size: 1.5rem;
+      .skeletonText {
+        background-color: $primary-color;
+        height: max-content;
+        width: 100%;
+        border-radius: 2px;
+
+        animation: pulse 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        p {
+          visibility: hidden;
+        }
+
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.3;
           }
         }
       }
 
       p {
-        font-size: 1.5rem;
-
-        &:last-child {
-          font-size: 1rem;
-        }
+        margin: 0;
       }
     }
 
-    .budget {
-      align-items: flex-end;
-    }
+    button {
+      padding: 0.5rem 2.5rem;
+      width: max-content;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      color: $primary-bg-color;
+      height: 40px;
+      background-color: $primary-text-color;
 
-    div {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      .card {
-        background-color: rgba(255, 255, 255, 0.05);
-        padding: 1rem;
-        border-radius: 8px;
-        width: max-content;
-        display: grid;
-        justify-content: center;
-        gap: 1rem;
-
-        .skeletonText {
-          background-color: $primary-color;
-          height: max-content;
-          width: 100%;
-          border-radius: 2px;
-
-          animation: pulse 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-            0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          p {
-            visibility: hidden;
-          }
-
-          @keyframes pulse {
-            0%,
-            100% {
-              opacity: 1;
-            }
-            50% {
-              opacity: 0.3;
-            }
-          }
-        }
-
-        p {
-          margin: 0;
-        }
-      }
-
-      button {
-        padding: 0.5rem 2.5rem;
-        width: max-content;
-        border: none;
-        border-radius: 8px;
-        font-weight: 700;
-        color: $primary-bg-color;
-        height: 40px;
-        background-color: $primary-text-color;
-
-        &:hover {
-          filter: brightness(0.8);
-          transition: filter ease-in-out 250ms;
-        }
+      &:hover {
+        filter: brightness(0.8);
+        transition: filter ease-in-out 250ms;
       }
     }
   }
+}
 
-  .mainColumns {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
+.mainColumns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

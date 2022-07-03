@@ -8,6 +8,33 @@
   width: 100%;
   max-width: 1024px;
 
+  .emptyMessage {
+    padding: 2rem 3rem;
+    text-align: center;
+
+    button {
+      padding: 0.5rem 2.5rem;
+      width: max-content;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      color: $primary-bg-color;
+      height: 40px;
+      background-color: $primary-text-color;
+
+      &:hover {
+        filter: brightness(0.8);
+        transition: filter ease-in-out 250ms;
+      }
+    }
+  }
+
+  .loadingContainer {
+    display: grid;
+    place-content: center;
+    padding: 2rem 3rem;
+  }
+
   .tableRow {
     display: flex;
     align-items: center;

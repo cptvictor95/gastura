@@ -55,7 +55,7 @@ const AddExpense: React.FC = () => {
 
         if (newExpenseId && budget) {
           await updateBudget(newExpense.budgetId, {
-            expenses: { ...budget.expenses, [newExpenseId]: true },
+            expenses: [...budget.expenses, newExpenseId],
           });
 
           setExpenses([...expenses, { uid: newExpenseId, ...newExpense }]);
