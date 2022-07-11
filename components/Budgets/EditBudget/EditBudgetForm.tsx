@@ -16,7 +16,6 @@ const EditBudgetForm = ({ budget }) => {
   });
 
   const submitUpdate = async (data) => {
-    await router.push("/budgets");
     try {
       await updateBudget(budget.uid, {
         ...budget,
@@ -26,13 +25,13 @@ const EditBudgetForm = ({ budget }) => {
     } catch (error) {
       console.log(error);
     }
+    await router.push("/budgets");
   };
 
   return (
     <>
       <h2 className={styles.h2}>Edite seu orçamento</h2>
       <form onSubmit={handleSubmit(submitUpdate)} className={styles.form}>
-        router.
         <div className={styles.entrada}>Entrada</div>
         <input className={styles.inputN} {...register("name")} />
         <div className={styles.valor}>Valor</div>
