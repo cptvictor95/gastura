@@ -1,9 +1,12 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
+import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 
 const EditBudgetForm = ({ budget }) => {
+  const router = useRouter;
+
   const { updateBudget } = useContext(BudgetCtx);
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -25,11 +28,26 @@ const EditBudgetForm = ({ budget }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitUpdate)} className={styles.form}>
-      <input {...register("name")} />
-      <input {...register("amount")} />
-      <button type="submit">Send</button>
-    </form>
+    <>
+      <h2 className={styles.h2}>Edite seu orçamento</h2>
+      <form onSubmit={handleSubmit(submitUpdate)} className={styles.form}>
+        <div className={styles.entrada}>Entrada</div>
+
+        <input className={styles.inputN} {...register("name")} />
+
+        <div className={styles.valor}>Valor</div>
+
+        <input className={styles.inputV} {...register("amount")} />
+
+        <button
+          className={styles.button}
+          //onClick={() => router.push("/budgets")}
+          type="submit"
+        >
+          Alterar
+        </button>
+      </form>
+    </>
   );
 };
 export default EditBudgetForm;
