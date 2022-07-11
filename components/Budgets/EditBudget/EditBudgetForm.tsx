@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 
 const EditBudgetForm = ({ budget }) => {
-  const router = useRouter;
+  const router = useRouter();
 
   const { updateBudget } = useContext(BudgetCtx);
   const { register, handleSubmit } = useForm({
@@ -16,6 +16,7 @@ const EditBudgetForm = ({ budget }) => {
   });
 
   const submitUpdate = async (data) => {
+    await router.push("/budgets");
     try {
       await updateBudget(budget.uid, {
         ...budget,
@@ -31,19 +32,12 @@ const EditBudgetForm = ({ budget }) => {
     <>
       <h2 className={styles.h2}>Edite seu orçamento</h2>
       <form onSubmit={handleSubmit(submitUpdate)} className={styles.form}>
+        router.
         <div className={styles.entrada}>Entrada</div>
-
         <input className={styles.inputN} {...register("name")} />
-
         <div className={styles.valor}>Valor</div>
-
         <input className={styles.inputV} {...register("amount")} />
-
-        <button
-          className={styles.button}
-          //onClick={() => router.push("/budgets")}
-          type="submit"
-        >
+        <button className={styles.button} type="submit">
           Alterar
         </button>
       </form>
