@@ -5,6 +5,8 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import router from "next/router";
 import Popup from "reactjs-popup";
+import useLoggedInUser from "@/hooks/useLoggedInUser";
+import { User } from "types/User";
 /**
  * @todo create list,
  * @todo create listItem,
@@ -16,9 +18,11 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
 }) => {
   const { deleteBudget } = useContext(BudgetCtx);
   const [open, setOpen] = useState(false);
-  const handleDeleteBudget = async (uid: string) => {
+
+  const { user } = useLoggedInUser();
+  const handleDeleteBudget = async (uid: string, user: User | false) => {
     try {
-      await deleteBudget(uid);
+      if (user) await deleteBudget(uid, user);
 
       router.reload();
     } catch (error) {
@@ -40,7 +44,10 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
       <td>{budget.name}</td>
       <td>{budget.amount}</td>
       <td className={styles.options}>
-        <button className={styles.editButton}>
+        <button
+          className={styles.editButton}
+          onClick={() => router.push(`/editbudget/${budget.uid}`)}
+        >
           <MdEdit />
         </button>
         <button className={styles.deleteButton} onClick={openModal}>
@@ -56,7 +63,7 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
             </div>
             <button
               className={styles.submitButton}
-              onClick={() => handleDeleteBudget(budget.uid)}
+              onClick={() => handleDeleteBudget(budget.uid, user)}
             >
               Sim
             </button>
