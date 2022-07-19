@@ -44,8 +44,11 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
       <td>{budget.name}</td>
       <td>{budget.amount}</td>
       <td className={styles.options}>
-        <button className={styles.editButton}>
-          <MdEdit onClick={() => router.push(`/editbudget/${budget.uid}`)} />
+        <button
+          className={styles.editButton}
+          onClick={() => router.push(`/editbudget/${budget.uid}`)}
+        >
+          <MdEdit />
         </button>
         <button className={styles.deleteButton} onClick={openModal}>
           <MdDelete />

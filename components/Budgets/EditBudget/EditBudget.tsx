@@ -3,12 +3,7 @@ import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { Budget } from "types/Budget";
 import EditBudgetForm from "./EditBudgetForm";
-/**
- *
- * @todo fazer handler para usar funcao do contexto getbudgetbyId
- * @todo usar useEffect para disparar handler quando a pagina renderiza
- * @todo criar um state para guardar os dados do budget e renderizar na tela
- */
+
 const EditBudget = () => {
   const router = useRouter();
   const budgetId = router.query?.budgetId as string;

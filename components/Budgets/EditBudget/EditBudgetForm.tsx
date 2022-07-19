@@ -20,7 +20,7 @@ const EditBudgetForm = ({ budget }) => {
       await updateBudget(budget.uid, {
         ...budget,
         name: data.name,
-        amount: data.amount,
+        amount: Number(data.amount),
       });
     } catch (error) {
       console.log(error);
@@ -32,10 +32,15 @@ const EditBudgetForm = ({ budget }) => {
     <>
       <h2 className={styles.h2}>Edite seu orçamento</h2>
       <form onSubmit={handleSubmit(submitUpdate)} className={styles.form}>
-        <div className={styles.entrada}>Entrada</div>
+        <label className={styles.entrada}>Entrada</label>
         <input className={styles.inputN} {...register("name")} />
-        <div className={styles.valor}>Valor</div>
-        <input className={styles.inputV} {...register("amount")} />
+        <label className={styles.valor}>Valor</label>
+        <input
+          className={styles.inputV}
+          {...register("amount")}
+          type="number"
+          step="0.01"
+        />
         <button className={styles.button} type="submit">
           Alterar
         </button>

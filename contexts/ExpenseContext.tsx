@@ -7,6 +7,11 @@ type ExpenseContext = {
   createExpense: (expense: Expense) => Promise<string>;
   getUserExpenses: (userId: string) => Promise<Expense[]>;
   deleteExpense: (uid: string, budgetId: string) => Promise<void>;
+  getExpenseById: (uid: string) => Promise<Expense>;
+  updateExpense: (
+    expenseId: string,
+    expense: Partial<Expense>
+  ) => Promise<void>;
 };
 
 export const ExpenseCtx = React.createContext<ExpenseContext>(null);
@@ -29,6 +34,24 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
       return expenseId;
     } catch (error) {
       throw new Error(error.message);
+    }
+  };
+
+  const updateExpense = async (
+    expenseId: string,
+    expense: Partial<Expense>
+  ) => {
+    try {
+      if (!expenseId) {
+        throw new Error("Gasto não encontrado");
+      }
+
+      const expenseRef = firestore.collection("expenses").doc(expenseId);
+
+      await expenseRef.update({ ...expense });
+    } catch (error) {
+      console.error(error);
+      throw new Error("");
     }
   };
 
@@ -77,8 +100,30 @@ export const ExpenseProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const getExpenseById = async (uid: string) => {
+    try {
+      if (!uid) console.error("Gasto não encontrado");
+
+      const expense = await firestore
+        .collection("expenses")
+        .doc(uid)
+        .get()
+        .then((doc) => doc.data() as Expense);
+
+      return expense;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
   const actions = useMemo(
-    () => ({ createExpense, getUserExpenses, deleteExpense }),
+    () => ({
+      createExpense,
+      getUserExpenses,
+      deleteExpense,
+      getExpenseById,
+      updateExpense,
+    }),
     []
   );
 
