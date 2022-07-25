@@ -33,7 +33,7 @@ const EditBudgetForm = ({ budget }) => {
       <Flex height="90vh" alignItems="center" justifyContent="center" mt="-28">
         <Flex
           direction="column"
-          background="gray.700"
+          background="green.900"
           p={12}
           rounded={6}
           fontSize="lg"
@@ -50,8 +50,8 @@ const EditBudgetForm = ({ budget }) => {
             <Button
               type="submit"
               _hover={{
-                background: "gray.400",
-                color: "black",
+                filter: "auto",
+                brightness: "90%",
               }}
               color="black"
               background="gray.100"

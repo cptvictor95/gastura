@@ -39,7 +39,7 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
       <Flex height="100vh" alignItems="center" justifyContent="center" mt="-28">
         <Flex
           direction="column"
-          background="gray.700"
+          background="green.900"
           p={12}
           rounded={6}
           fontSize="lg"
@@ -64,11 +64,11 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
             <Button
               type="submit"
               _hover={{
-                background: "gray.400",
-                color: "black",
+                filter: "auto",
+                brightness: "90%",
               }}
               color="black"
-              background="gray.100"
+              background="white"
               width="100%"
               fontSize="lg"
             >

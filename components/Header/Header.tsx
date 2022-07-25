@@ -1,61 +1,46 @@
+import { Button, ButtonGroup, Flex, Heading, Spacer } from "@chakra-ui/react";
 import useLoggedInUser from "hooks/useLoggedInUser";
 import { useRouter } from "next/router";
 import React from "react";
-import styles from "./styles.module.scss";
 
 const Header: React.FC = () => {
   const router = useRouter();
   const { user, authState, handleUserLogout } = useLoggedInUser();
 
   return (
-    <header className={styles.header}>
-      <p>Logo</p>
-
+    <Flex as="header" flexDirection="row" padding="25px" bgColor="green.900">
+      <Heading>Logo</Heading>
+      <Spacer />
       {authState === "LOADING" ? (
         <></>
       ) : user ? (
-        <nav className={styles.nav}>
-          <button className={styles.navButton} onClick={() => router.push("/")}>
+        <Flex as="nav" gap="20">
+          <Button variant="headerBtn" onClick={() => router.push("/")}>
             Home
-          </button>
-          <button
-            className={styles.navButton}
-            onClick={() => router.push("/expenses")}
-          >
+          </Button>
+          <Button variant="headerBtn" onClick={() => router.push("/expenses")}>
             Gastos
-          </button>
-
-          <button
-            className={styles.navButton}
-            onClick={() => router.push("/budgets")}
-          >
+          </Button>
+          <Button variant="headerBtn" onClick={() => router.push("/budgets")}>
             Entradas
-          </button>
-
-          <button className={styles.exitButton} onClick={handleUserLogout}>
+          </Button>
+          <Button
+            bgColor="white"
+            variant="headerBtn"
+            color="black"
+            onClick={handleUserLogout}
+          >
             Sair
-          </button>
-        </nav>
+          </Button>
+        </Flex>
       ) : (
-        <nav className={styles.nav}>
-          <button className={styles.navButton} onClick={() => router.push("/")}>
-            Home
-          </button>
-          <button
-            className={styles.accent}
-            onClick={() => router.push("/login")}
-          >
-            Entrar
-          </button>
-          <button
-            className={styles.accent}
-            onClick={() => router.push("/register")}
-          >
-            Criar conta
-          </button>
-        </nav>
+        <ButtonGroup>
+          <Button onClick={() => router.push("/")}>Home</Button>
+          <Button onClick={() => router.push("/login")}>Entrar</Button>
+          <Button onClick={() => router.push("/register")}>Criar conta</Button>
+        </ButtonGroup>
       )}
-    </header>
+    </Flex>
   );
 };
 
