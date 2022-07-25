@@ -1,8 +1,8 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
+import { Flex, Button, Input, Heading } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import styles from "./styles.module.scss";
 
 const EditBudgetForm = ({ budget }) => {
   const router = useRouter();
@@ -30,21 +30,39 @@ const EditBudgetForm = ({ budget }) => {
 
   return (
     <>
-      <h2 className={styles.h2}>Edite seu orçamento</h2>
-      <form onSubmit={handleSubmit(submitUpdate)} className={styles.form}>
-        <label className={styles.entrada}>Entrada</label>
-        <input className={styles.inputN} {...register("name")} />
-        <label className={styles.valor}>Valor</label>
-        <input
-          className={styles.inputV}
-          {...register("amount")}
-          type="number"
-          step="0.01"
-        />
-        <button className={styles.button} type="submit">
-          Alterar
-        </button>
-      </form>
+      <Flex height="90vh" alignItems="center" justifyContent="center" mt="-28">
+        <Flex
+          direction="column"
+          background="gray.700"
+          p={12}
+          rounded={6}
+          fontSize="lg"
+          width="42%"
+        >
+          <Heading mb={6} fontSize="28">
+            Edite sua entrada
+          </Heading>
+          <form onSubmit={handleSubmit(submitUpdate)}>
+            <label>Entrada</label>
+            <Input {...register("name")} mb={6} />
+            <label>Valor</label>
+            <Input {...register("amount")} type="number" step="0.01" mb={10} />
+            <Button
+              type="submit"
+              _hover={{
+                background: "gray.400",
+                color: "black",
+              }}
+              color="black"
+              background="gray.100"
+              width="100%"
+              fontSize="lg"
+            >
+              Alterar
+            </Button>
+          </form>
+        </Flex>
+      </Flex>
     </>
   );
 };
