@@ -1,29 +1,31 @@
+import { Container, Flex, Link, Text } from "@chakra-ui/react";
 import AuthLoader from "components/Auth/AuthLoader";
 import Main from "Layout/Main";
-import { useRouter } from "next/router";
+
 import React from "react";
 import Header from "../components/Header/Header";
 import LoginForm from "../components/LoginForm/LoginForm";
-import styles from "../styles/pages/Login.module.scss";
 
 const Login: React.FC = () => {
-  const router = useRouter();
   return (
     <>
       <Header />
       <Main title="Login">
         <AuthLoader>
-          <LoginForm />
-
-          <section className={styles.createAccountSection}>
-            <p>Ainda não tem cadastro?</p>
-            <button
-              className={styles.link}
-              onClick={() => router.push("/register")}
-            >
-              Criar conta
-            </button>
-          </section>
+          <Container
+            as="section"
+            bgColor="green.900"
+            px="12"
+            py="12"
+            maxWidth="md"
+            borderRadius="7px"
+          >
+            <LoginForm />
+            <Flex gap="4">
+              <Text>Ainda não tem cadastro?</Text>
+              <Link href="/register">Criar conta</Link>
+            </Flex>
+          </Container>
         </AuthLoader>
       </Main>
     </>

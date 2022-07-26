@@ -1,7 +1,14 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
-import { Flex, Button, Input, Heading } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Input,
+  Heading,
+  Text,
+  FormControl,
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 const EditBudgetForm = ({ budget }) => {
@@ -35,17 +42,17 @@ const EditBudgetForm = ({ budget }) => {
           direction="column"
           background="green.900"
           p={12}
-          rounded={6}
+          borderRadius="7px"
           fontSize="lg"
           width="42%"
         >
           <Heading mb={6} fontSize="28">
             Edite sua entrada
           </Heading>
-          <form onSubmit={handleSubmit(submitUpdate)}>
-            <label>Entrada</label>
+          <FormControl onSubmit={handleSubmit(submitUpdate)}>
+            <Text>Entrada</Text>
             <Input {...register("name")} mb={6} />
-            <label>Valor</label>
+            <Text>Valor</Text>
             <Input {...register("amount")} type="number" step="0.01" mb={10} />
             <Button
               type="submit"
@@ -60,7 +67,7 @@ const EditBudgetForm = ({ budget }) => {
             >
               Alterar
             </Button>
-          </form>
+          </FormControl>
         </Flex>
       </Flex>
     </>

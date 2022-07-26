@@ -14,8 +14,8 @@ const gasturaTheme = extendTheme({
     green: {
       900: "#1a3c3d",
     },
-    green2: {
-      800: "#acd1af;",
+    darkgreen: {
+      800: "#0a191a;",
     },
   },
   components: {
@@ -24,6 +24,19 @@ const gasturaTheme = extendTheme({
         textColor: "white",
       },
       variants: {
+        link: {
+          color: "gray.100",
+        },
+        solid: {
+          _hover: {
+            filter: "auto",
+            brightness: "80%",
+          },
+          width: "100%",
+          height: "9",
+          color: "black",
+          bgColor: "white",
+        },
         headerBtn: {
           _hover: {
             filter: "auto",

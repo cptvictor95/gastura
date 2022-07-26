@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Flex, Heading, Spacer } from "@chakra-ui/react";
+import { Button, Flex, Heading, Spacer } from "@chakra-ui/react";
 import useLoggedInUser from "hooks/useLoggedInUser";
 import { useRouter } from "next/router";
 import React from "react";
@@ -34,11 +34,17 @@ const Header: React.FC = () => {
           </Button>
         </Flex>
       ) : (
-        <ButtonGroup>
-          <Button onClick={() => router.push("/")}>Home</Button>
-          <Button onClick={() => router.push("/login")}>Entrar</Button>
-          <Button onClick={() => router.push("/register")}>Criar conta</Button>
-        </ButtonGroup>
+        <Flex as="nav" gap="20">
+          <Button variant="headerBtn" onClick={() => router.push("/")}>
+            Home
+          </Button>
+          <Button variant="headerBtn" onClick={() => router.push("/login")}>
+            Entrar
+          </Button>
+          <Button variant="headerBtn" onClick={() => router.push("/register")}>
+            Criar conta
+          </Button>
+        </Flex>
       )}
     </Flex>
   );

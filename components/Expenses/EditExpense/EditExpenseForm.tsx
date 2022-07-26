@@ -1,5 +1,12 @@
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
-import { Flex, Button, Input, Heading } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Input,
+  Heading,
+  FormControl,
+  Text,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -41,26 +48,19 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
           direction="column"
           background="green.900"
           p={12}
-          rounded={6}
+          borderRadius="7px"
           fontSize="lg"
         >
           <Heading mb={6} fontSize="32">
             Edite seu gasto
           </Heading>
-          <form onSubmit={handleSubmit(submitUpdate)}>
-            <div>
-              <label>Gasto</label>
-              <Input {...register("description")} mb={6} />
-            </div>
-            <div>
-              <label>Valor</label>
-              <Input
-                {...register("amount")}
-                type="number"
-                step="0.01"
-                mb={10}
-              />
-            </div>
+          <FormControl as="div" onSubmit={handleSubmit(submitUpdate)}>
+            <Text>Gasto</Text>
+            <Input {...register("description")} mb={6} />
+
+            <Text>Valor</Text>
+            <Input {...register("amount")} type="number" step="0.01" mb={10} />
+
             <Button
               type="submit"
               _hover={{
@@ -74,7 +74,7 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
             >
               Atualizar
             </Button>
-          </form>
+          </FormControl>
         </Flex>
       </Flex>
     </>
