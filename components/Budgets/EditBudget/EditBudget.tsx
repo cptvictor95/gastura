@@ -26,7 +26,7 @@ const EditBudget = () => {
     };
   }, [budgetId]);
 
-  return <div>{budget && <EditBudgetForm budget={budget} />}</div>;
+  return <>{budget && <EditBudgetForm budget={budget} />}</>;
 };
 
 export default EditBudget;

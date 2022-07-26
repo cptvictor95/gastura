@@ -5,7 +5,7 @@ import {
   Input,
   Heading,
   FormControl,
-  Text,
+  FormLabel,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -43,39 +43,41 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
 
   return (
     <>
-      <Flex height="100vh" alignItems="center" justifyContent="center" mt="-28">
-        <Flex
-          direction="column"
-          background="green.900"
-          p={12}
-          borderRadius="7px"
+      <Flex
+        onSubmit={handleSubmit(submitUpdate)}
+        direction="column"
+        background="green.900"
+        p={12}
+        borderRadius="7px"
+        fontSize="lg"
+      >
+        <Heading textAlign="center" mb={6} fontSize="3xl">
+          Edite seu gasto
+        </Heading>
+
+        <FormControl>
+          <FormLabel>Gasto</FormLabel>
+          <Input {...register("description")} mb={6} />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Valor</FormLabel>
+          <Input {...register("amount")} type="number" step="0.01" mb={10} />
+        </FormControl>
+
+        <Button
+          type="submit"
+          _hover={{
+            filter: "auto",
+            brightness: "90%",
+          }}
+          color="black"
+          background="white"
+          width="100%"
           fontSize="lg"
         >
-          <Heading mb={6} fontSize="32">
-            Edite seu gasto
-          </Heading>
-          <FormControl as="div" onSubmit={handleSubmit(submitUpdate)}>
-            <Text>Gasto</Text>
-            <Input {...register("description")} mb={6} />
-
-            <Text>Valor</Text>
-            <Input {...register("amount")} type="number" step="0.01" mb={10} />
-
-            <Button
-              type="submit"
-              _hover={{
-                filter: "auto",
-                brightness: "90%",
-              }}
-              color="black"
-              background="white"
-              width="100%"
-              fontSize="lg"
-            >
-              Atualizar
-            </Button>
-          </FormControl>
-        </Flex>
+          Atualizar
+        </Button>
       </Flex>
     </>
   );

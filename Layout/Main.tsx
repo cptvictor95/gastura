@@ -1,7 +1,8 @@
 import React from "react";
-import styles from "../styles/layout/main.module.scss";
+
 import Head from "next/head";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
+import { Flex } from "@chakra-ui/react";
 
 const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
   children,
@@ -11,12 +12,12 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
   const firstName = user && user.name.split(" ")[0];
 
   return (
-    <main className={styles.main}>
+    <Flex as="main" height="90vh" alignItems="center">
       <Head>
         <title>{firstName !== null ? `${title} - ${firstName}` : title}</title>
       </Head>
       {children}
-    </main>
+    </Flex>
   );
 };
 

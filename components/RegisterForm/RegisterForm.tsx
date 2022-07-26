@@ -71,11 +71,10 @@ const RegisterForm: React.FC = () => {
       alignItems="center"
     >
       <Heading textAlign="center" color="gray.100">
-        Criar conta
+        Crie sua conta!
       </Heading>
 
       <FormControl isInvalid={Boolean(errors.name)}>
-        {" "}
         <FormLabel htmlFor="name">Nome</FormLabel>
         <Input
           type="text"

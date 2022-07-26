@@ -7,6 +7,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import Popup from "reactjs-popup";
 import { useRouter } from "next/router";
+import { IconButton } from "@chakra-ui/react";
 
 /**
  * @todo [X] create getBugdetById
@@ -89,15 +90,22 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
       <td>{myBudgetName}</td>
       <td>{formattedDate}</td>
       <td className={styles.options}>
-        <button
-          className={styles.editButton}
+        <IconButton
+          width="36px"
+          icon={<MdEdit />}
+          bgColor="beige.100"
+          aria-label="Edit Expense"
           onClick={() => router.push(`/editexpense/${expense.uid}`)}
-        >
-          <MdEdit />
-        </button>
-        <button className={styles.deleteButton} onClick={openModal}>
-          <MdDelete />
-        </button>
+        />
+
+        <IconButton
+          maxWidth="36px"
+          icon={<MdDelete />}
+          bgColor="beige.100"
+          aria-label="Delete Expense"
+          onClick={openModal}
+        />
+
         <Popup open={open} modal closeOnEscape onClose={closeModal}>
           <div className={styles.modal}>
             <div className={styles.modalHeader}>

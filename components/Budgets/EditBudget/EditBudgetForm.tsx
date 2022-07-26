@@ -6,8 +6,8 @@ import {
   Button,
   Input,
   Heading,
-  Text,
   FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
@@ -37,38 +37,42 @@ const EditBudgetForm = ({ budget }) => {
 
   return (
     <>
-      <Flex height="90vh" alignItems="center" justifyContent="center" mt="-28">
-        <Flex
-          direction="column"
-          background="green.900"
-          p={12}
-          borderRadius="7px"
+      <Flex
+        as="form"
+        onSubmit={handleSubmit(submitUpdate)}
+        direction="column"
+        background="green.900"
+        p={12}
+        borderRadius="7px"
+        fontSize="lg"
+      >
+        <Heading textAlign="center" mb={6} fontSize="28">
+          Edite sua entrada
+        </Heading>
+
+        <FormControl>
+          <FormLabel>Entrada</FormLabel>
+          <Input {...register("name")} mb={6} />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Valor</FormLabel>
+          <Input {...register("amount")} type="number" step="0.01" mb={10} />
+        </FormControl>
+
+        <Button
+          type="submit"
+          _hover={{
+            filter: "auto",
+            brightness: "90%",
+          }}
+          color="black"
+          background="gray.100"
+          width="100%"
           fontSize="lg"
-          width="42%"
         >
-          <Heading mb={6} fontSize="28">
-            Edite sua entrada
-          </Heading>
-          <FormControl onSubmit={handleSubmit(submitUpdate)}>
-            <Text>Entrada</Text>
-            <Input {...register("name")} mb={6} />
-            <Text>Valor</Text>
-            <Input {...register("amount")} type="number" step="0.01" mb={10} />
-            <Button
-              type="submit"
-              _hover={{
-                filter: "auto",
-                brightness: "90%",
-              }}
-              color="black"
-              background="gray.100"
-              width="100%"
-              fontSize="lg"
-            >
-              Alterar
-            </Button>
-          </FormControl>
-        </Flex>
+          Alterar
+        </Button>
       </Flex>
     </>
   );

@@ -8,7 +8,13 @@ const Header: React.FC = () => {
   const { user, authState, handleUserLogout } = useLoggedInUser();
 
   return (
-    <Flex as="header" flexDirection="row" padding="25px" bgColor="green.900">
+    <Flex
+      height="10vh"
+      as="header"
+      flexDirection="row"
+      padding="25px"
+      bgColor="green.900"
+    >
       <Heading>Logo</Heading>
       <Spacer />
       {authState === "LOADING" ? (

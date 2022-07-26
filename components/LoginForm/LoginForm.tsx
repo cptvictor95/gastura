@@ -45,7 +45,7 @@ const LoginForm: React.FC = () => {
       mb="4"
     >
       <Heading textAlign="center" color="gray.100">
-        Login
+        Faça o login
       </Heading>
 
       <FormControl isInvalid={Boolean(errors.email)}>

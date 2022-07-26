@@ -23,7 +23,7 @@ const EditExpense = () => {
     handleGetExpenseById(expenseId);
   }, [expenseId]);
 
-  return <div>{expense && <EditExpenseForm expense={expense} />}</div>;
+  return <>{expense && <EditExpenseForm expense={expense} />}</>;
 };
 
 export default EditExpense;
