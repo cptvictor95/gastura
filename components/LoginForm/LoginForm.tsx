@@ -10,6 +10,7 @@ import {
   Heading,
   FormControl,
   FormLabel,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 
 export type LoginForm = { email: string; password: string };
@@ -47,7 +48,7 @@ const LoginForm: React.FC = () => {
         Login
       </Heading>
 
-      <FormControl>
+      <FormControl isInvalid={Boolean(errors.email)}>
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
           type="email"
@@ -60,10 +61,12 @@ const LoginForm: React.FC = () => {
             },
           })}
         />
-        <span>{errors.email && errors.email.message}</span>
+        <FormErrorMessage>
+          {errors.email && errors.email.message}
+        </FormErrorMessage>
       </FormControl>
 
-      <FormControl>
+      <FormControl isInvalid={Boolean(errors.password)}>
         <FormLabel htmlFor="password">Senha</FormLabel>
         <Input
           type="password"
@@ -72,7 +75,9 @@ const LoginForm: React.FC = () => {
             required: { value: true, message: "Digite sua senha" },
           })}
         />
-        <span>{errors.password && errors.password.message}</span>
+        <FormErrorMessage>
+          {errors.password && errors.password.message}
+        </FormErrorMessage>
       </FormControl>
       <Button variant="solid" type="submit" mt="2" width="">
         Entrar
