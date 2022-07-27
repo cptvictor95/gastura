@@ -44,6 +44,7 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
   return (
     <>
       <Flex
+        as="form"
         onSubmit={handleSubmit(submitUpdate)}
         direction="column"
         background="green.900"

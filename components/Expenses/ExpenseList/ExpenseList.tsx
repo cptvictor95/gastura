@@ -1,11 +1,19 @@
 import Loading from "@/components/Loading/Loading";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Expense } from "types/Expense";
 import AddExpense from "../AddExpenses/AddExpense";
 import ListItem from "./ListItem/ListItem";
-import styles from "./styles.module.scss";
 
 const ExpenseList: React.FC = () => {
   const { getUserExpenses } = useContext(ExpenseCtx);
@@ -25,34 +33,41 @@ const ExpenseList: React.FC = () => {
   }, [user]);
 
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr className={styles.tableRow}>
-          <th>#</th>
-          <th>Nome</th>
-          <th>Valor</th>
-          <th>Categoria</th>
-          <th>Data</th>
-          <th>Opção</th>
-        </tr>
-      </thead>
-      {isLoading ? (
-        <tbody className={styles.loadingContainer}>
-          <Loading />
-        </tbody>
-      ) : (
-        expenses.map((expense, index) => {
-          return <ListItem expense={expense} key={expense.uid} index={index} />;
-        })
-      )}
+    <TableContainer borderRadius="6">
+      <Table variant="striped" colorScheme="">
+        <Thead bgColor="green.900">
+          <Tr fontWeight="semibold">
+            <Th color="beige.100">#</Th>
+            <Th color="beige.100">Nome</Th>
+            <Th color="beige.100"> Valor</Th>
+            <Th color="beige.100">Categoria</Th>
+            <Th color="beige.100">Data</Th>
+            <Th color="beige.100">Opção</Th>
+          </Tr>
+        </Thead>
 
-      {!isLoading && expenses.length === 0 && (
-        <tbody className={styles.emptyMessage}>
-          <p>Nenhum gasto adicionado até agora.</p>
-          <AddExpense />
-        </tbody>
-      )}
-    </table>
+        {isLoading ? (
+          <Tbody>
+            <Loading />
+          </Tbody>
+        ) : (
+          <Tbody>
+            {expenses.map((expense, index) => {
+              return (
+                <ListItem expense={expense} key={expense.uid} index={index} />
+              );
+            })}
+          </Tbody>
+        )}
+
+        {!isLoading && expenses.length === 0 && (
+          <Tbody>
+            <Text>Nenhum gasto adicionado até agora.</Text>
+            <AddExpense />
+          </Tbody>
+        )}
+      </Table>
+    </TableContainer>
   );
 };
 

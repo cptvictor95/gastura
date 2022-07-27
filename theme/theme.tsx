@@ -8,7 +8,7 @@ const gasturaTheme = extendTheme({
         padding: 0,
         boxSizing: "border-box",
         bgColor: "#0a191a",
-        color: "white",
+        color: "beige.100",
       },
     },
   },
@@ -17,7 +17,7 @@ const gasturaTheme = extendTheme({
       900: "#1a3c3d",
     },
     darkgreen: {
-      800: "#0a191a;",
+      800: "#0a191a",
     },
     beige: {
       100: "#fffaec",
@@ -26,9 +26,13 @@ const gasturaTheme = extendTheme({
   components: {
     Button: {
       baseStyle: {
-        textColor: "white",
+        textColor: "beige.100",
       },
       variants: {
+        th: {
+          color: "beige.100",
+          fontSize: "xl",
+        },
         link: {
           color: "gray.100",
         },
@@ -40,7 +44,7 @@ const gasturaTheme = extendTheme({
           width: "100%",
           height: "9",
           color: "black",
-          bgColor: "white",
+          bgColor: "beige.100",
         },
         headerBtn: {
           _hover: {

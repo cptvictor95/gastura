@@ -2,19 +2,24 @@ import { FirebaseCtx } from "@/config/context";
 import React, { useContext, useState } from "react";
 import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
-import styles from "./styles.module.scss";
+
 import { MdEdit, MdDelete } from "react-icons/md";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
-import Popup from "reactjs-popup";
 import { useRouter } from "next/router";
-import { IconButton } from "@chakra-ui/react";
-
-/**
- * @todo [X] create getBugdetById
- * @todo [X] create deleteExpense
- * @todo [] create updateExpense
- *
- */
+import {
+  IconButton,
+  Modal,
+  useDisclosure,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  Flex,
+  Td,
+  Tr,
+} from "@chakra-ui/react";
 
 const ListItem: React.FC<{ expense: Expense; index: number }> = ({
   expense,
@@ -30,7 +35,6 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
   }`;
   const { firestore } = useContext(FirebaseCtx);
   const { deleteExpense } = useContext(ExpenseCtx);
-  const [open, setOpen] = useState(false);
 
   const getBudgetById = async (budgetId: string) => {
     try {
@@ -72,58 +76,71 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
     }
   };
 
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-  };
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   handleGetBudgetName(expense.budgetId);
 
   return (
-    <tr className={styles.listItem}>
-      <td>{index + 1}</td>
-      <td>{expense.description}</td>
-      <td>R${expense.amount}</td>
-      <td>{myBudgetName}</td>
-      <td>{formattedDate}</td>
-      <td className={styles.options}>
-        <IconButton
-          width="36px"
-          icon={<MdEdit />}
-          bgColor="beige.100"
-          aria-label="Edit Expense"
-          onClick={() => router.push(`/editexpense/${expense.uid}`)}
-        />
+    <Tr>
+      <Td>{index + 1}</Td>
+      <Td>{expense.description}</Td>
+      <Td>R${expense.amount}</Td>
+      <Td>{myBudgetName}</Td>
+      <Td>{formattedDate}</Td>
+      <Td>
+        <Flex gap="4">
+          <IconButton
+            icon={<MdEdit />}
+            size="sm"
+            height="8"
+            w="max-content"
+            bgColor="beige.100"
+            aria-label="Edit Expense"
+            onClick={() => router.push(`/editexpense/${expense.uid}`)}
+          />
 
-        <IconButton
-          maxWidth="36px"
-          icon={<MdDelete />}
-          bgColor="beige.100"
-          aria-label="Delete Expense"
-          onClick={openModal}
-        />
+          <IconButton
+            w="max-content"
+            size="sm"
+            height="8"
+            icon={<MdDelete />}
+            bgColor="beige.100"
+            aria-label="Delete Expense"
+            onClick={onOpen}
+          />
+        </Flex>
 
-        <Popup open={open} modal closeOnEscape onClose={closeModal}>
-          <div className={styles.modal}>
-            <div className={styles.modalHeader}>
-              <h3>Tem certeza?</h3>
-              <button className={styles.closeBtn} onClick={closeModal}>
-                &times;
-              </button>
-            </div>
-            <button
-              className={styles.submitButton}
-              onClick={() => handleDeleteExpense(expense.uid, expense.budgetId)}
-            >
-              Sim
-            </button>
-          </div>
-        </Popup>
-      </td>
-    </tr>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent bgColor="green.900">
+            <ModalHeader color="beige.100" textAlign="center">
+              Deseja excluir este gasto?
+            </ModalHeader>
+            <ModalCloseButton color="beige.100" />
+
+            <ModalBody>
+              <Flex as="div" p="4" gap="6">
+                <Button
+                  bgColor="beige.100"
+                  onClick={() =>
+                    handleDeleteExpense(expense.uid, expense.budgetId)
+                  }
+                >
+                  Sim
+                </Button>
+
+                <Button
+                  bgColor="beige.100"
+                  onClick={() => router.push(`/editexpense/${expense.uid}`)}
+                >
+                  Editar
+                </Button>
+              </Flex>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </Td>
+    </Tr>
   );
 };
 

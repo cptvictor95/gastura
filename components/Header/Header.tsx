@@ -31,7 +31,7 @@ const Header: React.FC = () => {
             Entradas
           </Button>
           <Button
-            bgColor="white"
+            bgColor="beige.100"
             variant="headerBtn"
             color="black"
             onClick={handleUserLogout}
@@ -47,7 +47,12 @@ const Header: React.FC = () => {
           <Button variant="headerBtn" onClick={() => router.push("/login")}>
             Entrar
           </Button>
-          <Button variant="headerBtn" onClick={() => router.push("/register")}>
+          <Button
+            variant="headerBtn"
+            bgColor="beige.100"
+            color="black"
+            onClick={() => router.push("/register")}
+          >
             Criar conta
           </Button>
         </Flex>
