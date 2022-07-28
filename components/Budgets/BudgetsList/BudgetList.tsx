@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import ListItem from "./ListItem/ListItem";
-import styles from "./styles.module.scss";
+
 import Loading from "@/components/Loading/Loading";
 import AddBudget from "../AddBudget";
 import useBudgets from "stores/useBudgets";
@@ -16,13 +16,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-/**
- * @todo use budget context
- * @todo create handler for getBudgets
- * @todo add budget list to state
- * @todo map budget list from state on html
- * @todo use listItem component on map return
- */
 const BudgetList: React.FC = () => {
   const { getUserBudgets } = useContext(BudgetCtx);
   const { user } = useLoggedInUser();
@@ -48,13 +41,13 @@ const BudgetList: React.FC = () => {
 
   return (
     <TableContainer borderRadius="6px">
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>#</Th>
-            <Th>Nome</Th>
-            <Th>Valor</Th>
-            <Th>Opção</Th>
+      <Table variant="striped" colorScheme="dgreen">
+        <Thead bgColor="black">
+          <Tr fontWeight="bold">
+            <Th color="beige.100">#</Th>
+            <Th color="beige.100">Nome</Th>
+            <Th color="beige.100">Valor</Th>
+            <Th color="beige.100">Opção</Th>
           </Tr>
         </Thead>
 

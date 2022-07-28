@@ -1,24 +1,32 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Budget } from "types/Budget";
 
 import { MdDelete, MdEdit } from "react-icons/md";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import router from "next/router";
-import Popup from "reactjs-popup";
+
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { User } from "types/User";
-import { Table, Td, Tr } from "@chakra-ui/react";
-/**
- * @todo create list,
- * @todo create listItem,
- * @todo create html for list.
- * */
+import {
+  Flex,
+  IconButton,
+  ModalBody,
+  Td,
+  Tr,
+  Modal,
+  ModalOverlay,
+  ModalHeader,
+  ModalContent,
+  ModalCloseButton,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
+
 const ListItem: React.FC<{ budget: Budget; index: number }> = ({
   budget,
   index,
 }) => {
   const { deleteBudget } = useContext(BudgetCtx);
-  const [open, setOpen] = useState(false);
 
   const { user } = useLoggedInUser();
   const handleDeleteBudget = async (uid: string, user: User | false) => {
@@ -32,36 +40,62 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
     }
   };
 
-  const openModal = () => {
-    setOpen(true);
-  };
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const closeModal = () => {
-    setOpen(false);
-  };
   return (
     <Tr>
       <Td>{index + 1}</Td>
       <Td>{budget.name}</Td>
       <Td>{budget.amount}</Td>
       <Td>
-        <button onClick={() => router.push(`/editbudget/${budget.uid}`)}>
-          <MdEdit />
-        </button>
-        <button onClick={openModal}>
-          <MdDelete />
-        </button>
-        <Popup open={open} modal closeOnEscape onClose={closeModal}>
-          <div>
-            <div>
-              <h3>Tem certeza?</h3>
-              <button onClick={closeModal}>&times;</button>
-            </div>
-            <button onClick={() => handleDeleteBudget(budget.uid, user)}>
-              Sim
-            </button>
-          </div>
-        </Popup>
+        <Flex gap="4" width="0">
+          <IconButton
+            icon={<MdEdit />}
+            aria-label="Edit Budget"
+            size="sm"
+            height="8"
+            w="max-content"
+            bgColor="beige.100"
+            onClick={() => router.push(`/editbudget/${budget.uid}`)}
+          />
+
+          <IconButton
+            aria-label="delete Expense"
+            icon={<MdDelete />}
+            size="sm"
+            height="8"
+            w="max-content"
+            bgColor="beige.100"
+            onClick={onOpen}
+          />
+        </Flex>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent bgColor="green.900">
+            <ModalHeader color="beige.100" textAlign="center">
+              Deseja excluir sua entrada?
+            </ModalHeader>
+            <ModalCloseButton />
+
+            <ModalBody>
+              <Flex as="div" p="4" gap="6">
+                <Button
+                  bgColor="beige.100"
+                  onClick={() => handleDeleteBudget(budget.uid, user)}
+                >
+                  Sim
+                </Button>
+                <Button
+                  bgColor="beige.100"
+                  onClick={() => router.push(`/editbudget/${budget.uid}`)}
+                >
+                  Editar
+                </Button>
+              </Flex>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </Td>
     </Tr>
   );

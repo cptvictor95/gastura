@@ -11,9 +11,9 @@ const BudgetPage: React.FC = () => {
     <BudgetProvider>
       <Header />
       <Main title="Orçamento">
-        <Container maxWidth="4xl">
+        <Container maxWidth="3xl">
           <Heading textAlign="center" p="2">
-            Orçamento
+            Lista de orçamento
           </Heading>
           <BudgetList />
         </Container>
