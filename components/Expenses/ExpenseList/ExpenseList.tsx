@@ -33,9 +33,9 @@ const ExpenseList: React.FC = () => {
   }, [user]);
 
   return (
-    <TableContainer borderRadius="6">
-      <Table variant="striped" colorScheme="">
-        <Thead bgColor="green.900">
+    <TableContainer borderRadius="6px">
+      <Table variant="striped" colorScheme="dgreen">
+        <Thead>
           <Tr fontWeight="semibold">
             <Th color="beige.100">#</Th>
             <Th color="beige.100">Nome</Th>

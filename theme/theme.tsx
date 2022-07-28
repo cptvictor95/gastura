@@ -22,7 +22,12 @@ const gasturaTheme = extendTheme({
     beige: {
       100: "#fffaec",
     },
+    dgreen: {
+      100: "#1a3c3d",
+      200: "#1a3c3d",
+    },
   },
+
   components: {
     Button: {
       baseStyle: {
