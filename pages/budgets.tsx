@@ -3,15 +3,18 @@ import React from "react";
 import Header from "../components/Header/Header";
 import { BudgetProvider } from "@/contexts/BudgetContext";
 import BudgetList from "@/components/Budgets/BudgetsList/BudgetList";
-import Container from "Layout/Container";
+
+import { Container, Heading } from "@chakra-ui/react";
 
 const BudgetPage: React.FC = () => {
   return (
     <BudgetProvider>
       <Header />
       <Main title="Orçamento">
-        <Container>
-          <h2>Orçamento</h2>
+        <Container maxWidth="4xl">
+          <Heading textAlign="center" p="2">
+            Orçamento
+          </Heading>
           <BudgetList />
         </Container>
       </Main>

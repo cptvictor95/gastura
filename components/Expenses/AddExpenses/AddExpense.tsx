@@ -8,6 +8,7 @@ import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useBudgets from "stores/useBudgets";
 import useExpenses from "stores/useExpenses";
 import Popup from "reactjs-popup";
+import { Button } from "@chakra-ui/react";
 
 type ExpenseForm = {
   uid?: string;
@@ -76,7 +77,7 @@ const AddExpense: React.FC = () => {
 
   return (
     <>
-      <button onClick={openModal}>Adicionar</button>
+      <Button onClick={openModal}>Adicionar</Button>
       <Popup open={open} modal closeOnEscape onClose={closeModal}>
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
@@ -141,9 +142,9 @@ const AddExpense: React.FC = () => {
                 </span>
               </div>
 
-              <button type="submit" className={styles.submitButton}>
+              <Button type="submit" className={styles.submitButton}>
                 Adicionar
-              </button>
+              </Button>
             </form>
           </div>
         </div>

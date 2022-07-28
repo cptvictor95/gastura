@@ -2,6 +2,8 @@ import Loading from "@/components/Loading/Loading";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import {
+  ButtonGroup,
+  Flex,
   Table,
   TableContainer,
   Tbody,
@@ -35,7 +37,7 @@ const ExpenseList: React.FC = () => {
   return (
     <TableContainer borderRadius="6px">
       <Table variant="striped" colorScheme="dgreen">
-        <Thead>
+        <Thead bgColor="black">
           <Tr fontWeight="semibold">
             <Th color="beige.100">#</Th>
             <Th color="beige.100">Nome</Th>
@@ -61,10 +63,18 @@ const ExpenseList: React.FC = () => {
         )}
 
         {!isLoading && expenses.length === 0 && (
-          <Tbody>
-            <Text>Nenhum gasto adicionado até agora.</Text>
-            <AddExpense />
-          </Tbody>
+          <Flex
+            direction="column"
+            gap="2"
+            textAlign="center"
+            width="240%"
+            alignItems="center"
+          >
+            <Text fontSize="xl">Nenhum gasto adicionado até agora.</Text>
+            <ButtonGroup width="25%">
+              <AddExpense />
+            </ButtonGroup>
+          </Flex>
         )}
       </Table>
     </TableContainer>

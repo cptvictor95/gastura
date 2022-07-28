@@ -6,6 +6,15 @@ import styles from "./styles.module.scss";
 import Loading from "@/components/Loading/Loading";
 import AddBudget from "../AddBudget";
 import useBudgets from "stores/useBudgets";
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+  Text,
+} from "@chakra-ui/react";
 
 /**
  * @todo use budget context
@@ -38,21 +47,21 @@ const BudgetList: React.FC = () => {
   }, [user]);
 
   return (
-    <div>
-      <table className={styles.table}>
-        <thead>
-          <tr className={styles.tableRow}>
-            <th>#</th>
-            <th>Nome</th>
-            <th>Valor</th>
-            <th>Opção</th>
-          </tr>
-        </thead>
+    <TableContainer borderRadius="6px">
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>#</Th>
+            <Th>Nome</Th>
+            <Th>Valor</Th>
+            <Th>Opção</Th>
+          </Tr>
+        </Thead>
 
         {isLoading ? (
-          <tbody className={styles.loadingContainer}>
+          <Tbody>
             <Loading />
-          </tbody>
+          </Tbody>
         ) : (
           budgets &&
           budgets.map((budget, index) => {
@@ -61,13 +70,13 @@ const BudgetList: React.FC = () => {
         )}
 
         {!isLoading && budgets && budgets.length === 0 && (
-          <tbody className={styles.emptyMessage}>
-            <p>Nenhuma entrada adicionada até agora.</p>
+          <Tbody>
+            <Text fontSize="xl">Nenhuma entrada adicionada até agora.</Text>
             <AddBudget />
-          </tbody>
+          </Tbody>
         )}
-      </table>
-    </div>
+      </Table>
+    </TableContainer>
   );
 };
 
