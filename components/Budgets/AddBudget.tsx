@@ -89,7 +89,16 @@ const AddBudget: React.FC = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Adicionar</Button>
+      <Button
+        _hover={{
+          filter: "auto",
+          brightness: "80%",
+        }}
+        bgColor="beige.100"
+        onClick={onOpen}
+      >
+        Adicionar
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
