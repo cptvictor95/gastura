@@ -40,7 +40,7 @@ const BudgetList: React.FC = () => {
   }, [user]);
 
   return (
-    <TableContainer borderRadius="6px">
+    <TableContainer borderRadius="6px" maxHeight="80vh">
       <Table variant="striped" colorScheme="dgreen">
         <Thead bgColor="black">
           <Tr fontWeight="bold">

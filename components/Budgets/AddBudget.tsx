@@ -1,12 +1,27 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { UserCtx } from "@/contexts/UserContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Input,
+  FormLabel,
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import Popup from "reactjs-popup";
 import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
-import styles from "./styles.module.scss";
 
 type BudgetForm = {
   name: string;
@@ -14,12 +29,7 @@ type BudgetForm = {
 };
 
 const AddBudget: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<BudgetForm>({
+  const { register, handleSubmit, setError } = useForm<BudgetForm>({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -28,17 +38,14 @@ const AddBudget: React.FC = () => {
   });
   const { user } = useLoggedInUser();
   const { budgets, setBudgets } = useBudgets();
-  const [open, setOpen] = useState(false);
   const { createBudget } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const submitBudgetForm = (data: BudgetForm) => {
     handleCreateBudget({
       name: data.name,
       amount: Number(data.amount),
     });
-
-    closeModal();
   };
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
@@ -74,55 +81,59 @@ const AddBudget: React.FC = () => {
       console.error(error);
     }
   };
+  const [input, setInput] = useState("");
 
-  const openModal = () => {
-    setOpen(true);
-  };
+  const handleInputChange = (e) => setInput(e.target.value);
 
-  const closeModal = () => {
-    setOpen(false);
-  };
+  const isError = input === "";
 
   return (
     <>
-      <button onClick={openModal}>Adicionar</button>
-      <Popup
-        open={open}
-        modal
-        closeOnEscape
-        onClose={closeModal}
-        className={styles.popupContent}
-      >
-        <div className={styles.modal}>
-          <div className={styles.modalHeader}>
-            <h3>Novo Orçamento</h3>
-            <button className={styles.closeBtn} onClick={closeModal}>
-              &times;
-            </button>
-          </div>
+      <Button onClick={onOpen}>Adicionar</Button>
 
-          <div className={styles.formContainer}>
-            <form
-              className={styles.form}
-              onSubmit={handleSubmit(submitBudgetForm)}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+
+        <ModalContent bgColor="green.900" borderRadius="6">
+          <Flex
+            color="beige.100"
+            as="form"
+            direction="column"
+            onSubmit={handleSubmit(submitBudgetForm)}
+          >
+            <ModalHeader
+              color="beige.100"
+              textAlign="center"
+              bgColor="darkgreen.800"
+              borderRadius="6"
             >
-              <div className={styles.formControl}>
-                <label htmlFor="name">Nome</label>
-                <input
+              Novo Orçamento
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormControl isInvalid={isError}>
+                <FormLabel>Categoria</FormLabel>
+                <Input
+                  type="categoria"
+                  onChange={handleInputChange}
                   {...register("name", {
                     required: { value: true, message: "Digite uma descrição" },
                   })}
                   placeholder="Ex.: Alimentação"
-                  type="text"
                 />
-                <span className={styles.errorMessage}>
-                  {errors.name && errors.name.message}
-                </span>
-              </div>
-              <div className={styles.formControl}>
-                <label htmlFor="amount">Valor Máximo</label>
-                <input
+
+                {!isError ? (
+                  <FormHelperText></FormHelperText>
+                ) : (
+                  <FormErrorMessage>Categoria requerida</FormErrorMessage>
+                )}
+              </FormControl>
+
+              <FormControl isInvalid={isError}>
+                <FormLabel>Valor</FormLabel>
+                <Input
                   type="number"
+                  onChange={handleInputChange}
                   step={0.01}
                   min={0}
                   placeholder="R$00,00"
@@ -133,19 +144,32 @@ const AddBudget: React.FC = () => {
                     },
                   })}
                 />
-                <span className={styles.errorMessage}>
-                  {errors.amount && errors.amount.message}
-                </span>
-              </div>
-              <button type="submit" className={styles.submitButton}>
-                Adicionar
-              </button>
-            </form>
-          </div>
-        </div>
-      </Popup>
+                {!isError ? (
+                  <FormHelperText></FormHelperText>
+                ) : (
+                  <FormErrorMessage>
+                    Digite o valor de sua entrada!
+                  </FormErrorMessage>
+                )}
+              </FormControl>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button type="submit">Adicionar</Button>
+            </ModalFooter>
+          </Flex>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
 
 export default AddBudget;
+
+/**
+ * @todo Fix ColorScheme in the budget List page
+ * @todo centralize Loading for lists
+ * @todo fix error problem in addbudget and add errors to edit budgets and expenses
+ * @todo centralize Modal in all pages who have it
+ * @todo fix many items list problem in budget/expense
+ */
