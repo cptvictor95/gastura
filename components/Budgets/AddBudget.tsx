@@ -114,7 +114,7 @@ const AddBudget: React.FC = () => {
               color="beige.100"
               textAlign="center"
               bgColor="darkgreen.800"
-              borderRadius="6"
+              borderTopRadius="6"
             >
               Novo Orçamento
             </ModalHeader>
@@ -164,7 +164,16 @@ const AddBudget: React.FC = () => {
             </ModalBody>
 
             <ModalFooter>
-              <Button type="submit">Adicionar</Button>
+              <Button
+                type="submit"
+                _hover={{
+                  filter: "auto",
+                  brightness: "80%",
+                }}
+                onClick={onClose}
+              >
+                Adicionar
+              </Button>
             </ModalFooter>
           </Flex>
         </ModalContent>
