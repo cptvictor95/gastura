@@ -10,6 +10,7 @@ import AddBudget from "../Budgets/AddBudget";
 import AddExpense from "../Expenses/AddExpenses/AddExpense";
 import styles from "./styles.module.scss";
 import { motion } from "framer-motion";
+import { Button, useDisclosure } from "@chakra-ui/react";
 
 const variants = {
   hidden: { opacity: 0 },
@@ -49,7 +50,16 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { budgets, setBudgets } = useBudgets();
   const { expenses, setExpenses } = useExpenses();
-
+  const {
+    isOpen: isAddBudgetOpen,
+    onOpen: onAddBudgetOpen,
+    onClose: onAddBudgetClose,
+  } = useDisclosure();
+  const {
+    isOpen: isAddExpenseOpen,
+    onOpen: onAddExpenseOpen,
+    onClose: onAddExpenseClose,
+  } = useDisclosure();
   const handleUserTotals = async (budgets: Budget[], expenses: Expense[]) => {
     try {
       let totalBudget = 0;
@@ -120,8 +130,17 @@ const Dashboard: React.FC = () => {
             )}
             <p>Total de Gastos</p>
           </div>
-
-          <AddExpense />
+          <Button
+            onClick={onAddExpenseOpen}
+            _hover={{
+              filter: "auto",
+              brightness: "80%",
+            }}
+            bgColor="beige.100"
+          >
+            Adicionar
+          </Button>
+          <AddExpense onClose={onAddExpenseClose} isOpen={isAddExpenseOpen} />
         </div>
 
         <div className={styles.balance}>
@@ -148,8 +167,17 @@ const Dashboard: React.FC = () => {
             )}
             <p>Orçamento total</p>
           </div>
-
-          <AddBudget />
+          <Button
+            _hover={{
+              filter: "auto",
+              brightness: "80%",
+            }}
+            bgColor="beige.100"
+            onClick={onAddBudgetOpen}
+          >
+            Adicionar
+          </Button>
+          <AddBudget isOpen={isAddBudgetOpen} onClose={onAddBudgetClose} />
         </div>
       </div>
       <div className={styles.mainColumns}></div>

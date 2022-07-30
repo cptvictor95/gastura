@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
 import { useForm } from "react-hook-form";
 import { BudgetCtx } from "@/contexts/BudgetContext";
@@ -13,7 +13,6 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -24,7 +23,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 type ExpenseForm = {
@@ -34,8 +32,15 @@ type ExpenseForm = {
   budgetId: string;
 };
 
-const AddExpense: React.FC = () => {
-  const { register, handleSubmit } = useForm<ExpenseForm>({
+const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ExpenseForm>({
     mode: "onChange",
     defaultValues: {
       description: "",
@@ -48,7 +53,6 @@ const AddExpense: React.FC = () => {
   const { createExpense } = useContext(ExpenseCtx);
   const { budgets } = useBudgets();
   const { expenses, setExpenses } = useExpenses();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const submitBudgetForm = (data: ExpenseForm) => {
     handleCreateExpense({
@@ -78,25 +82,8 @@ const AddExpense: React.FC = () => {
     }
   };
 
-  const [input, setInput] = useState("");
-
-  const handleInputChange = (e) => setInput(e.target.value);
-
-  const isError = input === "";
-
   return (
     <>
-      <Button
-        onClick={onOpen}
-        _hover={{
-          filter: "auto",
-          brightness: "80%",
-        }}
-        bgColor="beige.100"
-      >
-        Adicionar
-      </Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bgColor="green.900" borderRadius="6">
@@ -117,27 +104,21 @@ const AddExpense: React.FC = () => {
             <ModalCloseButton />
 
             <ModalBody onSubmit={handleSubmit(submitBudgetForm)}>
-              <FormControl isInvalid={isError}>
+              <FormControl isInvalid={Boolean(errors.description)}>
                 <FormLabel>Descrição</FormLabel>
                 <Input
                   type="descrição"
-                  onChange={handleInputChange}
                   placeholder="Ex.: Belle Lanches"
                   {...register("description", {
                     required: { value: true, message: "Digite uma descrição" },
                   })}
                 />
-
-                {!isError ? (
-                  <FormHelperText></FormHelperText>
-                ) : (
-                  <FormErrorMessage>
-                    Digite o nome de seu gasto!
-                  </FormErrorMessage>
-                )}
+                <FormErrorMessage>
+                  {errors.description && errors.description.message}
+                </FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={isError}>
+              <FormControl isInvalid={Boolean(errors.amount)}>
                 <FormLabel htmlFor="amount">Valor do gasto</FormLabel>
                 <Input
                   placeholder="R$00,00"
@@ -148,22 +129,19 @@ const AddExpense: React.FC = () => {
                     required: { value: true, message: "Digite um valor" },
                   })}
                 />
-
-                {!isError ? (
-                  <FormHelperText></FormHelperText>
-                ) : (
-                  <FormErrorMessage>Digite um valor!</FormErrorMessage>
-                )}
+                <FormErrorMessage>
+                  {errors.amount && errors.amount.message}
+                </FormErrorMessage>
               </FormControl>
 
               <FormControl>
                 <FormLabel htmlFor="budgetId">Categoria</FormLabel>
                 <Select
+                  colorScheme="blue"
                   id="budgetId"
                   {...register("budgetId", {
                     required: { value: true, message: "Escolha uma categoria" },
                   })}
-                  colorScheme="blue"
                 >
                   <option value="" disabled>
                     Categoria do Gasto
@@ -197,3 +175,11 @@ const AddExpense: React.FC = () => {
 };
 
 export default AddExpense;
+
+/**
+ * @todo Fix ColorScheme in the budget List page
+ * @todo centralize Loading for lists
+ * @todo fix error problem in addbudget and add errors to edit budgets and expenses
+ * @todo centralize Modal in all pages who have it
+ * @todo fix many items list problem in budget/expense
+ */

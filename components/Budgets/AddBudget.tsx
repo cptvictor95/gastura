@@ -9,16 +9,14 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   Button,
   Input,
   FormLabel,
   Flex,
   FormControl,
-  FormHelperText,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
@@ -28,8 +26,16 @@ type BudgetForm = {
   amount: number;
 };
 
-const AddBudget: React.FC = () => {
-  const { register, handleSubmit, setError } = useForm<BudgetForm>({
+const AddBudget: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<BudgetForm>({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -40,7 +46,7 @@ const AddBudget: React.FC = () => {
   const { budgets, setBudgets } = useBudgets();
   const { createBudget } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const submitBudgetForm = (data: BudgetForm) => {
     handleCreateBudget({
       name: data.name,
@@ -81,25 +87,9 @@ const AddBudget: React.FC = () => {
       console.error(error);
     }
   };
-  const [input, setInput] = useState("");
-
-  const handleInputChange = (e) => setInput(e.target.value);
-
-  const isError = input === "";
 
   return (
     <>
-      <Button
-        _hover={{
-          filter: "auto",
-          brightness: "80%",
-        }}
-        bgColor="beige.100"
-        onClick={onOpen}
-      >
-        Adicionar
-      </Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
@@ -120,29 +110,24 @@ const AddBudget: React.FC = () => {
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <FormControl isInvalid={isError}>
+              <FormControl isInvalid={Boolean(errors.name)}>
                 <FormLabel>Categoria</FormLabel>
                 <Input
                   type="categoria"
-                  onChange={handleInputChange}
                   {...register("name", {
                     required: { value: true, message: "Digite uma descrição" },
                   })}
                   placeholder="Ex.: Alimentação"
                 />
-
-                {!isError ? (
-                  <FormHelperText></FormHelperText>
-                ) : (
-                  <FormErrorMessage>Categoria requerida</FormErrorMessage>
-                )}
+                <FormErrorMessage>
+                  {errors.name && errors.name.message}
+                </FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={isError}>
+              <FormControl isInvalid={Boolean(errors.amount)}>
                 <FormLabel>Valor</FormLabel>
                 <Input
                   type="number"
-                  onChange={handleInputChange}
                   step={0.01}
                   min={0}
                   placeholder="R$00,00"
@@ -153,13 +138,9 @@ const AddBudget: React.FC = () => {
                     },
                   })}
                 />
-                {!isError ? (
-                  <FormHelperText></FormHelperText>
-                ) : (
-                  <FormErrorMessage>
-                    Digite o valor de sua entrada!
-                  </FormErrorMessage>
-                )}
+                <FormErrorMessage>
+                  {errors.amount && errors.amount.message}
+                </FormErrorMessage>
               </FormControl>
             </ModalBody>
 
@@ -183,11 +164,3 @@ const AddBudget: React.FC = () => {
 };
 
 export default AddBudget;
-
-/**
- * @todo Fix ColorScheme in the budget List page
- * @todo centralize Loading for lists
- * @todo fix error problem in addbudget and add errors to edit budgets and expenses
- * @todo centralize Modal in all pages who have it
- * @todo fix many items list problem in budget/expense
- */
