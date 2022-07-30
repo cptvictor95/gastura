@@ -70,7 +70,7 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
           />
         </Flex>
 
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
           <ModalContent bgColor="green.900">
             <ModalHeader color="beige.100" textAlign="center">

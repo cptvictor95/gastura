@@ -2,8 +2,8 @@ import Loading from "@/components/Loading/Loading";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import {
-  ButtonGroup,
-  Flex,
+  Button,
+  Container,
   Table,
   TableContainer,
   Tbody,
@@ -11,6 +11,7 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Expense } from "types/Expense";
@@ -22,6 +23,7 @@ const ExpenseList: React.FC = () => {
   const { user } = useLoggedInUser();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleGetUserExpenses = async (userId: string) => {
     const expenses = await getUserExpenses(userId);
@@ -34,7 +36,14 @@ const ExpenseList: React.FC = () => {
     if (user !== null && user !== false) handleGetUserExpenses(user.uid);
   }, [user]);
 
-  return (
+  if (isLoading)
+    return (
+      <Container centerContent maxW="md">
+        <Loading />
+      </Container>
+    );
+
+  return expenses.length !== 0 ? (
     <TableContainer borderRadius="6px">
       <Table variant="striped" colorScheme="dgreen">
         <Thead bgColor="black">
@@ -47,37 +56,34 @@ const ExpenseList: React.FC = () => {
             <Th color="beige.100">Opção</Th>
           </Tr>
         </Thead>
-
-        {isLoading ? (
-          <Tbody>
-            <Loading />
-          </Tbody>
-        ) : (
-          <Tbody>
-            {expenses.map((expense, index) => {
-              return (
-                <ListItem expense={expense} key={expense.uid} index={index} />
-              );
-            })}
-          </Tbody>
-        )}
-
-        {!isLoading && expenses.length === 0 && (
-          <Flex
-            direction="column"
-            gap="2"
-            textAlign="center"
-            width="240%"
-            alignItems="center"
-          >
-            <Text fontSize="xl">Nenhum gasto adicionado até agora.</Text>
-            <ButtonGroup width="25%">
-              <AddExpense />
-            </ButtonGroup>
-          </Flex>
-        )}
+        <Tbody>
+          {expenses.map((expense, index) => {
+            return (
+              <ListItem expense={expense} key={expense.uid} index={index} />
+            );
+          })}
+        </Tbody>
       </Table>
     </TableContainer>
+  ) : (
+    <Container centerContent maxW="md">
+      <Text textAlign="center" fontSize="xl">
+        Nenhum gasto adicionado até agora.
+      </Text>
+
+      <Button
+        width="max-content"
+        _hover={{
+          filter: "auto",
+          brightness: "80%",
+        }}
+        onClick={onOpen}
+      >
+        Adicionar
+      </Button>
+
+      <AddExpense isOpen={isOpen} onClose={onClose} />
+    </Container>
   );
 };
 

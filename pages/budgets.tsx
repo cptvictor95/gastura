@@ -2,9 +2,16 @@ import Main from "Layout/Main";
 import React from "react";
 import Header from "../components/Header/Header";
 import { BudgetProvider } from "@/contexts/BudgetContext";
-import BudgetList from "@/components/Budgets/BudgetsList/BudgetList";
 
 import { Container, Heading } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+
+const BudgetList = dynamic(
+  () => import("@/components/Budgets/BudgetsList/BudgetList"),
+  {
+    ssr: false,
+  }
+);
 
 const BudgetPage: React.FC = () => {
   return (

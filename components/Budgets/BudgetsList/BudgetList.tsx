@@ -14,6 +14,9 @@ import {
   Thead,
   Tr,
   Text,
+  useDisclosure,
+  Button,
+  Container,
 } from "@chakra-ui/react";
 
 const BudgetList: React.FC = () => {
@@ -21,6 +24,7 @@ const BudgetList: React.FC = () => {
   const { user } = useLoggedInUser();
   const { budgets, setBudgets } = useBudgets();
   const [isLoading, setIsLoading] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleGetUserBudget = async (userId: string) => {
     const budgets = await getUserBudgets(userId);
@@ -39,7 +43,14 @@ const BudgetList: React.FC = () => {
     };
   }, [user]);
 
-  return (
+  if (isLoading)
+    return (
+      <Container centerContent maxW="md">
+        <Loading />
+      </Container>
+    );
+
+  return budgets && budgets.length !== 0 ? (
     <TableContainer borderRadius="6px" maxHeight="80vh">
       <Table variant="striped" colorScheme="dgreen">
         <Thead bgColor="black">
@@ -51,25 +62,36 @@ const BudgetList: React.FC = () => {
           </Tr>
         </Thead>
 
-        {isLoading ? (
-          <Tbody>
+        <Tbody>
+          {isLoading ? (
             <Loading />
-          </Tbody>
-        ) : (
-          budgets &&
-          budgets.map((budget, index) => {
-            return <ListItem budget={budget} key={budget.uid} index={index} />;
-          })
-        )}
-
-        {!isLoading && budgets && budgets.length === 0 && (
-          <Tbody>
-            <Text fontSize="xl">Nenhuma entrada adicionada até agora.</Text>
-            <AddBudget />
-          </Tbody>
-        )}
+          ) : (
+            budgets &&
+            budgets.map((budget, index) => {
+              return (
+                <ListItem budget={budget} key={budget.uid} index={index} />
+              );
+            })
+          )}
+        </Tbody>
       </Table>
     </TableContainer>
+  ) : (
+    <Container centerContent maxW="md">
+      <Text fontSize="xl">Nenhuma entrada adicionada até agora.</Text>
+
+      <Button
+        width="max-content"
+        _hover={{
+          filter: "auto",
+          brightness: "80%",
+        }}
+        onClick={onOpen}
+      >
+        Adicionar
+      </Button>
+      <AddBudget isOpen={isOpen} onClose={onClose} />
+    </Container>
   );
 };
 

@@ -9,7 +9,7 @@ const Header: React.FC = () => {
 
   return (
     <Flex
-      height="10vh"
+      minHeight="10vh"
       as="header"
       flexDirection="row"
       padding="25px"

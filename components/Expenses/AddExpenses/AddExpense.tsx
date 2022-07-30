@@ -54,7 +54,7 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   const { budgets } = useBudgets();
   const { expenses, setExpenses } = useExpenses();
 
-  const submitBudgetForm = (data: ExpenseForm) => {
+  const submitExpenseForm = (data: ExpenseForm) => {
     handleCreateExpense({
       description: data.description,
       amount: Number(data.amount),
@@ -84,14 +84,14 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent bgColor="green.900" borderRadius="6">
           <Flex
             color="beige.100"
             as="form"
             direction="column"
-            onSubmit={handleSubmit(submitBudgetForm)}
+            onSubmit={handleSubmit(submitExpenseForm)}
           >
             <ModalHeader
               color="beige.100"
@@ -103,7 +103,7 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
             </ModalHeader>
             <ModalCloseButton />
 
-            <ModalBody onSubmit={handleSubmit(submitBudgetForm)}>
+            <ModalBody>
               <FormControl isInvalid={Boolean(errors.description)}>
                 <FormLabel>Descrição</FormLabel>
                 <Input
@@ -146,7 +146,7 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
                   <option value="" disabled>
                     Categoria do Gasto
                   </option>
-                  {typeof budgets !== "boolean" &&
+                  {budgets &&
                     budgets.map((budget) => (
                       <option value={budget.uid} key={budget.uid}>
                         {budget.name[0].toUpperCase() + budget.name.slice(1)}
@@ -178,8 +178,8 @@ export default AddExpense;
 
 /**
  * @todo Fix ColorScheme in the budget List page
- * @todo centralize Loading for lists
- * @todo fix error problem in addbudget and add errors to edit budgets and expenses
- * @todo centralize Modal in all pages who have it
+
+ * @todo add errors to edit budgets and expenses
+
  * @todo fix many items list problem in budget/expense
  */

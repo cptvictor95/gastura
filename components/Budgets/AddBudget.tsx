@@ -90,7 +90,7 @@ const AddBudget: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
 
         <ModalContent bgColor="green.900" borderRadius="6">
