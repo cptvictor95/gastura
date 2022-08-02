@@ -9,7 +9,6 @@ const gasturaTheme = extendTheme({
         boxSizing: "border-box",
         bgColor: "#0a191a",
         color: "beige.100",
-        backgroundImage: "url('/images/kyuubi.png')",
       },
     },
   },

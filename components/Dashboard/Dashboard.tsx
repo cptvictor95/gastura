@@ -114,13 +114,11 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <Flex
-      margin="24"
-      backgroundImage=""
-      backgroundPosition="center"
-      backgroundRepeat="no-repeat"
-    >
-      <Box maxWidth="12rem" bgColor="green.900" p="4" borderRadius="6">
+    <Flex margin="24" gap="48" alignContent="center" width="100%">
+      <Box bgColor="green.900" px="3" py="1" borderRadius="6">
+        <Text textAlign="center" fontSize="xl">
+          Total de Gastos
+        </Text>
         {isLoading ? (
           <SkeletonText>
             <Text fontSize="xl" textAlign="center">
@@ -128,17 +126,14 @@ const Dashboard: React.FC = () => {
             </Text>
           </SkeletonText>
         ) : (
-          <Text fontSize="xl" textAlign="center">
-            <LoadedText>
+          <LoadedText>
+            <Text fontSize="xl" textAlign="center">
               R${totalExpenses && fixNumber(totalExpenses)}
-            </LoadedText>
-          </Text>
+            </Text>
+          </LoadedText>
         )}
-        <Text textAlign="center" fontSize="xl">
-          Total de Gastos
-        </Text>
-
         <Button
+          mb="2"
           onClick={onAddExpenseOpen}
           _hover={{
             filter: "auto",
@@ -152,23 +147,11 @@ const Dashboard: React.FC = () => {
       </Box>
 
       <AddExpense onClose={onAddExpenseClose} isOpen={isAddExpenseOpen} />
-
-      <Box>
-        {isLoading ? (
-          <SkeletonText>
-            <Text textAlign="center" fontSize="xl">
-              R$00,00
-            </Text>
-          </SkeletonText>
-        ) : (
-          <LoadedText>R${userWallet && fixNumber(userWallet)}</LoadedText>
-        )}
-        <Text textAlign="center" fontSize="xl">
+      <Box height="5rem" bgColor="green.900" px="3" py="1" borderRadius="6">
+        <Text textAlign="center" fontSize="xl" mb="2">
           Carteira
         </Text>
-      </Box>
 
-      <Box maxWidth="12rem" bgColor="green.900" p="4" borderRadius="6">
         {isLoading ? (
           <SkeletonText>
             <Text textAlign="center" fontSize="xl">
@@ -176,11 +159,29 @@ const Dashboard: React.FC = () => {
             </Text>
           </SkeletonText>
         ) : (
-          <LoadedText>R${totalBudget && fixNumber(totalBudget)}</LoadedText>
+          <LoadedText>
+            <Text fontSize="xl">R${userWallet && fixNumber(userWallet)}</Text>
+          </LoadedText>
         )}
-        <Text textAlign="center" fontSize="xl">
+      </Box>
+
+      <Box bgColor="green.900" px="3" py="1" borderRadius="6">
+        <Text textAlign="center" fontSize="xl" width="100%">
           Orçamento total
         </Text>
+        {isLoading ? (
+          <SkeletonText>
+            <Text textAlign="center" fontSize="xl">
+              R$00,00
+            </Text>
+          </SkeletonText>
+        ) : (
+          <LoadedText>
+            <Text textAlign="center" fontSize="xl">
+              R${totalBudget && fixNumber(totalBudget)}
+            </Text>
+          </LoadedText>
+        )}
         <Button
           _hover={{
             filter: "auto",

@@ -53,7 +53,7 @@ const BudgetList: React.FC = () => {
   return budgets && budgets.length !== 0 ? (
     <TableContainer borderRadius="6px" maxHeight="80vh">
       <Table variant="striped" colorScheme="dgreen">
-        <Thead bgColor="black">
+        <Thead bgColor="darkgreen.800">
           <Tr fontWeight="bold">
             <Th color="beige.100">#</Th>
             <Th color="beige.100">Nome</Th>

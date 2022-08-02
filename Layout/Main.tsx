@@ -14,9 +14,9 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
   return (
     <Flex
       as="main"
-      height="90vh"
+      minHeight="90vh"
       alignItems="center"
-      backgroundImage="https://media.istockphoto.com/id/610767792/pt/foto/little-girl-and-her-smoker-father.webp?s=612x612&w=is&k=20&c=IyjajMwhu3KzzgNCn3Fg0g87tqsKOdB9qqtk-ESuNyY="
+      backgroundImage="https://img.r7.com/images/2016/03/16/4b0yflv637_22y37gtes1_file.jpg"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
     >
