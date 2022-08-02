@@ -8,9 +8,9 @@ import { Budget } from "types/Budget";
 import { Expense } from "types/Expense";
 import AddBudget from "../Budgets/AddBudget";
 import AddExpense from "../Expenses/AddExpenses/AddExpense";
-import styles from "./styles.module.scss";
+
 import { motion } from "framer-motion";
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 
 const variants = {
   hidden: { opacity: 0 },
@@ -34,7 +34,6 @@ const SkeletonText = ({ children }) => (
     animate="visible"
     transition={{ duration: 0.6 }}
     variants={variants}
-    className={styles.skeletonText}
   >
     {children}
   </motion.div>
@@ -115,73 +114,87 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <>
-      <div className={styles.balanceContainer}>
-        <div className={styles.expense}>
-          <div className={styles.card}>
-            {isLoading ? (
-              <SkeletonText>
-                <p>R$00,00</p>
-              </SkeletonText>
-            ) : (
-              <LoadedText>
-                R${totalExpenses && fixNumber(totalExpenses)}
-              </LoadedText>
-            )}
-            <p>Total de Gastos</p>
-          </div>
-          <Button
-            onClick={onAddExpenseOpen}
-            _hover={{
-              filter: "auto",
-              brightness: "80%",
-            }}
-            bgColor="beige.100"
-          >
-            Adicionar
-          </Button>
-          <AddExpense onClose={onAddExpenseClose} isOpen={isAddExpenseOpen} />
-        </div>
+    <Flex
+      margin="24"
+      backgroundImage=""
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+    >
+      <Box maxWidth="12rem" bgColor="green.900" p="4" borderRadius="6">
+        {isLoading ? (
+          <SkeletonText>
+            <Text fontSize="xl" textAlign="center">
+              R$00,00
+            </Text>
+          </SkeletonText>
+        ) : (
+          <Text fontSize="xl" textAlign="center">
+            <LoadedText>
+              R${totalExpenses && fixNumber(totalExpenses)}
+            </LoadedText>
+          </Text>
+        )}
+        <Text textAlign="center" fontSize="xl">
+          Total de Gastos
+        </Text>
 
-        <div className={styles.balance}>
-          <div className={styles.card}>
-            {isLoading ? (
-              <SkeletonText>
-                <p>R$00,00</p>
-              </SkeletonText>
-            ) : (
-              <LoadedText>R${userWallet && fixNumber(userWallet)}</LoadedText>
-            )}
-            <p>Carteira</p>
-          </div>
-        </div>
+        <Button
+          onClick={onAddExpenseOpen}
+          _hover={{
+            filter: "auto",
+            brightness: "80%",
+          }}
+          bgColor="beige.100"
+          width="100%"
+        >
+          Adicionar
+        </Button>
+      </Box>
 
-        <div className={styles.budget}>
-          <div className={styles.card}>
-            {isLoading ? (
-              <SkeletonText>
-                <p>R$00,00</p>
-              </SkeletonText>
-            ) : (
-              <LoadedText>R${totalBudget && fixNumber(totalBudget)}</LoadedText>
-            )}
-            <p>Orçamento total</p>
-          </div>
-          <Button
-            _hover={{
-              filter: "auto",
-              brightness: "80%",
-            }}
-            bgColor="beige.100"
-            onClick={onAddBudgetOpen}
-          >
-            Adicionar
-          </Button>
-          <AddBudget isOpen={isAddBudgetOpen} onClose={onAddBudgetClose} />
-        </div>
-      </div>
-      <div className={styles.mainColumns}></div>
-    </>
+      <AddExpense onClose={onAddExpenseClose} isOpen={isAddExpenseOpen} />
+
+      <Box>
+        {isLoading ? (
+          <SkeletonText>
+            <Text textAlign="center" fontSize="xl">
+              R$00,00
+            </Text>
+          </SkeletonText>
+        ) : (
+          <LoadedText>R${userWallet && fixNumber(userWallet)}</LoadedText>
+        )}
+        <Text textAlign="center" fontSize="xl">
+          Carteira
+        </Text>
+      </Box>
+
+      <Box maxWidth="12rem" bgColor="green.900" p="4" borderRadius="6">
+        {isLoading ? (
+          <SkeletonText>
+            <Text textAlign="center" fontSize="xl">
+              R$00,00
+            </Text>
+          </SkeletonText>
+        ) : (
+          <LoadedText>R${totalBudget && fixNumber(totalBudget)}</LoadedText>
+        )}
+        <Text textAlign="center" fontSize="xl">
+          Orçamento total
+        </Text>
+        <Button
+          _hover={{
+            filter: "auto",
+            brightness: "80%",
+          }}
+          bgColor="beige.100"
+          onClick={onAddBudgetOpen}
+        >
+          Adicionar
+        </Button>
+      </Box>
+
+      <AddBudget isOpen={isAddBudgetOpen} onClose={onAddBudgetClose} />
+    </Flex>
   );
 };
 

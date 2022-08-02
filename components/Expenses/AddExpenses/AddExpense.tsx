@@ -137,13 +137,12 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
               <FormControl>
                 <FormLabel htmlFor="budgetId">Categoria</FormLabel>
                 <Select
-                  colorScheme="blue"
                   id="budgetId"
                   {...register("budgetId", {
                     required: { value: true, message: "Escolha uma categoria" },
                   })}
                 >
-                  <option value="" disabled>
+                  <option style={{ color: "blue" }} value="" disabled>
                     Categoria do Gasto
                   </option>
                   {budgets &&

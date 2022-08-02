@@ -1,4 +1,3 @@
-import "../styles/globals.scss";
 import { AppProps } from "next/app";
 import { FirebaseProvider } from "config/context";
 import { AuthProvider } from "@/contexts/AuthContext";
