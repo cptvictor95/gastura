@@ -3,7 +3,15 @@ import { emailRegEx } from "@/utils/regEx";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import styles from "./styles.module.scss";
+import {
+  Button,
+  Flex,
+  Input,
+  Heading,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 
 export type LoginForm = { email: string; password: string };
 
@@ -27,11 +35,20 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(submitLoginForm)}>
-      <h2>Login</h2>
-      <div className={styles.formControl}>
-        <label htmlFor="email">Email</label>
-        <input
+    <Flex
+      as="form"
+      direction="column"
+      onSubmit={handleSubmit(submitLoginForm)}
+      gap="4"
+      mb="4"
+    >
+      <Heading textAlign="center" color="gray.100">
+        Faça o login
+      </Heading>
+
+      <FormControl isInvalid={Boolean(errors.email)}>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input
           type="email"
           placeholder="email@email.com"
           {...register("email", {
@@ -42,27 +59,28 @@ const LoginForm: React.FC = () => {
             },
           })}
         />
-        <span className={styles.errorMessage}>
+        <FormErrorMessage>
           {errors.email && errors.email.message}
-        </span>
-      </div>
-      <div className={styles.formControl}>
-        <label htmlFor="password">Senha</label>
-        <input
+        </FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={Boolean(errors.password)}>
+        <FormLabel htmlFor="password">Senha</FormLabel>
+        <Input
           type="password"
           placeholder="******"
           {...register("password", {
             required: { value: true, message: "Digite sua senha" },
           })}
         />
-        <span className={styles.errorMessage}>
+        <FormErrorMessage>
           {errors.password && errors.password.message}
-        </span>
-      </div>
-      <button type="submit" className={styles.submitButton}>
+        </FormErrorMessage>
+      </FormControl>
+      <Button variant="solid" type="submit" mt="2" width="">
         Entrar
-      </button>
-    </form>
+      </Button>
+    </Flex>
   );
 };
 

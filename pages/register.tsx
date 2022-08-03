@@ -3,29 +3,40 @@ import AuthLoader from "components/Auth/AuthLoader";
 import Header from "@/components/Header/Header";
 import RegisterForm from "components/RegisterForm/RegisterForm";
 import Main from "Layout/Main";
-import { useRouter } from "next/router";
 import React from "react";
-import styles from "../styles/pages/Register.module.scss";
+import { Container, Flex, Link, Text } from "@chakra-ui/react";
 
 const Register: React.FC = () => {
-  const router = useRouter();
   return (
     <UserProvider>
       <>
         <Header />
         <Main title="Cadastrar">
           <AuthLoader>
-            <RegisterForm />
-
-            <section className={styles.loginSection}>
-              <p>Já tem uma conta?</p>
-              <button
-                className={styles.link}
-                onClick={() => router.push("/register")}
+            <Flex
+              as="section"
+              direction="column"
+              alignItems="center"
+              justify="center"
+              minHeight="100%"
+              gap="12"
+              width="100%"
+            >
+              <Container
+                as="section"
+                bgColor="green.900"
+                px="12"
+                py="12"
+                pb="16"
+                borderRadius="7px"
               >
-                Fazer login
-              </button>
-            </section>
+                <RegisterForm />
+                <Flex gap="4" mt="-2">
+                  <Text>Já tem uma conta?</Text>
+                  <Link href="/login">Fazer login</Link>
+                </Flex>
+              </Container>
+            </Flex>
           </AuthLoader>
         </Main>
       </>

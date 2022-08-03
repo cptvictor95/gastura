@@ -1,19 +1,35 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { UserCtx } from "@/contexts/UserContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import React, { useContext, useState } from "react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  Input,
+  FormLabel,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+} from "@chakra-ui/react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import Popup from "reactjs-popup";
 import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
-import styles from "./styles.module.scss";
 
 type BudgetForm = {
   name: string;
   amount: number;
 };
 
-const AddBudget: React.FC = () => {
+const AddBudget: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
   const {
     register,
     handleSubmit,
@@ -28,7 +44,6 @@ const AddBudget: React.FC = () => {
   });
   const { user } = useLoggedInUser();
   const { budgets, setBudgets } = useBudgets();
-  const [open, setOpen] = useState(false);
   const { createBudget } = useContext(BudgetCtx);
   const { updateUser } = useContext(UserCtx);
 
@@ -37,8 +52,6 @@ const AddBudget: React.FC = () => {
       name: data.name,
       amount: Number(data.amount),
     });
-
-    closeModal();
   };
 
   const handleCreateBudget = async (newBudget: Partial<Budget>) => {
@@ -75,53 +88,45 @@ const AddBudget: React.FC = () => {
     }
   };
 
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-  };
-
   return (
     <>
-      <button onClick={openModal}>Adicionar</button>
-      <Popup
-        open={open}
-        modal
-        closeOnEscape
-        onClose={closeModal}
-        className={styles.popupContent}
-      >
-        <div className={styles.modal}>
-          <div className={styles.modalHeader}>
-            <h3>Novo Orçamento</h3>
-            <button className={styles.closeBtn} onClick={closeModal}>
-              &times;
-            </button>
-          </div>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
 
-          <div className={styles.formContainer}>
-            <form
-              className={styles.form}
-              onSubmit={handleSubmit(submitBudgetForm)}
+        <ModalContent bgColor="green.900" borderRadius="6">
+          <Flex
+            color="beige.100"
+            as="form"
+            direction="column"
+            onSubmit={handleSubmit(submitBudgetForm)}
+          >
+            <ModalHeader
+              color="beige.100"
+              textAlign="center"
+              bgColor="darkgreen.800"
+              borderTopRadius="6"
             >
-              <div className={styles.formControl}>
-                <label htmlFor="name">Nome</label>
-                <input
+              Novo Orçamento
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormControl isInvalid={Boolean(errors.name)}>
+                <FormLabel>Categoria</FormLabel>
+                <Input
+                  type="categoria"
                   {...register("name", {
                     required: { value: true, message: "Digite uma descrição" },
                   })}
                   placeholder="Ex.: Alimentação"
-                  type="text"
                 />
-                <span className={styles.errorMessage}>
+                <FormErrorMessage>
                   {errors.name && errors.name.message}
-                </span>
-              </div>
-              <div className={styles.formControl}>
-                <label htmlFor="amount">Valor Máximo</label>
-                <input
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={Boolean(errors.amount)}>
+                <FormLabel>Valor</FormLabel>
+                <Input
                   type="number"
                   step={0.01}
                   min={0}
@@ -133,17 +138,27 @@ const AddBudget: React.FC = () => {
                     },
                   })}
                 />
-                <span className={styles.errorMessage}>
+                <FormErrorMessage>
                   {errors.amount && errors.amount.message}
-                </span>
-              </div>
-              <button type="submit" className={styles.submitButton}>
+                </FormErrorMessage>
+              </FormControl>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                type="submit"
+                _hover={{
+                  filter: "auto",
+                  brightness: "80%",
+                }}
+                onClick={onClose}
+              >
                 Adicionar
-              </button>
-            </form>
-          </div>
-        </div>
-      </Popup>
+              </Button>
+            </ModalFooter>
+          </Flex>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

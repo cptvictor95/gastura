@@ -1,7 +1,14 @@
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
-import { Flex, Button, Input, Heading } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Input,
+  Heading,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 const EditBudgetForm = ({ budget }) => {
@@ -30,38 +37,42 @@ const EditBudgetForm = ({ budget }) => {
 
   return (
     <>
-      <Flex height="90vh" alignItems="center" justifyContent="center" mt="-28">
-        <Flex
-          direction="column"
-          background="gray.700"
-          p={12}
-          rounded={6}
+      <Flex
+        as="form"
+        onSubmit={handleSubmit(submitUpdate)}
+        direction="column"
+        background="green.900"
+        p={12}
+        borderRadius="7px"
+        fontSize="lg"
+      >
+        <Heading textAlign="center" mb={6} mt="-2" fontSize="3xl">
+          Edite sua entrada
+        </Heading>
+
+        <FormControl>
+          <FormLabel>Entrada</FormLabel>
+          <Input {...register("name")} mb={6} />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Valor</FormLabel>
+          <Input {...register("amount")} type="number" step="0.01" mb={10} />
+        </FormControl>
+
+        <Button
+          type="submit"
+          _hover={{
+            filter: "auto",
+            brightness: "90%",
+          }}
+          color="black"
+          background="gray.100"
+          width="100%"
           fontSize="lg"
-          width="42%"
         >
-          <Heading mb={6} fontSize="28">
-            Edite sua entrada
-          </Heading>
-          <form onSubmit={handleSubmit(submitUpdate)}>
-            <label>Entrada</label>
-            <Input {...register("name")} mb={6} />
-            <label>Valor</label>
-            <Input {...register("amount")} type="number" step="0.01" mb={10} />
-            <Button
-              type="submit"
-              _hover={{
-                background: "gray.400",
-                color: "black",
-              }}
-              color="black"
-              background="gray.100"
-              width="100%"
-              fontSize="lg"
-            >
-              Alterar
-            </Button>
-          </form>
-        </Flex>
+          Alterar
+        </Button>
       </Flex>
     </>
   );

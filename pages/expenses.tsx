@@ -3,8 +3,9 @@ import dynamic from "next/dynamic";
 import { ExpenseProvider } from "@/contexts/ExpenseContext";
 import Main from "Layout/Main";
 import Header from "@/components/Header/Header";
-import Container from "Layout/Container";
+
 import { BudgetProvider } from "@/contexts/BudgetContext";
+import { Container, Flex, Heading } from "@chakra-ui/react";
 
 const ExpenseList = dynamic(
   () => import("@/components/Expenses/ExpenseList/ExpenseList"),
@@ -19,9 +20,19 @@ const Expenses: React.FC = () => {
       <ExpenseProvider>
         <Header />
         <Main title="Gastos">
-          <Container>
-            <h2>Tabela de Gastos</h2>
-            <ExpenseList />
+          <Container maxWidth="4xl">
+            <Flex
+              direction="column"
+              alignItems="center"
+              justify="center"
+              height="100%"
+              gap="12"
+            >
+              <Heading textAlign="center" p="2">
+                Tabela de Gastos
+              </Heading>
+              <ExpenseList />
+            </Flex>
           </Container>
         </Main>
       </ExpenseProvider>

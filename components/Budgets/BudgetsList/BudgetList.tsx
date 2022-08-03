@@ -2,23 +2,29 @@ import React, { useEffect, useState, useContext } from "react";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import ListItem from "./ListItem/ListItem";
-import styles from "./styles.module.scss";
+
 import Loading from "@/components/Loading/Loading";
 import AddBudget from "../AddBudget";
 import useBudgets from "stores/useBudgets";
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+  Text,
+  useDisclosure,
+  Button,
+  Container,
+} from "@chakra-ui/react";
 
-/**
- * @todo use budget context
- * @todo create handler for getBudgets
- * @todo add budget list to state
- * @todo map budget list from state on html
- * @todo use listItem component on map return
- */
 const BudgetList: React.FC = () => {
   const { getUserBudgets } = useContext(BudgetCtx);
   const { user } = useLoggedInUser();
   const { budgets, setBudgets } = useBudgets();
   const [isLoading, setIsLoading] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleGetUserBudget = async (userId: string) => {
     const budgets = await getUserBudgets(userId);
@@ -37,37 +43,76 @@ const BudgetList: React.FC = () => {
     };
   }, [user]);
 
-  return (
-    <div>
-      <table className={styles.table}>
-        <thead>
-          <tr className={styles.tableRow}>
-            <th>#</th>
-            <th>Nome</th>
-            <th>Valor</th>
-            <th>Opção</th>
-          </tr>
-        </thead>
+  if (isLoading)
+    return (
+      <Container centerContent maxW="md">
+        <Loading />
+      </Container>
+    );
 
-        {isLoading ? (
-          <tbody className={styles.loadingContainer}>
+  return budgets && budgets.length !== 0 ? (
+    <TableContainer
+      width="100%"
+      borderRadius="6px"
+      maxHeight="80vh"
+      pb="4"
+      bgColor="rgba(0,0,0,0.5)"
+    >
+      <Table variant="striped" colorScheme="dgreen">
+        <Thead bgColor="black">
+          <Tr fontWeight="bold">
+            <Th color="beige.100">#</Th>
+            <Th color="beige.100">Nome</Th>
+            <Th color="beige.100">Valor</Th>
+            <Th color="beige.100">Opção</Th>
+          </Tr>
+        </Thead>
+
+        <Tbody>
+          {isLoading ? (
             <Loading />
-          </tbody>
-        ) : (
-          budgets &&
-          budgets.map((budget, index) => {
-            return <ListItem budget={budget} key={budget.uid} index={index} />;
-          })
-        )}
+          ) : (
+            budgets &&
+            budgets.map((budget, index) => {
+              return (
+                <ListItem budget={budget} key={budget.uid} index={index} />
+              );
+            })
+          )}
+        </Tbody>
+      </Table>
 
-        {!isLoading && budgets && budgets.length === 0 && (
-          <tbody className={styles.emptyMessage}>
-            <p>Nenhuma entrada adicionada até agora.</p>
-            <AddBudget />
-          </tbody>
-        )}
-      </table>
-    </div>
+      <Container centerContent mt="4">
+        <Button
+          width="50%"
+          _hover={{
+            filter: "auto",
+            brightness: "80%",
+          }}
+          onClick={onOpen}
+        >
+          Adicionar
+        </Button>
+      </Container>
+
+      <AddBudget isOpen={isOpen} onClose={onClose} />
+    </TableContainer>
+  ) : (
+    <Container centerContent maxW="md">
+      <Text fontSize="xl">Nenhuma entrada adicionada até agora.</Text>
+
+      <Button
+        width="max-content"
+        _hover={{
+          filter: "auto",
+          brightness: "80%",
+        }}
+        onClick={onOpen}
+      >
+        Adicionar
+      </Button>
+      <AddBudget isOpen={isOpen} onClose={onClose} />
+    </Container>
   );
 };
 

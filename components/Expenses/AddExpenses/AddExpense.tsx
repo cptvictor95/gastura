@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import styles from "./styles.module.scss";
+import React, { useContext } from "react";
+
 import { useForm } from "react-hook-form";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
@@ -7,7 +7,23 @@ import { Expense } from "types/Expense";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useBudgets from "stores/useBudgets";
 import useExpenses from "stores/useExpenses";
-import Popup from "reactjs-popup";
+
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+} from "@chakra-ui/react";
 
 type ExpenseForm = {
   uid?: string;
@@ -16,7 +32,10 @@ type ExpenseForm = {
   budgetId: string;
 };
 
-const AddExpense: React.FC = () => {
+const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
   const {
     register,
     handleSubmit,
@@ -34,17 +53,14 @@ const AddExpense: React.FC = () => {
   const { createExpense } = useContext(ExpenseCtx);
   const { budgets } = useBudgets();
   const { expenses, setExpenses } = useExpenses();
-  const [open, setOpen] = useState(false);
 
-  const submitBudgetForm = (data: ExpenseForm) => {
+  const submitExpenseForm = (data: ExpenseForm) => {
     handleCreateExpense({
       description: data.description,
       amount: Number(data.amount),
       budgetId: data.budgetId,
       createdAt: Date.now(),
     });
-
-    closeModal();
   };
 
   const handleCreateExpense = async (newExpense: Expense) => {
@@ -66,46 +82,45 @@ const AddExpense: React.FC = () => {
     }
   };
 
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-  };
-
   return (
     <>
-      <button onClick={openModal}>Adicionar</button>
-      <Popup open={open} modal closeOnEscape onClose={closeModal}>
-        <div className={styles.modal}>
-          <div className={styles.modalHeader}>
-            <h3>Novo Gasto</h3>
-            <button className={styles.closeBtn} onClick={closeModal}>
-              &times;
-            </button>
-          </div>
-
-          <div className={styles.formContainer}>
-            <form
-              className={styles.form}
-              onSubmit={handleSubmit(submitBudgetForm)}
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent bgColor="green.900" borderRadius="6">
+          <Flex
+            color="beige.100"
+            as="form"
+            direction="column"
+            onSubmit={handleSubmit(submitExpenseForm)}
+          >
+            <ModalHeader
+              color="beige.100"
+              textAlign="center"
+              bgColor="darkgreen.800"
+              borderTopRadius="6"
             >
-              <div className={styles.formControl}>
-                <label htmlFor="description">Descrição</label>
-                <input
+              Novo Gasto
+            </ModalHeader>
+            <ModalCloseButton />
+
+            <ModalBody>
+              <FormControl isInvalid={Boolean(errors.description)}>
+                <FormLabel>Descrição</FormLabel>
+                <Input
+                  type="descrição"
                   placeholder="Ex.: Belle Lanches"
                   {...register("description", {
                     required: { value: true, message: "Digite uma descrição" },
                   })}
                 />
-                <span className={styles.errorMessage}>
+                <FormErrorMessage>
                   {errors.description && errors.description.message}
-                </span>
-              </div>
-              <div className={styles.formControl}>
-                <label htmlFor="amount">Valor do gasto</label>
-                <input
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={Boolean(errors.amount)}>
+                <FormLabel htmlFor="amount">Valor do gasto</FormLabel>
+                <Input
                   placeholder="R$00,00"
                   type="number"
                   step={0.01}
@@ -114,42 +129,56 @@ const AddExpense: React.FC = () => {
                     required: { value: true, message: "Digite um valor" },
                   })}
                 />
-                <span className={styles.errorMessage}>
+                <FormErrorMessage>
                   {errors.amount && errors.amount.message}
-                </span>
-              </div>
-              <div className={styles.formControl}>
-                <label htmlFor="budgetId">Categoria</label>
-                <select
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl>
+                <FormLabel htmlFor="budgetId">Categoria</FormLabel>
+                <Select
                   id="budgetId"
                   {...register("budgetId", {
                     required: { value: true, message: "Escolha uma categoria" },
                   })}
                 >
-                  <option value="" disabled>
+                  <option style={{ color: "blue" }} value="" disabled>
                     Categoria do Gasto
                   </option>
-                  {typeof budgets !== "boolean" &&
+                  {budgets &&
                     budgets.map((budget) => (
                       <option value={budget.uid} key={budget.uid}>
                         {budget.name[0].toUpperCase() + budget.name.slice(1)}
                       </option>
                     ))}
-                </select>
-                <span className={styles.errorMessage}>
-                  {errors.budgetId && errors.budgetId.message}
-                </span>
-              </div>
-
-              <button type="submit" className={styles.submitButton}>
+                </Select>
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                type="submit"
+                _hover={{
+                  filter: "auto",
+                  brightness: "80%",
+                }}
+                onClick={onClose}
+              >
                 Adicionar
-              </button>
-            </form>
-          </div>
-        </div>
-      </Popup>
+              </Button>
+            </ModalFooter>
+          </Flex>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
 
 export default AddExpense;
+
+/**
+ * @todo Fix ColorScheme in the budget List page
+
+ * @todo add errors to edit budgets and expenses
+
+ * @todo fix many items list problem in budget/expense
+ */

@@ -1,61 +1,65 @@
+import { Button, Flex, Spacer, Image } from "@chakra-ui/react";
 import useLoggedInUser from "hooks/useLoggedInUser";
 import { useRouter } from "next/router";
 import React from "react";
-import styles from "./styles.module.scss";
 
 const Header: React.FC = () => {
   const router = useRouter();
   const { user, authState, handleUserLogout } = useLoggedInUser();
 
   return (
-    <header className={styles.header}>
-      <p>Logo</p>
-
+    <Flex
+      minHeight="10vh"
+      as="header"
+      flexDirection="row"
+      align="center"
+      bgColor="green.900"
+      px="12"
+    >
+      <Image src="./assets/Group.svg" boxSize="90px" alt="logoImage" />
+      <Spacer />
       {authState === "LOADING" ? (
         <></>
       ) : user ? (
-        <nav className={styles.nav}>
-          <button className={styles.navButton} onClick={() => router.push("/")}>
+        <Flex as="nav" gap="20">
+          <Button variant="headerBtn" onClick={() => router.push("/")}>
             Home
-          </button>
-          <button
-            className={styles.navButton}
-            onClick={() => router.push("/expenses")}
-          >
+          </Button>
+
+          <Button variant="headerBtn" onClick={() => router.push("/expenses")}>
             Gastos
-          </button>
-
-          <button
-            className={styles.navButton}
-            onClick={() => router.push("/budgets")}
-          >
+          </Button>
+          <Button variant="headerBtn" onClick={() => router.push("/budgets")}>
             Entradas
-          </button>
-
-          <button className={styles.exitButton} onClick={handleUserLogout}>
-            Sair
-          </button>
-        </nav>
-      ) : (
-        <nav className={styles.nav}>
-          <button className={styles.navButton} onClick={() => router.push("/")}>
-            Home
-          </button>
-          <button
-            className={styles.accent}
-            onClick={() => router.push("/login")}
+          </Button>
+          <Button
+            bgColor="beige.100"
+            variant="headerBtn"
+            color="black"
+            onClick={handleUserLogout}
           >
+            Sair
+          </Button>
+        </Flex>
+      ) : (
+        <Flex as="nav" gap="20">
+          <Button variant="headerBtn" onClick={() => router.push("/")}>
+            Home
+          </Button>
+          <Button variant="headerBtn" onClick={() => router.push("/login")}>
             Entrar
-          </button>
-          <button
-            className={styles.accent}
+          </Button>
+          <Button
+            variant="headerBtn"
+            bgColor="beige.100"
+            color="black"
             onClick={() => router.push("/register")}
           >
             Criar conta
-          </button>
-        </nav>
+          </Button>
+        </Flex>
       )}
-    </header>
+    </Flex>
   );
 };
 

@@ -1,11 +1,18 @@
 import { UserCtx } from "@/contexts/UserContext";
 import { emailRegEx } from "@/utils/regEx";
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Heading,
+  Input,
+} from "@chakra-ui/react";
 import { FirebaseCtx } from "config/context";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-
-import styles from "./styles.module.scss";
 
 type RegisterFormProps = {
   name: string;
@@ -54,11 +61,22 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(submitRegisterForm)}>
-      <h2>Criar conta</h2>
-      <div className={styles.formControl}>
-        <label htmlFor="name">Nome</label>
-        <input
+    <Flex
+      onSubmit={handleSubmit(submitRegisterForm)}
+      as="form"
+      direction="column"
+      w="100%"
+      h="100%"
+      gap="5"
+      alignItems="center"
+    >
+      <Heading textAlign="center" color="gray.100">
+        Crie sua conta!
+      </Heading>
+
+      <FormControl isInvalid={Boolean(errors.name)}>
+        <FormLabel htmlFor="name">Nome</FormLabel>
+        <Input
           type="text"
           placeholder="Seu nome"
           {...register("name", {
@@ -68,11 +86,14 @@ const RegisterForm: React.FC = () => {
             },
           })}
         />
-        <span>{errors.name && errors.name.message}</span>
-      </div>
-      <div className={styles.formControl}>
-        <label htmlFor="email">Email</label>
-        <input
+        <FormErrorMessage>
+          {errors.name && errors.name.message}
+        </FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={Boolean(errors.email)}>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input
           type="email"
           placeholder="email@email.com"
           {...register("email", {
@@ -86,11 +107,14 @@ const RegisterForm: React.FC = () => {
             },
           })}
         />
-        <span>{errors.email && errors.email.message}</span>
-      </div>
-      <div className={styles.formControl}>
-        <label htmlFor="password">Senha</label>
-        <input
+        <FormErrorMessage>
+          {errors.email && errors.email.message}
+        </FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={Boolean(errors.password)}>
+        <FormLabel htmlFor="password">Senha</FormLabel>
+        <Input
           type="password"
           placeholder="******"
           {...register("password", {
@@ -100,13 +124,14 @@ const RegisterForm: React.FC = () => {
             },
           })}
         />
-        <span>{errors.password && errors.password.message}</span>
-      </div>
-
-      <button type="submit" className={styles.submitButton}>
+        <FormErrorMessage>
+          {errors.password && errors.password.message}
+        </FormErrorMessage>
+      </FormControl>
+      <Button variant="solid" type="submit" mt="2">
         Criar conta
-      </button>
-    </form>
+      </Button>
+    </Flex>
   );
 };
 
