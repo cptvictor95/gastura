@@ -39,8 +39,6 @@ const LoginForm: React.FC = () => {
       as="form"
       direction="column"
       onSubmit={handleSubmit(submitLoginForm)}
-      w="100%"
-      h="100%"
       gap="4"
       mb="4"
     >

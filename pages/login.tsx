@@ -12,20 +12,23 @@ const Login: React.FC = () => {
       <Header />
       <Main title="Login">
         <AuthLoader>
-          <Container
+          <Flex
             as="section"
-            bgColor="green.900"
-            px="12"
-            py="12"
-            maxWidth="md"
-            borderRadius="7px"
+            direction="column"
+            alignItems="center"
+            justify="center"
+            minHeight="100%"
+            gap="12"
+            width="100%"
           >
-            <LoginForm />
-            <Flex gap="4">
-              <Text>Ainda não tem cadastro?</Text>
-              <Link href="/register">Criar conta</Link>
-            </Flex>
-          </Container>
+            <Container px="12" py="12" borderRadius="7px" bgColor="green.900">
+              <LoginForm />
+              <Flex gap="4">
+                <Text>Ainda não tem cadastro?</Text>
+                <Link href="/register">Criar conta</Link>
+              </Flex>
+            </Container>
+          </Flex>
         </AuthLoader>
       </Main>
     </>

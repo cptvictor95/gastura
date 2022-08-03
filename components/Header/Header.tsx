@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Spacer, Image } from "@chakra-ui/react";
+import { Button, Flex, Spacer, Image } from "@chakra-ui/react";
 import useLoggedInUser from "hooks/useLoggedInUser";
 import { useRouter } from "next/router";
 import React from "react";
@@ -12,16 +12,11 @@ const Header: React.FC = () => {
       minHeight="10vh"
       as="header"
       flexDirection="row"
-      padding="25px"
+      align="center"
       bgColor="green.900"
+      px="12"
     >
-      <Box>
-        <Image
-          src="https://img.r7.com/images/2016/03/16/4b0yflv637_22y37gtes1_file.jpg"
-          alt="vitinbocamole"
-          boxSize="50px"
-        />
-      </Box>
+      <Image src="./assets/Group.svg" boxSize="90px" alt="logoImage" />
       <Spacer />
       {authState === "LOADING" ? (
         <></>
@@ -30,6 +25,7 @@ const Header: React.FC = () => {
           <Button variant="headerBtn" onClick={() => router.push("/")}>
             Home
           </Button>
+
           <Button variant="headerBtn" onClick={() => router.push("/expenses")}>
             Gastos
           </Button>

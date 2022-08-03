@@ -52,7 +52,7 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
         borderRadius="7px"
         fontSize="lg"
       >
-        <Heading textAlign="center" mb={6} fontSize="3xl">
+        <Heading textAlign="center" mt="-2" mb={6} fontSize="3xl">
           Edite seu gasto
         </Heading>
 

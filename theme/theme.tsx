@@ -7,7 +7,7 @@ const gasturaTheme = extendTheme({
         margin: 0,
         padding: 0,
         boxSizing: "border-box",
-        bgColor: "#0a191a",
+        bgColor: "darkgreen.800",
         color: "beige.100",
       },
     },

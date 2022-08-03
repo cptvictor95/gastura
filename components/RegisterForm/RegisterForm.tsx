@@ -128,7 +128,7 @@ const RegisterForm: React.FC = () => {
           {errors.password && errors.password.message}
         </FormErrorMessage>
       </FormControl>
-      <Button variant="solid" type="submit" maxWidth="25rem">
+      <Button variant="solid" type="submit" mt="2">
         Criar conta
       </Button>
     </Flex>

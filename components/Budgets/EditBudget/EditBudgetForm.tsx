@@ -46,7 +46,7 @@ const EditBudgetForm = ({ budget }) => {
         borderRadius="7px"
         fontSize="lg"
       >
-        <Heading textAlign="center" mb={6} fontSize="3xl">
+        <Heading textAlign="center" mb={6} mt="-2" fontSize="3xl">
           Edite sua entrada
         </Heading>
 

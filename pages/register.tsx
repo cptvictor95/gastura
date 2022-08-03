@@ -13,20 +13,30 @@ const Register: React.FC = () => {
         <Header />
         <Main title="Cadastrar">
           <AuthLoader>
-            <Container
+            <Flex
               as="section"
-              bgColor="green.900"
-              px="12"
-              py="12"
-              maxWidth="md"
-              borderRadius="7px"
+              direction="column"
+              alignItems="center"
+              justify="center"
+              minHeight="100%"
+              gap="12"
+              width="100%"
             >
-              <RegisterForm />
-              <Flex mt="3" gap="4">
-                <Text>Já tem uma conta?</Text>
-                <Link href="/login">Fazer login</Link>
-              </Flex>
-            </Container>
+              <Container
+                as="section"
+                bgColor="green.900"
+                px="12"
+                py="12"
+                pb="16"
+                borderRadius="7px"
+              >
+                <RegisterForm />
+                <Flex gap="4" mt="-2">
+                  <Text>Já tem uma conta?</Text>
+                  <Link href="/login">Fazer login</Link>
+                </Flex>
+              </Container>
+            </Flex>
           </AuthLoader>
         </Main>
       </>

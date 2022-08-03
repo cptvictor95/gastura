@@ -44,9 +44,9 @@ const ExpenseList: React.FC = () => {
     );
 
   return expenses.length !== 0 ? (
-    <TableContainer borderRadius="6px">
+    <TableContainer borderRadius="6px" pb="4" bgColor="rgba(0,0,0,0.5)">
       <Table variant="striped" colorScheme="dgreen">
-        <Thead bgColor="darkgreen.800">
+        <Thead bgColor="black">
           <Tr fontWeight="semibold">
             <Th color="beige.100">#</Th>
             <Th color="beige.100">Nome</Th>
@@ -64,6 +64,20 @@ const ExpenseList: React.FC = () => {
           })}
         </Tbody>
       </Table>
+      <Container centerContent mt="4">
+        <Button
+          width="50%"
+          _hover={{
+            filter: "auto",
+            brightness: "80%",
+          }}
+          onClick={onOpen}
+        >
+          Adicionar
+        </Button>
+      </Container>
+
+      <AddExpense isOpen={isOpen} onClose={onClose} />
     </TableContainer>
   ) : (
     <Container centerContent maxW="md">

@@ -51,9 +51,15 @@ const BudgetList: React.FC = () => {
     );
 
   return budgets && budgets.length !== 0 ? (
-    <TableContainer borderRadius="6px" maxHeight="80vh">
+    <TableContainer
+      width="100%"
+      borderRadius="6px"
+      maxHeight="80vh"
+      pb="4"
+      bgColor="rgba(0,0,0,0.5)"
+    >
       <Table variant="striped" colorScheme="dgreen">
-        <Thead bgColor="darkgreen.800">
+        <Thead bgColor="black">
           <Tr fontWeight="bold">
             <Th color="beige.100">#</Th>
             <Th color="beige.100">Nome</Th>
@@ -75,6 +81,21 @@ const BudgetList: React.FC = () => {
           )}
         </Tbody>
       </Table>
+
+      <Container centerContent mt="4">
+        <Button
+          width="50%"
+          _hover={{
+            filter: "auto",
+            brightness: "80%",
+          }}
+          onClick={onOpen}
+        >
+          Adicionar
+        </Button>
+      </Container>
+
+      <AddBudget isOpen={isOpen} onClose={onClose} />
     </TableContainer>
   ) : (
     <Container centerContent maxW="md">
