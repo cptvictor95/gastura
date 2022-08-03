@@ -104,7 +104,11 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
             size="sm"
             height="8"
             icon={<MdDelete />}
-            bgColor="beige.100"
+            bgColor="red.800"
+            _hover={{
+              filter: "auto",
+              brightness: "80%",
+            }}
             aria-label="Delete Expense"
             onClick={onOpen}
           />

@@ -65,7 +65,11 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
             size="sm"
             height="8"
             w="max-content"
-            bgColor="beige.100"
+            bgColor="red.300"
+            _hover={{
+              filter: "auto",
+              brightness: "80%",
+            }}
             onClick={onOpen}
           />
         </Flex>

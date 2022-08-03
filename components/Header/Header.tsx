@@ -16,7 +16,7 @@ const Header: React.FC = () => {
       bgColor="green.900"
       px="12"
     >
-      <Image src="./assets/Group.svg" boxSize="90px" alt="logoImage" />
+      <Image src="./assets/Logo.svg" boxSize="90px" alt="logoImage" />
       <Spacer />
       {authState === "LOADING" ? (
         <></>
