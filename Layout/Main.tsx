@@ -12,13 +12,14 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
   const firstName = user && user.name.split(" ")[0];
 
   return (
-    <Flex
-      as="main"
-      minHeight="90vh"
-
-      //alignItems="center"
-    >
+    <Flex as="main" minHeight="90vh">
       <Head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+        />
         <title>{firstName !== null ? `${title} - ${firstName}` : title}</title>
       </Head>
       <Image
