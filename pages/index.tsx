@@ -11,7 +11,6 @@ const Home: React.FC = () => {
 
   return (
     <>
-      {" "}
       <Header />
       <Main title="Home">
         {authState === "LOGGEDIN" && (
