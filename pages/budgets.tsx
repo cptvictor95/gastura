@@ -18,15 +18,15 @@ const BudgetPage: React.FC = () => {
     <BudgetProvider>
       <Header />
       <Main title="Orçamento">
-        <Container maxWidth="4xl">
+        <Container maxW="96rem">
           <Flex
             as="section"
             direction="column"
             alignItems="center"
             justify="center"
             height="100%"
-            width="100%"
             gap="12"
+            mb="12"
           >
             <Heading textAlign="center" p="2">
               Lista de orçamento

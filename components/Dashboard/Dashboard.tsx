@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
         align="flex-start"
       >
         <Box bgColor="green.900" p="3" borderRadius="6">
-          <Text textAlign="center" fontSize="xl">
+          <Text textAlign="center" mb="3" fontSize="xl">
             Total de Gastos
           </Text>
           {isLoading ? (
@@ -146,7 +146,7 @@ const Dashboard: React.FC = () => {
             </LoadedText>
           )}
           <Button
-            mb="2"
+            mt="4"
             onClick={onAddExpenseOpen}
             _hover={{
               filter: "auto",
@@ -160,8 +160,8 @@ const Dashboard: React.FC = () => {
         </Box>
 
         <AddExpense onClose={onAddExpenseClose} isOpen={isAddExpenseOpen} />
-        <Box height="5rem" bgColor="green.900" p="2" borderRadius="6">
-          <Text textAlign="center" fontSize="xl">
+        <Box bgColor="green.900" p="2" borderRadius="6">
+          <Text textAlign="center" mb="3" fontSize="xl">
             Carteira
           </Text>
 
@@ -179,7 +179,7 @@ const Dashboard: React.FC = () => {
         </Box>
 
         <Box bgColor="green.900" p="4" borderRadius="6">
-          <Text textAlign="center" fontSize="xl" width="100%">
+          <Text textAlign="center" fontSize="xl" mb="3" width="100%">
             Orçamento total
           </Text>
           {isLoading ? (
@@ -196,6 +196,7 @@ const Dashboard: React.FC = () => {
             </LoadedText>
           )}
           <Button
+            mt="4"
             _hover={{
               filter: "auto",
               brightness: "80%",
