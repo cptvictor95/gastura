@@ -121,14 +121,24 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <Container as="section" maxWidth="4xl" height="100%" py="20">
+    <Container as="section" maxWidth="4xl" height="100%" py="5">
+      <Text as="h1" textAlign="center" fontSize="4xl">
+        Dashboard
+      </Text>
       <Flex
-        gap="12"
+        px="8"
+        py="5"
+        gap="7"
         width="100%"
         height="100%"
         justify="space-between"
         align="flex-start"
-        direction={{ base: "column", md: "row", lg: "row", xl: "row" }}
+        direction={{
+          base: "column",
+          md: "row",
+          lg: "row",
+          xl: "row",
+        }}
       >
         <Box
           bgColor="green.900"
