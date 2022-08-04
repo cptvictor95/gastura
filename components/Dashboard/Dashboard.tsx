@@ -123,13 +123,25 @@ const Dashboard: React.FC = () => {
   return (
     <Container as="section" maxWidth="4xl" height="100%" py="20">
       <Flex
+        gap="12"
         width="100%"
         height="100%"
         justify="space-between"
         align="flex-start"
+        direction={{ base: "column", md: "row", lg: "row", xl: "row" }}
       >
-        <Box bgColor="green.900" p="3" borderRadius="6">
-          <Text textAlign="center" mb="3" fontSize="xl">
+        <Box
+          bgColor="green.900"
+          p="3"
+          borderRadius="6"
+          width={{
+            base: "100%",
+            md: "max-content",
+            lg: "max-content",
+            xl: "max-content",
+          }}
+        >
+          <Text textAlign="center" fontSize="xl" mb="3">
             Total de Gastos
           </Text>
           {isLoading ? (
@@ -160,7 +172,17 @@ const Dashboard: React.FC = () => {
         </Box>
 
         <AddExpense onClose={onAddExpenseClose} isOpen={isAddExpenseOpen} />
-        <Box bgColor="green.900" p="2" borderRadius="6">
+        <Box
+          bgColor="green.900"
+          p="2"
+          borderRadius="6"
+          width={{
+            base: "100%",
+            md: "max-content",
+            lg: "max-content",
+            xl: "max-content",
+          }}
+        >
           <Text textAlign="center" mb="3" fontSize="xl">
             Carteira
           </Text>
@@ -173,12 +195,24 @@ const Dashboard: React.FC = () => {
             </SkeletonText>
           ) : (
             <LoadedText>
-              <Text fontSize="xl">R${userWallet && fixNumber(userWallet)}</Text>
+              <Text textAlign="center" fontSize="xl">
+                R${userWallet && fixNumber(userWallet)}
+              </Text>
             </LoadedText>
           )}
         </Box>
 
-        <Box bgColor="green.900" p="4" borderRadius="6">
+        <Box
+          bgColor="green.900"
+          p="4"
+          borderRadius="6"
+          width={{
+            base: "100%",
+            md: "max-content",
+            lg: "max-content",
+            xl: "max-content",
+          }}
+        >
           <Text textAlign="center" fontSize="xl" mb="3" width="100%">
             Orçamento total
           </Text>
