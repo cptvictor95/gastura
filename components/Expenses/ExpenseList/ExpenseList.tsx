@@ -44,7 +44,12 @@ const ExpenseList: React.FC = () => {
     );
 
   return expenses.length !== 0 ? (
-    <TableContainer borderRadius="6px" pb="4" bgColor="rgba(0,0,0,0.5)">
+    <TableContainer
+      borderRadius="6px"
+      pb="4"
+      bgColor="rgba(0,0,0,0.5)"
+      maxWidth="96rem"
+    >
       <Table variant="striped" colorScheme="dgreen">
         <Thead bgColor="black">
           <Tr fontWeight="semibold">

@@ -137,14 +137,17 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
               <FormControl>
                 <FormLabel htmlFor="budgetId">Categoria</FormLabel>
                 <Select
+                  bgColor="green.900"
+                  color="black"
                   id="budgetId"
                   {...register("budgetId", {
                     required: { value: true, message: "Escolha uma categoria" },
                   })}
                 >
-                  <option style={{ color: "blue" }} value="" disabled>
+                  <option value="" disabled>
                     Categoria do Gasto
                   </option>
+
                   {budgets &&
                     budgets.map((budget) => (
                       <option value={budget.uid} key={budget.uid}>
@@ -174,11 +177,3 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 };
 
 export default AddExpense;
-
-/**
- * @todo Fix ColorScheme in the budget List page
-
- * @todo add errors to edit budgets and expenses
-
- * @todo fix many items list problem in budget/expense
- */

@@ -27,6 +27,7 @@ const Expenses: React.FC = () => {
               justify="center"
               height="100%"
               gap="12"
+              mb="12"
             >
               <Heading textAlign="center" p="2">
                 Tabela de Gastos
