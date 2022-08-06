@@ -22,7 +22,7 @@ const Login: React.FC = () => {
             width="100%"
             margin={{ base: 6, md: 0, lg: 0, xl: 0 }}
           >
-            <Container px="12" py="12" borderRadius="7px" bgColor="green.900">
+            <Container px="10" py="10" borderRadius="7px" bgColor="green.900">
               <LoginForm />
               <Flex gap="4">
                 <Text fontSize={{ base: 12, md: 16, lg: 16, xl: 16 }}>

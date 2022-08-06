@@ -19,21 +19,28 @@ const Register: React.FC = () => {
               alignItems="center"
               justify="center"
               minHeight="100%"
-              gap="12"
               width="100%"
+              margin={{ base: 6, md: 0, lg: 0, xl: 0 }}
             >
               <Container
                 as="section"
                 bgColor="green.900"
                 px="12"
-                py="12"
-                pb="16"
+                py="8"
+                pb="12"
                 borderRadius="7px"
               >
                 <RegisterForm />
-                <Flex gap="4" mt="-2">
-                  <Text>Já tem uma conta?</Text>
-                  <Link href="/login">Fazer login</Link>
+                <Flex gap="4">
+                  <Text fontSize={{ base: 12, md: 16, lg: 16, xl: 16 }}>
+                    Já tem uma conta?
+                  </Text>
+                  <Link
+                    fontSize={{ base: 12, md: 16, lg: 16, xl: 16 }}
+                    href="/login"
+                  >
+                    Fazer login
+                  </Link>
                 </Flex>
               </Container>
             </Flex>
