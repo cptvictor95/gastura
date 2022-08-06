@@ -116,14 +116,17 @@ const ListItem: React.FC<{ expense: Expense; index: number }> = ({
 
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
-          <ModalContent bgColor="green.900">
+          <ModalContent
+            margin={{ base: 6, md: 0, lg: 0, xl: 0 }}
+            bgColor="green.900"
+          >
             <ModalHeader color="beige.100" textAlign="center">
               Deseja excluir este gasto?
             </ModalHeader>
             <ModalCloseButton color="beige.100" />
 
             <ModalBody>
-              <Flex as="div" p="4" gap="6">
+              <Flex as="div" p="2" gap="4">
                 <Button
                   bgColor="beige.100"
                   onClick={() =>

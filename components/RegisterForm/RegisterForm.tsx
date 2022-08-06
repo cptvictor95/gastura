@@ -67,7 +67,7 @@ const RegisterForm: React.FC = () => {
       direction="column"
       w="100%"
       h="100%"
-      gap="5"
+      gap="4"
       alignItems="center"
     >
       <Heading textAlign="center" color="gray.100">
