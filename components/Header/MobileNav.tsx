@@ -21,7 +21,6 @@ const MobileNav = () => {
           direction="column"
           display={{ md: "none", lg: "none", xl: "none" }}
           py="12"
-          justify="space-around"
         >
           <Button w="100%" variant="headerBtn" onClick={() => router.push("/")}>
             Home
@@ -54,13 +53,13 @@ const MobileNav = () => {
       ) : (
         <Flex
           zIndex="10"
+          backgroundColor="green.900"
           position="absolute"
-          bgColor="tomato"
-          top="0"
-          left="0"
-          as="nav"
+          w="100%"
+          minH="100vh"
+          direction="column"
           display={{ md: "none", lg: "none", xl: "none" }}
-          gap="20"
+          py="12"
         >
           <Button variant="headerBtn" onClick={() => router.push("/")}>
             Home

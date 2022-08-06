@@ -42,7 +42,7 @@ const LoginForm: React.FC = () => {
       gap="4"
       mb="4"
     >
-      <Heading textAlign="center" color="gray.100">
+      <Heading marginTop="-4" textAlign="center" color="gray.100">
         Faça o login
       </Heading>
 

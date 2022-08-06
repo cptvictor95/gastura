@@ -86,7 +86,11 @@ const AddExpense: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent bgColor="green.900" borderRadius="6">
+        <ModalContent
+          bgColor="green.900"
+          borderRadius="6"
+          margin={{ base: 4, md: 0, lg: 0, xl: 0 }}
+        >
           <Flex
             color="beige.100"
             as="form"

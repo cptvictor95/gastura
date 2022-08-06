@@ -48,7 +48,15 @@ const WebNav = () => {
           </Flex>
         </Flex>
       ) : (
-        <Flex as="nav" gap="20">
+        <Flex
+          display={{ base: "none", md: "flex", lg: "flex", xl: "flex" }}
+          minHeight="10vh"
+          as="header"
+          flexDirection="row"
+          align="center"
+          bgColor="green.900"
+          px="12"
+        >
           <Button variant="headerBtn" onClick={() => router.push("/")}>
             Home
           </Button>

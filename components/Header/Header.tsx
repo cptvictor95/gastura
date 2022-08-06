@@ -1,5 +1,7 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
+
 import React, { useState } from "react";
+
 import MobileNav from "./MobileNav";
 import WebNav from "./WebNav";
 
@@ -26,3 +28,6 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+/*
+@todo fix unlogged nav direction
+*/
