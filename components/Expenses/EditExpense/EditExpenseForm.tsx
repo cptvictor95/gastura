@@ -48,11 +48,15 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
         onSubmit={handleSubmit(submitUpdate)}
         direction="column"
         background="green.900"
-        p={12}
+        p={8}
         borderRadius="7px"
-        fontSize="lg"
       >
-        <Heading textAlign="center" mt="-2" mb={6} fontSize="3xl">
+        <Heading
+          textAlign="center"
+          mt="-2"
+          mb={6}
+          fontSize={{ base: 22, md: 30, lg: 30, xl: 30 }}
+        >
           Edite seu gasto
         </Heading>
 

@@ -42,11 +42,16 @@ const EditBudgetForm = ({ budget }) => {
         onSubmit={handleSubmit(submitUpdate)}
         direction="column"
         background="green.900"
-        p={12}
+        p={8}
         borderRadius="7px"
         fontSize="lg"
       >
-        <Heading textAlign="center" mb={6} mt="-2" fontSize="3xl">
+        <Heading
+          textAlign="center"
+          mb={8}
+          mt="-3"
+          fontSize={{ base: 22, md: 30, lg: 30, xl: 30 }}
+        >
           Edite sua entrada
         </Heading>
 
@@ -71,7 +76,7 @@ const EditBudgetForm = ({ budget }) => {
           width="100%"
           fontSize="lg"
         >
-          Alterar
+          Atualizar
         </Button>
       </Flex>
     </>
