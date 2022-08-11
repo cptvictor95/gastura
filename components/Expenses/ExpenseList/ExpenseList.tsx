@@ -48,9 +48,9 @@ const ExpenseList: React.FC = () => {
       borderRadius="6px"
       pb="4"
       bgColor="rgba(0,0,0,0.5)"
-      maxWidth="96rem"
+      maxWidth={{ base: "sm", sm: "xl", md: "2xl", lg: "6xl", xl: "6xl" }}
     >
-      <Table variant="striped" colorScheme="dgreen">
+      <Table variant="striped" colorScheme="dgreen" overflow="auto">
         <Thead bgColor="black">
           <Tr fontWeight="semibold">
             <Th color="beige.100">#</Th>
@@ -71,6 +71,7 @@ const ExpenseList: React.FC = () => {
       </Table>
       <Container centerContent mt="4">
         <Button
+          mb="4"
           width="50%"
           _hover={{
             filter: "auto",

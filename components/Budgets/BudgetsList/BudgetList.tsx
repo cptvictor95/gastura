@@ -52,7 +52,7 @@ const BudgetList: React.FC = () => {
 
   return budgets && budgets.length !== 0 ? (
     <TableContainer
-      width="4xl"
+      //width="6xl"
       borderRadius="6px"
       pb="4"
       bgColor="rgba(0,0,0,0.5)"
