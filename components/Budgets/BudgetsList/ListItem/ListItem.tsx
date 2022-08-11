@@ -48,7 +48,7 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
       <Td>{budget.name}</Td>
       <Td>{budget.amount}</Td>
       <Td>
-        <Flex gap="4" width="0">
+        <Flex gap="4" width="max-content">
           <IconButton
             icon={<MdEdit />}
             aria-label="Edit Budget"

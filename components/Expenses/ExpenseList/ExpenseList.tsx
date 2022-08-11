@@ -50,7 +50,7 @@ const ExpenseList: React.FC = () => {
       bgColor="rgba(0,0,0,0.5)"
       maxWidth={{ base: "sm", sm: "xl", md: "2xl", lg: "6xl", xl: "6xl" }}
     >
-      <Table variant="striped" colorScheme="dgreen" overflow="auto">
+      <Table variant="striped" colorScheme="dgreen" overflow="auto" px="4">
         <Thead bgColor="black">
           <Tr fontWeight="semibold">
             <Th color="beige.100">#</Th>
