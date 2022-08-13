@@ -12,16 +12,12 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Header />
-      <Main title="Home">
-        {authState === "LOGGEDIN" && (
-          <BudgetProvider>
-            <ExpenseProvider>
-              <Dashboard />
-            </ExpenseProvider>
-          </BudgetProvider>
-        )}
-      </Main>
+      <BudgetProvider>
+        <ExpenseProvider>
+          <Header />
+          <Main title="Home">{authState === "LOGGEDIN" && <Dashboard />}</Main>
+        </ExpenseProvider>
+      </BudgetProvider>
     </>
   );
 };

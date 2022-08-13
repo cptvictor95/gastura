@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Button, Flex, FlexProps } from "@chakra-ui/react";
-import { AnimatePresence, HTMLMotionProps, motion } from "framer-motion";
+import { HTMLMotionProps, motion } from "framer-motion";
 import { useRouter } from "next/router";
 
 export type Merge<P, T> = Omit<P, keyof T> & T;
@@ -33,7 +33,7 @@ const MobileNav = () => {
   };
 
   return (
-    <AnimatePresence>
+    <>
       <HamburgerIcon
         position="absolute"
         top="5"
@@ -119,7 +119,7 @@ const MobileNav = () => {
       ) : (
         <></>
       )}
-    </AnimatePresence>
+    </>
   );
 };
 
