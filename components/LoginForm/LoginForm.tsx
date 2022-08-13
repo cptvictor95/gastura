@@ -1,7 +1,7 @@
+import React, { useContext } from "react";
 import { AuthCtx } from "@/contexts/AuthContext";
 import { emailRegEx } from "@/utils/regEx";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import {
   Button,

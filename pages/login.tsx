@@ -1,8 +1,7 @@
+import React from "react";
 import { Container, Flex, Link, Text } from "@chakra-ui/react";
 import AuthLoader from "components/Auth/AuthLoader";
 import Main from "Layout/Main";
-
-import React from "react";
 import Header from "../components/Header/Header";
 import LoginForm from "../components/LoginForm/LoginForm";
 

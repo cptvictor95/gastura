@@ -1,3 +1,4 @@
+import React from "react";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import { BudgetProvider } from "@/contexts/BudgetContext";
 import { ExpenseProvider } from "@/contexts/ExpenseContext";

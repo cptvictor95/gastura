@@ -1,7 +1,7 @@
+import React from "react";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { Button, Flex, Image, Spacer } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
 
 const WebNav = () => {
   const router = useRouter();

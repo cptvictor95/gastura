@@ -1,5 +1,4 @@
 import React from "react";
-
 import Head from "next/head";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { Flex, Image } from "@chakra-ui/react";

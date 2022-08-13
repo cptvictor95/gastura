@@ -1,5 +1,5 @@
-import { FirebaseCtx } from "@/config/context";
 import React, { useContext, useMemo } from "react";
+import { FirebaseCtx } from "@/config/context";
 import { Budget } from "types/Budget";
 import { User } from "types/User";
 import { UserCtx } from "./UserContext";

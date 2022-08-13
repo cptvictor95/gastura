@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import {
   Flex,
@@ -8,7 +9,6 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 import { Expense } from "types/Expense";
@@ -87,4 +87,5 @@ const EditExpenseForm: React.FC<{ expense: Expense }> = ({ expense }) => {
     </>
   );
 };
+
 export default EditExpenseForm;

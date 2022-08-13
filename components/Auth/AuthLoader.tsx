@@ -1,6 +1,6 @@
+import React from "react";
 import useLoggedInUser from "hooks/useLoggedInUser";
 import { useRouter } from "next/router";
-import React from "react";
 
 const AuthLoader: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { authState } = useLoggedInUser();

@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from "react";
 import Loading from "@/components/Loading/Loading";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
@@ -13,7 +14,6 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
 import { Expense } from "types/Expense";
 import AddExpense from "../AddExpenses/AddExpense";
 import ListItem from "./ListItem/ListItem";

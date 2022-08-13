@@ -1,6 +1,6 @@
+import React, { useContext, useEffect, useState } from "react";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
 import { Budget } from "types/Budget";
 import EditBudgetForm from "./EditBudgetForm";
 

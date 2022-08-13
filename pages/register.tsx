@@ -1,9 +1,9 @@
+import React from "react";
 import { UserProvider } from "@/contexts/UserContext";
 import AuthLoader from "components/Auth/AuthLoader";
 import Header from "@/components/Header/Header";
 import RegisterForm from "components/RegisterForm/RegisterForm";
 import Main from "Layout/Main";
-import React from "react";
 import { Container, Flex, Link, Text } from "@chakra-ui/react";
 
 const Register: React.FC = () => {
