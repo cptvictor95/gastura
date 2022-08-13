@@ -21,7 +21,12 @@ const WebNav = () => {
           bgColor="green.900"
           px="12"
         >
-          <Image src="./assets/Logo.svg" boxSize="90px" alt="logoImage" />
+          <Image
+            src="/assets/Logo.svg"
+            boxSize="90px"
+            alt="logoImage"
+            fallbackSrc=""
+          />
           <Spacer />
           <Flex as="nav" gap="20">
             <Button variant="headerBtn" onClick={() => router.push("/")}>

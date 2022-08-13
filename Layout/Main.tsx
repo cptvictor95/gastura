@@ -29,7 +29,7 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
         maxH="80vh"
         overflowY="hidden"
         objectFit="cover"
-        src="./assets/Group.svg"
+        src="/assets/Group.svg"
         zIndex="-1"
         alt="backgroundImage"
       />
