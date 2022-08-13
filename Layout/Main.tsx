@@ -20,7 +20,7 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
         />
-        <title>{firstName !== null ? `${title} - ${firstName}` : title}</title>
+        <title>{firstName ? `${title} - ${firstName}` : title}</title>
       </Head>
       <Image
         position="absolute"
