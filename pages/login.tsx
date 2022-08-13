@@ -4,8 +4,9 @@ import AuthLoader from "components/Auth/AuthLoader";
 import Main from "Layout/Main";
 import Header from "../components/Header/Header";
 import LoginForm from "../components/LoginForm/LoginForm";
+import { NextPage } from "next";
 
-const Login: React.FC = () => {
+const Login: NextPage = () => {
   return (
     <>
       <Header />

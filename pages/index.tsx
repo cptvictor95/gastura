@@ -5,8 +5,9 @@ import { ExpenseProvider } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import Main from "Layout/Main";
 import Header from "../components/Header/Header";
+import { NextPage } from "next";
 
-const Home: React.FC = () => {
+const Home: NextPage = () => {
   const { authState } = useLoggedInUser();
 
   return (

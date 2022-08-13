@@ -5,8 +5,9 @@ import Header from "@/components/Header/Header";
 import RegisterForm from "components/RegisterForm/RegisterForm";
 import Main from "Layout/Main";
 import { Container, Flex, Link, Text } from "@chakra-ui/react";
+import { NextPage } from "next";
 
-const Register: React.FC = () => {
+const Register: NextPage = () => {
   return (
     <UserProvider>
       <>
