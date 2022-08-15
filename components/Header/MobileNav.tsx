@@ -109,7 +109,7 @@ const MobileNav = () => {
                 bgColor="beige.100"
                 variant="headerBtn"
                 color="black"
-                onClick={handleUserLogout}
+                onClick={() => handleUserLogout()}
               >
                 Sair
               </Button>

@@ -1,6 +1,6 @@
 import React from "react";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import { Button, Flex, Image, Spacer } from "@chakra-ui/react";
+import { Button, ButtonGroup, Flex, Image, Spacer } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 const WebNav = () => {
@@ -46,7 +46,7 @@ const WebNav = () => {
               bgColor="beige.100"
               variant="headerBtn"
               color="black"
-              onClick={handleUserLogout}
+              onClick={() => handleUserLogout()}
             >
               Sair
             </Button>
@@ -62,20 +62,30 @@ const WebNav = () => {
           bgColor="green.900"
           px="12"
         >
-          <Button variant="headerBtn" onClick={() => router.push("/")}>
-            Home
-          </Button>
-          <Button variant="headerBtn" onClick={() => router.push("/login")}>
-            Entrar
-          </Button>
-          <Button
-            variant="headerBtn"
-            bgColor="beige.100"
-            color="black"
-            onClick={() => router.push("/register")}
-          >
-            Criar conta
-          </Button>
+          <Image
+            src="/assets/Logo.svg"
+            boxSize="90px"
+            alt="logoImage"
+            fallbackSrc=""
+          />
+          <Spacer />
+          <ButtonGroup gap="4">
+            <Button variant="headerBtn" onClick={() => router.push("/")}>
+              Home
+            </Button>
+            <Button variant="headerBtn" onClick={() => router.push("/login")}>
+              Entrar
+            </Button>
+
+            <Button
+              variant="headerBtn"
+              bgColor="beige.100"
+              color="black"
+              onClick={() => router.push("/register")}
+            >
+              Criar conta
+            </Button>
+          </ButtonGroup>
         </Flex>
       )}
     </>
