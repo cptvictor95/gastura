@@ -9,32 +9,10 @@ import { Expense } from "types/Expense";
 import AddBudget from "../Budgets/AddBudget";
 import AddExpense from "../Expenses/AddExpenses/AddExpense";
 
-import { motion } from "framer-motion";
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Container, Text, useDisclosure } from "@chakra-ui/react";
 import AnimatedText from "../generic/AnimatedText";
-
-const variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-const SkeletonText = ({ children }) => (
-  <motion.div
-    initial="hidden"
-    animate="visible"
-    transition={{ duration: 0.6 }}
-    variants={variants}
-  >
-    {children}
-  </motion.div>
-);
+import SkeletonText from "../generic/SkeletonText";
+import AnimatedFlex from "../generic/containers/AnimatedFlex";
 
 const Dashboard: React.FC = () => {
   const { authState, user } = useLoggedInUser();
@@ -116,7 +94,7 @@ const Dashboard: React.FC = () => {
       <Text as="h1" textAlign="center" fontSize="4xl">
         Dashboard
       </Text>
-      <Flex
+      <AnimatedFlex
         px="8"
         py="5"
         gap="7"
@@ -236,7 +214,7 @@ const Dashboard: React.FC = () => {
         </Box>
 
         <AddBudget isOpen={isAddBudgetOpen} onClose={onAddBudgetClose} />
-      </Flex>
+      </AnimatedFlex>
     </Container>
   );
 };
