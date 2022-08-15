@@ -9,42 +9,10 @@ import { Expense } from "types/Expense";
 import AddBudget from "../Budgets/AddBudget";
 import AddExpense from "../Expenses/AddExpenses/AddExpense";
 
-import { motion } from "framer-motion";
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-
-const variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-const LoadedText = ({ children }) => (
-  <motion.p
-    initial="hidden"
-    animate="visible"
-    transition={{ duration: 0.6 }}
-    variants={variants}
-  >
-    {children}
-  </motion.p>
-);
-
-const SkeletonText = ({ children }) => (
-  <motion.div
-    initial="hidden"
-    animate="visible"
-    transition={{ duration: 0.6 }}
-    variants={variants}
-  >
-    {children}
-  </motion.div>
-);
+import { Box, Button, Container, Text, useDisclosure } from "@chakra-ui/react";
+import AnimatedText from "../generic/AnimatedText";
+import SkeletonText from "../generic/SkeletonText";
+import AnimatedFlex from "../generic/containers/AnimatedFlex";
 
 const Dashboard: React.FC = () => {
   const { authState, user } = useLoggedInUser();
@@ -66,6 +34,7 @@ const Dashboard: React.FC = () => {
     onOpen: onAddExpenseOpen,
     onClose: onAddExpenseClose,
   } = useDisclosure();
+
   const handleUserTotals = async (budgets: Budget[], expenses: Expense[]) => {
     try {
       let totalBudget = 0;
@@ -125,7 +94,7 @@ const Dashboard: React.FC = () => {
       <Text as="h1" textAlign="center" fontSize="4xl">
         Dashboard
       </Text>
-      <Flex
+      <AnimatedFlex
         px="8"
         py="5"
         gap="7"
@@ -155,13 +124,15 @@ const Dashboard: React.FC = () => {
             Total de Gastos
           </Text>
           {isLoading ? (
-            <SkeletonText>R$00,00</SkeletonText>
-          ) : (
-            <LoadedText>
-              <Text fontSize="xl" textAlign="center">
-                R${totalExpenses && fixNumber(totalExpenses)}
+            <SkeletonText>
+              <Text textAlign="center" fontSize="xl">
+                R$00,00
               </Text>
-            </LoadedText>
+            </SkeletonText>
+          ) : (
+            <AnimatedText>
+              R${totalExpenses && fixNumber(totalExpenses)}
+            </AnimatedText>
           )}
           <Button
             mt="4"
@@ -200,11 +171,7 @@ const Dashboard: React.FC = () => {
               </Text>
             </SkeletonText>
           ) : (
-            <LoadedText>
-              <Text textAlign="center" fontSize="xl">
-                R${userWallet && fixNumber(userWallet)}
-              </Text>
-            </LoadedText>
+            <AnimatedText>R${userWallet && fixNumber(userWallet)}</AnimatedText>
           )}
         </Box>
 
@@ -229,11 +196,9 @@ const Dashboard: React.FC = () => {
               </Text>
             </SkeletonText>
           ) : (
-            <LoadedText>
-              <Text textAlign="center" fontSize="xl">
-                R${totalBudget && fixNumber(totalBudget)}
-              </Text>
-            </LoadedText>
+            <AnimatedText>
+              R${totalBudget && fixNumber(totalBudget)}
+            </AnimatedText>
           )}
           <Button
             mt="4"
@@ -249,7 +214,7 @@ const Dashboard: React.FC = () => {
         </Box>
 
         <AddBudget isOpen={isAddBudgetOpen} onClose={onAddBudgetClose} />
-      </Flex>
+      </AnimatedFlex>
     </Container>
   );
 };
