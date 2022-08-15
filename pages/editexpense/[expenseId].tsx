@@ -5,8 +5,9 @@ import { BudgetProvider } from "@/contexts/BudgetContext";
 import Main from "Layout/Main";
 import Header from "@/components/Header/Header";
 import { Container, Flex } from "@chakra-ui/react";
+import { NextPage } from "next";
 
-const Index = () => {
+const Index: NextPage = () => {
   return (
     <BudgetProvider>
       <ExpenseProvider>

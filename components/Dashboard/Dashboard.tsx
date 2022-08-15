@@ -1,7 +1,7 @@
+import React, { useContext, useEffect, useState } from "react";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { ExpenseCtx } from "@/contexts/ExpenseContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
-import React, { useContext, useEffect, useState } from "react";
 import useBudgets from "stores/useBudgets";
 import useExpenses from "stores/useExpenses";
 import { Budget } from "types/Budget";
@@ -155,11 +155,7 @@ const Dashboard: React.FC = () => {
             Total de Gastos
           </Text>
           {isLoading ? (
-            <SkeletonText>
-              <Text fontSize="xl" textAlign="center">
-                R$00,00
-              </Text>
-            </SkeletonText>
+            <SkeletonText>R$00,00</SkeletonText>
           ) : (
             <LoadedText>
               <Text fontSize="xl" textAlign="center">

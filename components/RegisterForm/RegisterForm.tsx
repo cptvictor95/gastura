@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { UserCtx } from "@/contexts/UserContext";
 import { emailRegEx } from "@/utils/regEx";
 import {
@@ -11,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { FirebaseCtx } from "config/context";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 type RegisterFormProps = {
@@ -67,7 +67,7 @@ const RegisterForm: React.FC = () => {
       direction="column"
       w="100%"
       h="100%"
-      gap="5"
+      gap="4"
       alignItems="center"
     >
       <Heading textAlign="center" color="gray.100">

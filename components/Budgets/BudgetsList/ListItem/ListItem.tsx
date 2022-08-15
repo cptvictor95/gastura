@@ -48,7 +48,7 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
       <Td>{budget.name}</Td>
       <Td>{budget.amount}</Td>
       <Td>
-        <Flex gap="4" width="0">
+        <Flex gap="4" width="max-content">
           <IconButton
             icon={<MdEdit />}
             aria-label="Edit Budget"
@@ -76,14 +76,17 @@ const ListItem: React.FC<{ budget: Budget; index: number }> = ({
 
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
-          <ModalContent bgColor="green.900">
+          <ModalContent
+            margin={{ base: 6, md: 0, lg: 0, xl: 0 }}
+            bgColor="green.900"
+          >
             <ModalHeader color="beige.100" textAlign="center">
-              Deseja excluir sua entrada?
+              Deseja excluir a entrada?
             </ModalHeader>
             <ModalCloseButton />
 
             <ModalBody>
-              <Flex as="div" p="4" gap="6">
+              <Flex as="div" p="4" gap="4">
                 <Button
                   bgColor="beige.100"
                   onClick={() => handleDeleteBudget(budget.uid, user)}

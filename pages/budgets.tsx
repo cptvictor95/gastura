@@ -1,10 +1,10 @@
-import Main from "Layout/Main";
 import React from "react";
+import Main from "Layout/Main";
 import Header from "../components/Header/Header";
 import { BudgetProvider } from "@/contexts/BudgetContext";
-
 import { Container, Flex, Heading } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
+import { NextPage } from "next";
 
 const BudgetList = dynamic(
   () => import("@/components/Budgets/BudgetsList/BudgetList"),
@@ -13,7 +13,7 @@ const BudgetList = dynamic(
   }
 );
 
-const BudgetPage: React.FC = () => {
+const BudgetPage: NextPage = () => {
   return (
     <BudgetProvider>
       <Header />

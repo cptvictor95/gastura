@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { BudgetCtx } from "@/contexts/BudgetContext";
 import { UserCtx } from "@/contexts/UserContext";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
@@ -16,7 +17,6 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import useBudgets from "stores/useBudgets";
 import { Budget } from "types/Budget";
@@ -93,7 +93,11 @@ const AddBudget: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
 
-        <ModalContent bgColor="green.900" borderRadius="6">
+        <ModalContent
+          bgColor="green.900"
+          borderRadius="6"
+          margin={{ base: 4, md: 0, lg: 0, xl: 0 }}
+        >
           <Flex
             color="beige.100"
             as="form"

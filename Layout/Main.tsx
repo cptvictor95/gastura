@@ -1,5 +1,4 @@
 import React from "react";
-
 import Head from "next/head";
 import useLoggedInUser from "@/hooks/useLoggedInUser";
 import { Flex, Image } from "@chakra-ui/react";
@@ -20,7 +19,7 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
         />
-        <title>{firstName !== null ? `${title} - ${firstName}` : title}</title>
+        <title>{firstName ? `${title} - ${firstName}` : title}</title>
       </Head>
       <Image
         position="absolute"
@@ -30,7 +29,7 @@ const Main: React.FC<{ children: React.ReactNode; title?: string }> = ({
         maxH="80vh"
         overflowY="hidden"
         objectFit="cover"
-        src="./assets/Group.svg"
+        src="/assets/Group.svg"
         zIndex="-1"
         alt="backgroundImage"
       />
